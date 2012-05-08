@@ -1,0 +1,251 @@
+Microsoft Open Technologies, Inc.
+5/3/2012
+Rev 1.0
+
+HTTP Speed+Mobility (“S+M”) Prototype
+Getting Started Guide
+ 
+Table of Content:
+
+1) License
+2) About this Document
+3) Target Audience
+4) Requirements
+5) Installing the HTTP Speed+Mobility Prototype Client
+6) How to use the Client
+	6.1) CONNECT
+	6.2) DIR
+	6.3) GET
+	6.4) VERBOSE
+	6.5) STATS
+	6.6) HTTPGET
+	6.7) CLOSE
+	6.8) EXIT
+7) Installing and configuring the server
+8) References
+
+
+
+1) License
+   
+Copyright 2012 Microsoft Open Technologies, Inc.
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+ 
+2) About this Document
+
+The document covers what you need to know to download, install and use the HTTP Speed+Mobility Prototype Client, and configure your own Server if you are so inclined.
+
+
+3) Target Audience 
+
+The target audience is developers interested in the standardization of HTTP 2.0 who want to evaluate a working implementation of the HTTP Speed+Mobility proposal (http://tools.ietf.org/html/montenegro-httpbis-speed-mobility-01) that was presented at IETF 83 in Paris.
+
+
+4) Requirements
+
+To build the source code, the following is required:
+- Microsoft Visual Studio 2010
+
+In order to install and use the HTTP Speed+Mobility Prototype Client, the following are required:
+- Windows 7 Client
+- Microsoft .NET Framework 4.0
+
+In order to run the server, the server machine will need to support:
+- Node.JS 
+
+
+5) Installing the HTTP Speed+Mobility Prototype Client
+
+Download the MSI file from this location: http://html5labs.com/prototypes/http2/http2/download and run it.
+Note that you can access the source code of this open source project from the Microsoft Open Technologies section of GitHub.
+ 
+Follow the prompts and once complete files will be installed to the selected location. By default, it will be the Temp folder of the current user, i.e. something like C:\Users\<user>\AppData\Local\Temp\Microsoft Open Technologies Inc\HTTP Speed+Mobility Prototype Client\.
+
+A shortcut will be added to the desktop.
+
+
+6) How to use the Client
+
+- Double click on the "HTTP Speed+Mobility" icon installed on the desktop of your machine, or alternatively run "client.exe" from the installation folder.
+
+- The client will start by displaying the following message:
+
+	HTTP Speed+Mobility Prototype Client help
+
+	HELP                          Display this help information
+	CONNECT <URI>                 Connect to the server endpoint. If no URI is specified,
+        	                      defaults to ws://smserver.cloudapp.net:8080
+	DIR                           List files on server.
+	GET <filename>                Download web page and associated resources using
+					    the S+M Protocol. E.g. GET /files/test.txt
+	VERBOSE [1|2|3]               Display verbose output.
+	CAPTURE-STATS [On|Off|Reset]  Start/stop/reset protocol monitoring.
+	DUMP-STATS                    Display statistics captured using CAPTURE-STATS.
+	HTTPGET                       Download file using http 1.1
+                                     Ex. http://localhost:8080/microsoft/default.htm
+	CLOSE                         Close session
+	EXIT                          Exit application
+
+	Please type a command:
+
+
+6.1) CONNECT
+
+The first step after launching the client is to issue a CONNECT command
+	
+If you have set up your own S+M server, add the URI of that server. Otherwise leave blank. The client will automatically connect to the default Azure endpoint:
+
+	connect
+	Executing connect
+	[2:58:17 PM] INFO:Session is opened: ws://smserver.cloudapp.net:8080/
+
+
+6.2) DIR
+
+Once you are connected to the server, use DIR to see a list of the documents available for download from the server (this is accomplished by downloading and then displaying the content of a special "index" file):
+
+	DIR
+	Executing dir
+	[2:59:24 PM] INFO:Stream is opened: id=1
+	[2:59:24 PM] INFO:File downloaded: index
+
+	/Files/test.txt
+	/Files/test3Mb.txt
+	/IETF/IETF.html
+	/Microsoft/default.htm
+	/WebSite/test.html
+	/WWWC/WWWC(W3C).html
+
+	[2:59:24 PM] INFO:Bytes transferred:134 upstream, 128 downstream, 262 Total
+
+
+6.3) GET 
+
+In order to download a file, issue a GET statement followed by the path of the file. The client will download the file. Then it will parse its content and download any associated resources similarly to what a web browser does:
+
+	GET /website/test.html
+	Executing get /website/test.html
+	[3:08:39 PM] INFO:Stream is opened: id=3
+	[3:08:39 PM] INFO:File downloaded: test.html
+	[3:08:39 PM] INFO:Stream is opened: id=5
+	[3:08:39 PM] INFO:Stream is opened: id=7
+	...
+	[3:08:39 PM] INFO:Bytes transferred:146 upstream, 14069 downstream, 14215 Total
+	[3:08:39 PM] INFO:File downloaded: testImage1.jpg
+	[3:08:39 PM] INFO:Bytes transferred:153 upstream, 3002 downstream, 3155 Total
+	[3:08:39 PM] INFO:File downloaded: testImage14.jpg
+	[3:08:39 PM] INFO:Bytes transferred:154 upstream, 3002 downstream, 3156 Total
+	...
+
+	[3:08:40 PM] INFO:File downloaded: test3.css
+	[3:08:40 PM] INFO:Bytes transferred:146 upstream, 391 downstream, 537 Total
+
+The client displays a message whenever a new stream is opened within the session. It also prints the amount of data that moved over the wire whenever a file transfer completes.
+
+
+6.4) VERBOSE
+
+VERBOSE controls the amount of information that is displayed in response to the various commands, where 1 is the least amount, and 3 is the fullest amount:
+
+	VERBOSE 2
+	Executing verbose 2
+	[1:06:39 AM] INFO:VERBOSE output VerboseLogging
+
+
+6.5) STATS
+
+The client keeps track by default of all the frames (data and control) it exchanges with the server. The CAPTURE-STATS command allows to either stop the capture, reset it if it is in progress, or start it again if it was stopped:
+
+	CAPTURE-STATS on
+	Executing capture-stats on
+
+	CAPTURE-STATS reset
+	Executing capture-stats reset
+
+	CAPTURE-STATS off
+	Executing capture-stats off
+
+The DUMP-STATS command will display the aggregate information on the files 
+
+
+6.6) HTTPGET
+
+This command is provided to compare the information moved over the wire by the HTTP Speed+Mobility implementation vs. the current HTTP 1.1 standard. The same statistics on bytes exchanged and header information are displayed on the console according to the value of the VERBOSE setting:
+
+
+	HTTPGET http://microsoft.com
+	Executing httpget http://microsoft.com
+	[1:08:19 AM] INFO:HTTP response: 301, length: 484
+	[1:08:19 AM] INFO:
+	--------------------
+	Headers: GET http://microsoft.com/ HTTP/1.1
+	Host: microsoft.com:80
+	Connection: Keep-Alive
+	User-Agent: SMClient
+	Accept: text/plain,application/xml;q=0.9,*/*;q=0.8
+	Length: 160
+	--------------------
+	...
+
+	______________________________________
+        	        TOTAL
+	Total size of data received(bytes):       23
+	Total size of headers received(bytes):    461
+	Total size received(bytes):               484
+	Total size of headers sent(bytes):        160
+	Total size of data exchanged(bytes):      644
+	Total count of requests sent:             1
+	Total count of responses received:        1
+	Total count of connections opened:        1
+	______________________________________
+
+
+
+6.7) CLOSE
+
+Issuing a CLOSE will terminate the session with the server but leave the client active.
+
+	CLOSE
+	Executing close
+	[12:35:06 AM] INFO:Current session is closed.
+	[12:35:06 AM] INFO:Session closed 
+
+
+6.8) EXIT
+
+Issuing EXIT from the command line will close the session and shut down the client
+
+
+7) Installing and configuring the server
+
+- Download and install node.js from http://nodejs.org/. 
+
+- Download the server code from https://github.com/MSOpenTech/HTTP-SPEED-PLUS-MOBILITY/tree/master/SMServer
+
+- From a command line window run the following: 
+
+	node <path to server.js>. 
+
+The Server.js file is located in the SMServer folder in the downloaded source code folder.
+
+NOTE: do NOT perform a npm install. Some scripts are based on or incorporate material from http://einaros.github.com/ws. The server will NOT operate properly if the original files are overwritten.
+
+By default, the server runs on port 8080. Note that depending on your firewall’s configuration you may need to open this port, in order for the server to operate properly.
+
+
+8) References
+
+HTTP Speed+Mobility Proposal
+http://tools.ietf.org/html/montenegro-httpbis-speed-mobility-01 
