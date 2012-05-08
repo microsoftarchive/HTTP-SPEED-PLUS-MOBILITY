@@ -1,0 +1,66 @@
+body {
+	margin: 0px; padding: 0px; color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 9.5pt;
+}
+#container {
+	margin: 0px; text-align: left; max-width: 80em;
+}
+#sidebar1 {
+	width: 14em; vertical-align: top; background-color: rgb(204, 204, 255);
+}
+#sidebar1 ul {
+	margin: 0px; padding: 0px;
+}
+#sidebar1 ul li {
+	list-style: none;
+}
+#sidebar1 ul li a {
+	padding: 0px 0px 0px 10px;
+}
+#sidebar1 ul li.subhdr00 {
+	padding: 0px; font-weight: bold;
+}
+#sidebar1 ul li.subhdr00 a {
+	padding: 0px;
+}
+#sidebar2 {
+	padding: 0px 1em;
+}
+#content1 {
+	vertical-align: top; background-color: rgb(255, 255, 255);
+}
+#content2 {
+	padding: 1em 1.5em 1em 1em;
+}
+#related table td {
+	text-align: center;
+}
+#footer1 {
+	padding: 0px; text-align: center; color: rgb(0, 0, 0); font-size: 80%; vertical-align: top; background-color: rgb(238, 238, 255);
+}
+#footer2 {
+	padding: 0px;
+}
+.desc01 {
+	display: none;
+}
+.subhdr00 {
+	color: rgb(0, 0, 255); font-size: 100%;
+}
+.subhdr01 {
+	font-size: 90%;
+}
+.subhdr02 {
+	font-size: 90%;
+}
+.ptitle {
+	text-align: left; font-size: 150%; font-weight: bold;
+}
+div.person {
+	border: 1px solid black; width: 100px; height: 200px; float: left; background-color: rgb(238, 238, 255);
+}
+.person p {
+	margin: 0px; padding: 5px 3px 0px;
+}
+div.clear {
+	clear: both;
+}

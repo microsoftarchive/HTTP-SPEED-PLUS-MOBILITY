@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{59F1A0D5-BB8C-4637-B891-A84A606E59E6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ClientProtocol</RootNamespace>
+    <AssemblyName>ClientProtocol</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>BasicCorrectnessRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceModel\SMProtocol\EventArguments\FrameEventArgs.cs" />
+    <Compile Include="ServiceModel\SMProtocol\EventArguments\CloseFrameEventArgs.cs" />
+    <Compile Include="ServiceModel\SMProtocol\EventArguments\SMProtocolErrorEventArgs.cs" />
+    <Compile Include="ServiceModel\SMProtocol\IStreamStore.cs" />
+    <Compile Include="ServiceModel\SMProtocol\Serialization\BinaryHelper.cs" />
+    <Compile Include="ServiceModel\SMProtocol\EventArguments\ControlFrameEventArgs.cs" />
+    <Compile Include="ServiceModel\SMProtocol\Serialization\FrameSerializer.cs" />
+    <Compile Include="ServiceModel\SMProtocol\EventArguments\HeadersEventArgs.cs" />
+    <Compile Include="ServiceModel\SMProtocol\EventArguments\RSTEventArgs.cs" />
+    <Compile Include="ServiceModel\SMProtocol\StatusCode.cs" />
+    <Compile Include="ServiceModel\SMProtocol\SMData.cs" />
+    <Compile Include="ServiceModel\SMProtocol\SMFramesMonitor.cs" />
+    <Compile Include="ServiceModel\SMProtocol\SMFrames\BaseFrame.cs" />
+    <Compile Include="ServiceModel\SMProtocol\SMFrames\CloseFrameExt.cs" />
+    <Compile Include="ServiceModel\SMProtocol\SMFrames\ControlFrame.cs" />
+    <Compile Include="ServiceModel\SMProtocol\SMFrames\DataFrame.cs" />
+    <Compile Include="ServiceModel\SMProtocol\SMFrames\FrameBuilder.cs" />
+    <Compile Include="ServiceModel\SMProtocol\SMFrames\FrameType.cs" />
+    <Compile Include="ServiceModel\SMProtocol\SMProtocol.cs" />
+    <Compile Include="ServiceModel\SMProtocol\Exceptions\SMProtocolExeption.cs" />
+    <Compile Include="ServiceModel\SMProtocol\SMSession.cs" />
+    <Compile Include="ServiceModel\SMProtocol\SMStream.cs" />
+    <Compile Include="ServiceModel\SMProtocol\SMHeaders.cs" />
+    <Compile Include="ServiceModel\SMProtocol\SMStreamState.cs" />
+    <Compile Include="ServiceModel\SMProtocol\EventArguments\StreamDataEventArgs.cs" />
+    <Compile Include="ServiceModel\SMProtocol\EventArguments\StreamErrorEventArgs.cs" />
+    <Compile Include="ServiceModel\SMProtocol\EventArguments\StreamEventArgs.cs" />
+    <Compile Include="ServiceModel\SMProtocol\SMSessionState.cs" />
+    <Compile Include="ServiceModel\WebSockets\IETFHyBiWebSocketPotocol.cs" />
+    <Compile Include="ServiceModel\WebSockets\WebSocket.cs" />
+    <Compile Include="ServiceModel\WebSockets\WebSocketEventArgs.cs" />
+    <Compile Include="ServiceModel\WebSockets\WebSocketProtocol.cs" />
+    <Compile Include="ServiceModel\WebSockets\WebSocketProtocolEventArgs.cs" />
+    <Compile Include="ServiceModel\WebSockets\WebSocketState.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>mkdir "$(SolutionDir)Drop"
+copy /y "$(TargetPath)" "$(SolutionDir)Drop\$(TargetFileName)"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

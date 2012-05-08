@@ -1,0 +1,37 @@
+body { 
+  color: green;
+}
+
+p {
+  font-family: serif;
+}
+
+li {
+  font-family: serif;
+  color: black;
+}
+
+ul.a {list-style-type:circle;}
+ul.b {list-style-type:square;}
+ol.c {list-style-type:upper-roman;}
+ol.d {list-style-type:lower-alpha;}
+
+#imgTable {
+	width: 100%;
+}
+
+#imgTable td {
+	width: 50%;
+}
+
+p:first-letter 
+{
+	color: blue;
+	font-size:xx-large;
+}
+
+.test p:first-line 
+{
+color:#0000ff;
+font-variant:small-caps;
+}

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 
+This file must be hosted with HTTP over port 80 at the root path of the host 
+on which the GameService.exe is running in order to allow the Silverlight client
+to connect to the service, which is considered a cross domain call. 
+
+If you are running IIS, an easy way to expose this file at the above location is to copy 
+it to C:\inetpub\wwwroot (unless you are using a non-default document root location). 
+
+The file must be accessible at http://localhost/clientaccesspolicy.xml - please verify it
+by navigating to this URL in your browser before running the GameClient. 
+-->
+
+<access-policy>
+  <cross-domain-access>
+    <policy>
+      <allow-from http-request-headers="*">
+        <domain uri="*" />
+      </allow-from>
+      <grant-to>
+        <resource path="/" include-subpaths="true" />
+        <socket-resource port="4502-4530" protocol="tcp" />
+      </grant-to>
+    </policy>
+  </cross-domain-access>
+</access-policy>

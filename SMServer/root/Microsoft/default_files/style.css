@@ -1,0 +1,4782 @@
+.hpVpv_TilePanel .hpVpv_Tile_home_theme A {
+	BORDER-BOTTOM-COLOR: #fff; BACKGROUND-COLOR: #0072bc; BORDER-TOP-COLOR: #fff; FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif; COLOR: #fff; BORDER-RIGHT-COLOR: #fff; FONT-SIZE: 125%; BORDER-LEFT-COLOR: #fff
+}
+.hpVpv_TilePanel .hpVpv_Tile_home_theme .hpVpv_NonLinkTile {
+	BORDER-BOTTOM-COLOR: #fff; BACKGROUND-COLOR: #0072bc; BORDER-TOP-COLOR: #fff; FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif; COLOR: #fff; BORDER-RIGHT-COLOR: #fff; FONT-SIZE: 125%; BORDER-LEFT-COLOR: #fff
+}
+.hpVpv_Tile_home_theme .hpVpv_Fade {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/Sprites/home_gradient_rightend.png)
+}
+.hpVpv_Type_home_theme .hpVpv_LoadingPanel {
+	BORDER-BOTTOM-COLOR: #e3e3e3; BACKGROUND-COLOR: #fff; BORDER-TOP-COLOR: #e3e3e3; COLOR: #4f4f4f; BORDER-RIGHT-COLOR: #e3e3e3; BORDER-LEFT-COLOR: #e3e3e3
+}
+.hpVpv_TilePanel .hpVpv_Tile_biz_theme A {
+	BORDER-BOTTOM-COLOR: #fff; BACKGROUND-COLOR: #cd4900; BORDER-TOP-COLOR: #fff; FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif; COLOR: #fff; BORDER-RIGHT-COLOR: #fff; FONT-SIZE: 125%; BORDER-LEFT-COLOR: #fff
+}
+.hpVpv_TilePanel .hpVpv_Tile_biz_theme .hpVpv_NonLinkTile {
+	BORDER-BOTTOM-COLOR: #fff; BACKGROUND-COLOR: #cd4900; BORDER-TOP-COLOR: #fff; FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif; COLOR: #fff; BORDER-RIGHT-COLOR: #fff; FONT-SIZE: 125%; BORDER-LEFT-COLOR: #fff
+}
+.hpVpv_Tile_biz_theme .hpVpv_Fade {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/Sprites/work_gradient_rightend.png)
+}
+.hpVpv_Type_biz_theme .hpVpv_LoadingPanel {
+	BORDER-BOTTOM-COLOR: #e3e3e3; BACKGROUND-COLOR: #fff; BORDER-TOP-COLOR: #e3e3e3; COLOR: #4f4f4f; BORDER-RIGHT-COLOR: #e3e3e3; BORDER-LEFT-COLOR: #e3e3e3
+}
+.hpVpv_TilePanel .hpVpv_Tile_dev_theme A {
+	BORDER-BOTTOM-COLOR: #fff; BACKGROUND-COLOR: #662d91; BORDER-TOP-COLOR: #fff; FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif; COLOR: #fff; BORDER-RIGHT-COLOR: #fff; FONT-SIZE: 125%; BORDER-LEFT-COLOR: #fff
+}
+.hpVpv_TilePanel .hpVpv_Tile_dev_theme .hpVpv_NonLinkTile {
+	BORDER-BOTTOM-COLOR: #fff; BACKGROUND-COLOR: #662d91; BORDER-TOP-COLOR: #fff; FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif; COLOR: #fff; BORDER-RIGHT-COLOR: #fff; FONT-SIZE: 125%; BORDER-LEFT-COLOR: #fff
+}
+.hpVpv_Tile_dev_theme .hpVpv_Fade {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/Sprites/developer_gradient_rightend.png)
+}
+.hpVpv_Type_dev_theme .hpVpv_LoadingPanel {
+	BORDER-BOTTOM-COLOR: #e3e3e3; BACKGROUND-COLOR: #fff; BORDER-TOP-COLOR: #e3e3e3; COLOR: #4f4f4f; BORDER-RIGHT-COLOR: #e3e3e3; BORDER-LEFT-COLOR: #e3e3e3
+}
+.hpVpv_TilePanel .hpVpv_Tile_itpro_theme A {
+	BORDER-BOTTOM-COLOR: #fff; BACKGROUND-COLOR: #008641; BORDER-TOP-COLOR: #fff; FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif; COLOR: #fff; BORDER-RIGHT-COLOR: #fff; FONT-SIZE: 125%; BORDER-LEFT-COLOR: #fff
+}
+.hpVpv_TilePanel .hpVpv_Tile_itpro_theme .hpVpv_NonLinkTile {
+	BORDER-BOTTOM-COLOR: #fff; BACKGROUND-COLOR: #008641; BORDER-TOP-COLOR: #fff; FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif; COLOR: #fff; BORDER-RIGHT-COLOR: #fff; FONT-SIZE: 125%; BORDER-LEFT-COLOR: #fff
+}
+.hpVpv_Tile_itpro_theme .hpVpv_Fade {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/Sprites/itpro_gradient_rightend.png)
+}
+.hpVpv_Type_itpro_theme .hpVpv_LoadingPanel {
+	BORDER-BOTTOM-COLOR: #e3e3e3; BACKGROUND-COLOR: #fff; BORDER-TOP-COLOR: #e3e3e3; COLOR: #4f4f4f; BORDER-RIGHT-COLOR: #e3e3e3; BORDER-LEFT-COLOR: #e3e3e3
+}
+.hpVpv {
+	POSITION: relative; WIDTH: 100%; OVERFLOW: hidden
+}
+.hpVpv_TilePanel {
+	Z-INDEX: 100; POSITION: absolute; WIDTH: 110px; HEIGHT: 100%; RIGHT: 0px; TOP: 0px
+}
+.hpVpv_TilePanel A {
+	BORDER-BOTTOM: transparent 1px solid; POSITION: relative; BORDER-LEFT: transparent 1px solid; LINE-HEIGHT: 120%; DISPLAY: block; WHITE-SPACE: nowrap; BORDER-TOP: transparent 1px solid; BORDER-RIGHT: transparent 1px solid
+}
+.hpVpv_TilePanel .hpVpv_NonLinkTile {
+	BORDER-BOTTOM: transparent 1px solid; POSITION: relative; BORDER-LEFT: transparent 1px solid; LINE-HEIGHT: 120%; DISPLAY: block; WHITE-SPACE: nowrap; BORDER-TOP: transparent 1px solid; BORDER-RIGHT: transparent 1px solid
+}
+.hpVpv_TilePanel .hpVpv_NonLinkTile {
+	OVERFLOW: hidden
+}
+.hpVpv_TilePanel A:active {
+	TEXT-DECORATION: none
+}
+.hpVpv_TilePanel A:hover {
+	TEXT-DECORATION: none
+}
+.hpVpv_TilePanel A:link {
+	TEXT-DECORATION: none
+}
+.hpVpv_TilePanel .hpVpv_NonLinkTile {
+	DISPLAY: none
+}
+.hpVpv_TilePanel LI {
+	MARGIN-BOTTOM: 10px
+}
+.hpVpv_TilePanel .hpVpv_TileItemWrap {
+	POSITION: relative; WIDTH: 110px
+}
+.hpVpv_Title {
+	POSITION: relative; MIN-HEIGHT: 108px; WIDTH: 100%; OVERFLOW: hidden; _height: 108px
+}
+.hpVpv_TileExpanded .hpVpv_Title {
+	_height: auto
+}
+.hpVpv_Title SPAN {
+	POSITION: absolute; TEXT-ALIGN: left; PADDING-BOTTOM: 4px; MARGIN: 44px 0px 4px 9px; BOTTOM: 0px; DISPLAY: block; LEFT: 0px
+}
+.hpVpv_TileExpanded .hpVpv_Title SPAN {
+	POSITION: relative
+}
+.hpVpv_Arrow {
+	POSITION: absolute; WIDTH: 40px; HEIGHT: 40px; OVERFLOW: hidden; RIGHT: 0px; TOP: 0px
+}
+.hpVpv_Arrow IMG {
+	POSITION: absolute; TOP: -11px; LEFT: 0px
+}
+.hpVpv_SelectedPivot .hpVpv_Arrow IMG {
+	LEFT: -122px
+}
+A:hover .hpVpv_Arrow IMG {
+	LEFT: -61px
+}
+A.hpVpv_Hover .hpVpv_Arrow IMG {
+	LEFT: -61px
+}
+.hpVpv_TilePanel .hpVpv_SelectedPivot A {
+	DISPLAY: none
+}
+.hpVpv_TilePanel .hpVpv_SelectedPivot .hpVpv_NonLinkTile {
+	DISPLAY: block
+}
+.hpVpv_BodyWindow {
+	POSITION: relative; WIDTH: 100%; HEIGHT: 100%; OVERFLOW: hidden; TOP: 0px; LEFT: 0px
+}
+.hpVpv_BodyPanel {
+	POSITION: relative; WIDTH: 100%
+}
+.hpVpv_Body {
+	OVERFLOW: hidden
+}
+.hpVpv_LoadingPanel {
+	Z-INDEX: 100; BORDER-BOTTOM: 1px solid; TEXT-ALIGN: center; BORDER-LEFT: 1px solid; MIN-HEIGHT: 525px; WIDTH: 798px; DISPLAY: none; BORDER-TOP: 1px solid; BORDER-RIGHT: 1px solid
+}
+.hpVpv_LoadingMessage {
+	FONT-SIZE: 30px; PADDING-TOP: 22px
+}
+.hpVpv_LoadingImage {
+	MARGIN-TOP: 90px; WIDTH: 100%; BACKGROUND: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/loading-md.gif) no-repeat center center; HEIGHT: 9px
+}
+.hpVpv_Fade {
+	POSITION: absolute; WIDTH: 15px; DISPLAY: none; BACKGROUND-REPEAT: repeat-y; HEIGHT: 100%; RIGHT: 0px; TOP: 0px
+}
+HTML > BODY .hpVpv_Fade {
+	DISPLAY: block
+}
+.hpVpv_Nudge .hpVpv_Fade {
+	DISPLAY: none
+}
+HTML > BODY .hpVpv_Nudge .hpVpv_Fade {
+	DISPLAY: none
+}
+.hpVpv_BodyOffScreen {
+	DISPLAY: none
+}
+.hpVpv_BodyUnit .hidden {
+	DISPLAY: none; _height: 0; _display: block; _width: 0; _overflow: hidden
+}
+.hpGrd_Grid {
+	POSITION: relative; FLOAT: left
+}
+.hpGrd_Column {
+	POSITION: relative; FLOAT: left
+}
+.hpGrd_Row {
+	POSITION: relative; FLOAT: left
+}
+.hpGrd_Cell {
+	POSITION: relative; FLOAT: left
+}
+.hpGrd_Column {
+	OVERFLOW: hidden
+}
+.hpGrd_Row {
+	MARGIN-TOP: 10px; WIDTH: 100%
+}
+.hpGrd_Cell {
+	MIN-HEIGHT: 1px; MARGIN-LEFT: 10px; _height: 1px
+}
+.hpGrd_CellNoMargin.hpGrd_Cell {
+	MARGIN-LEFT: 0px
+}
+.hpGrd_RowNoMargin.hpGrd_Row {
+	MARGIN-TOP: 0px
+}
+.hpGrd_Filler {
+	DISPLAY: none; HEIGHT: 0px
+}
+.hpGrd_Span1 {
+	WIDTH: 10px
+}
+.hpGrd_Span2 {
+	WIDTH: 20px
+}
+.hpGrd_Span3 {
+	WIDTH: 30px
+}
+.hpGrd_Span4 {
+	WIDTH: 40px
+}
+.hpGrd_Span5 {
+	WIDTH: 50px
+}
+.hpGrd_Span6 {
+	WIDTH: 60px
+}
+.hpGrd_Span7 {
+	WIDTH: 70px
+}
+.hpGrd_Span8 {
+	WIDTH: 80px
+}
+.hpGrd_Span9 {
+	WIDTH: 90px
+}
+.hpGrd_Span10 {
+	WIDTH: 100px
+}
+.hpGrd_Span11 {
+	WIDTH: 110px
+}
+.hpGrd_Span12 {
+	WIDTH: 120px
+}
+.hpGrd_Span13 {
+	WIDTH: 130px
+}
+.hpGrd_Span14 {
+	WIDTH: 140px
+}
+.hpGrd_Span15 {
+	WIDTH: 150px
+}
+.hpGrd_Span16 {
+	WIDTH: 160px
+}
+.hpGrd_Span17 {
+	WIDTH: 170px
+}
+.hpGrd_Span18 {
+	WIDTH: 180px
+}
+.hpGrd_Span19 {
+	WIDTH: 190px
+}
+.hpGrd_Span20 {
+	WIDTH: 200px
+}
+.hpGrd_Span21 {
+	WIDTH: 210px
+}
+.hpGrd_Span22 {
+	WIDTH: 220px
+}
+.hpGrd_Span23 {
+	WIDTH: 230px
+}
+.hpGrd_Span24 {
+	WIDTH: 240px
+}
+.hpGrd_Span25 {
+	WIDTH: 250px
+}
+.hpGrd_Span26 {
+	WIDTH: 260px
+}
+.hpGrd_Span27 {
+	WIDTH: 270px
+}
+.hpGrd_Span28 {
+	WIDTH: 280px
+}
+.hpGrd_Span29 {
+	WIDTH: 290px
+}
+.hpGrd_Span30 {
+	WIDTH: 300px
+}
+.hpGrd_Span31 {
+	WIDTH: 310px
+}
+.hpGrd_Span32 {
+	WIDTH: 320px
+}
+.hpGrd_Span33 {
+	WIDTH: 330px
+}
+.hpGrd_Span34 {
+	WIDTH: 340px
+}
+.hpGrd_Span35 {
+	WIDTH: 350px
+}
+.hpGrd_Span36 {
+	WIDTH: 360px
+}
+.hpGrd_Span37 {
+	WIDTH: 370px
+}
+.hpGrd_Span38 {
+	WIDTH: 380px
+}
+.hpGrd_Span39 {
+	WIDTH: 390px
+}
+.hpGrd_Span40 {
+	WIDTH: 400px
+}
+.hpGrd_Span41 {
+	WIDTH: 410px
+}
+.hpGrd_Span42 {
+	WIDTH: 420px
+}
+.hpGrd_Span43 {
+	WIDTH: 430px
+}
+.hpGrd_Span44 {
+	WIDTH: 440px
+}
+.hpGrd_Span45 {
+	WIDTH: 450px
+}
+.hpGrd_Span46 {
+	WIDTH: 460px
+}
+.hpGrd_Span47 {
+	WIDTH: 470px
+}
+.hpGrd_Span48 {
+	WIDTH: 480px
+}
+.hpGrd_Span49 {
+	WIDTH: 490px
+}
+.hpGrd_Span50 {
+	WIDTH: 500px
+}
+.hpGrd_Span51 {
+	WIDTH: 510px
+}
+.hpGrd_Span52 {
+	WIDTH: 520px
+}
+.hpGrd_Span53 {
+	WIDTH: 530px
+}
+.hpGrd_Span54 {
+	WIDTH: 540px
+}
+.hpGrd_Span55 {
+	WIDTH: 550px
+}
+.hpGrd_Span56 {
+	WIDTH: 560px
+}
+.hpGrd_Span57 {
+	WIDTH: 570px
+}
+.hpGrd_Span58 {
+	WIDTH: 580px
+}
+.hpGrd_Span59 {
+	WIDTH: 590px
+}
+.hpGrd_Span60 {
+	WIDTH: 600px
+}
+.hpGrd_Span61 {
+	WIDTH: 610px
+}
+.hpGrd_Span62 {
+	WIDTH: 620px
+}
+.hpGrd_Span63 {
+	WIDTH: 630px
+}
+.hpGrd_Span64 {
+	WIDTH: 640px
+}
+.hpGrd_Span65 {
+	WIDTH: 650px
+}
+.hpGrd_Span66 {
+	WIDTH: 660px
+}
+.hpGrd_Span67 {
+	WIDTH: 670px
+}
+.hpGrd_Span68 {
+	WIDTH: 680px
+}
+.hpGrd_Span69 {
+	WIDTH: 690px
+}
+.hpGrd_Span70 {
+	WIDTH: 700px
+}
+.hpGrd_Span71 {
+	WIDTH: 710px
+}
+.hpGrd_Span72 {
+	WIDTH: 720px
+}
+.hpGrd_Span73 {
+	WIDTH: 730px
+}
+.hpGrd_Span74 {
+	WIDTH: 740px
+}
+.hpGrd_Span75 {
+	WIDTH: 750px
+}
+.hpGrd_Span76 {
+	WIDTH: 760px
+}
+.hpGrd_Span77 {
+	WIDTH: 770px
+}
+.hpGrd_Span78 {
+	WIDTH: 780px
+}
+.hpGrd_Span79 {
+	WIDTH: 790px
+}
+.hpGrd_Span80 {
+	WIDTH: 800px
+}
+.hpGrd_Span81 {
+	WIDTH: 810px
+}
+.hpGrd_Span82 {
+	WIDTH: 820px
+}
+.hpGrd_Span83 {
+	WIDTH: 830px
+}
+.hpGrd_Span84 {
+	WIDTH: 840px
+}
+.hpGrd_Span85 {
+	WIDTH: 850px
+}
+.hpGrd_Span86 {
+	WIDTH: 860px
+}
+.hpGrd_Span87 {
+	WIDTH: 870px
+}
+.hpGrd_Span88 {
+	WIDTH: 880px
+}
+.hpGrd_Span89 {
+	WIDTH: 890px
+}
+.hpGrd_Span90 {
+	WIDTH: 900px
+}
+.hpGrd_Span91 {
+	WIDTH: 910px
+}
+.hpGrd_Span92 {
+	WIDTH: 920px
+}
+.hpHro_Controls A IMG {
+	POSITION: relative
+}
+.hpHro_Controls_Paging DIV IMG {
+	POSITION: relative
+}
+.hpHro {
+	POSITION: relative; TEXT-ALIGN: left; LINE-HEIGHT: normal; BACKGROUND: #fff; OVERFLOW: hidden
+}
+.hpHro_slide {
+	POSITION: relative; WIDTH: 5000px; LEFT: 0px
+}
+.hpHro_Item {
+	POSITION: relative; FLOAT: left
+}
+.hpHro_Text {
+	Z-INDEX: 1; POSITION: relative; PADDING-BOTTOM: 10px; MARGIN-TOP: -57px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; BACKGROUND-REPEAT: repeat-x; BACKGROUND-POSITION: left top; COLOR: #fff; OVERFLOW: hidden; PADDING-TOP: 10px; _padding: 10px 0
+}
+.hpHro_Text H3 {
+	Z-INDEX: 2; _display: block; _padding: 0 10px
+}
+.hpHro_Text A {
+	Z-INDEX: 2; _display: block; _padding: 0 10px
+}
+.hpHro_Text P {
+	Z-INDEX: 2; _display: block; _padding: 0 10px
+}
+.hpHro_TextBg {
+	Z-INDEX: -1; POSITION: absolute; BACKGROUND-COLOR: #333; BOTTOM: 0px; RIGHT: 0px; TOP: 60px; LEFT: 0px
+}
+.hpHro .hpHro_TextGradBg {
+	Z-INDEX: -2; POSITION: absolute; WIDTH: 100%; TOP: 0px; LEFT: 0px
+}
+.hpHro_Text H3 {
+	TEXT-TRANSFORM: uppercase; FONT-SIZE: 11px
+}
+.hpHro_Text P {
+	TEXT-TRANSFORM: uppercase; FONT-SIZE: 11px; PADDING-TOP: 2px
+}
+.hpHro_Text A {
+	TEXT-TRANSFORM: uppercase; COLOR: #fff; FONT-SIZE: 11px; TEXT-DECORATION: none; PADDING-TOP: 2px
+}
+.hpHro_Text A:hover .hpFeat_Text {
+	TEXT-DECORATION: underline
+}
+.hpHro_Text A:active .hpFeat_Text {
+	TEXT-DECORATION: underline
+}
+.hpHro_Text A .hpFeat_Arrow {
+	LINE-HEIGHT: 100%; PADDING-LEFT: 10px; FONT-SIZE: 135%
+}
+.hpHro_Controls {
+	Z-INDEX: 3; POSITION: absolute; MIN-HEIGHT: 33px; WIDTH: 100%; OVERFLOW: hidden; RIGHT: 0px; TOP: 1px; _height: 33px
+}
+.hpHro_Controls_Paging {
+	POSITION: absolute; RIGHT: 90px; TOP: 4px
+}
+.hpHro_Controls_Paging DIV {
+	POSITION: relative; WIDTH: 9px; DISPLAY: block; FLOAT: left; HEIGHT: 9px; MARGIN-LEFT: 4px; OVERFLOW: hidden
+}
+.hpHro_Controls_Paging DIV IMG {
+	BACKGROUND-POSITION: -18px -124px; TOP: -124px; LEFT: -18px; _top: -142px
+}
+.hpHro_Controls_Paging DIV.current IMG {
+	BACKGROUND-POSITION: 0px -124px; LEFT: 0px
+}
+.dark .hpHro_Controls_Paging DIV IMG {
+	BACKGROUND-POSITION: -56px -124px; LEFT: -56px
+}
+.dark .hpHro_Controls_Paging DIV.current IMG {
+	BACKGROUND-POSITION: -37px -124px; LEFT: -37px
+}
+.hpHro_Controls_Buttons {
+	POSITION: absolute; RIGHT: 4px; TOP: 0px
+}
+.hpHro_Controls A {
+	POSITION: relative; WIDTH: 21px; DISPLAY: block; FLOAT: left; HEIGHT: 17px; MARGIN-LEFT: 2px; OVERFLOW: hidden
+}
+A.hpHro_Stop {
+	DISPLAY: none
+}
+A.hpHro_Play {
+	DISPLAY: none
+}
+A.hpHro_Prev IMG {
+	TOP: -4px; LEFT: 0px
+}
+A.hpHro_Prev:hover IMG {
+	TOP: -35px; LEFT: 0px
+}
+.dark A.hpHro_Prev IMG {
+	TOP: -66px; LEFT: 0px
+}
+.dark A.hpHro_Prev:hover IMG {
+	TOP: -97px; LEFT: 0px
+}
+A.hpHro_Next IMG {
+	TOP: -4px; LEFT: -31px
+}
+A.hpHro_Next:hover IMG {
+	TOP: -35px; LEFT: -31px
+}
+.dark A.hpHro_Next IMG {
+	TOP: -66px; LEFT: -31px
+}
+.dark A.hpHro_Next:hover IMG {
+	TOP: -97px; LEFT: -31px
+}
+A.hpHro_Stop IMG {
+	TOP: -4px; LEFT: -62px
+}
+A.hpHro_Stop:hover IMG {
+	TOP: -35px; LEFT: -62px
+}
+.dark A.hpHro_Stop IMG {
+	TOP: -66px; LEFT: -62px
+}
+.dark A.hpHro_Stop:hover IMG {
+	TOP: -97px; LEFT: -62px
+}
+A.hpHro_Play IMG {
+	TOP: -4px; LEFT: -93px
+}
+A.hpHro_Play:hover IMG {
+	TOP: -35px; LEFT: -93px
+}
+.dark A.hpHro_Play IMG {
+	TOP: -66px; LEFT: -93px
+}
+.dark A.hpHro_Play:hover IMG {
+	TOP: -97px; LEFT: -93px
+}
+A.hpHro_Prev:hover IMG {
+	
+}
+A.hpHro_Next:hover IMG {
+	
+}
+A.hpHro_Stop:hover IMG {
+	
+}
+A.hpHro_Play:hover IMG {
+	
+}
+.dark A.hpHro_Prev:hover IMG {
+	
+}
+.dark A.hpHro_Next:hover IMG {
+	
+}
+.dark A.hpHro_Stop:hover IMG {
+	
+}
+.dark A.hpHro_Play:hover IMG {
+	
+}
+.hpHro_Loader {
+	MIN-HEIGHT: 9px; WIDTH: 100%; DISPLAY: none; BACKGROUND: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/loading-md.gif) #fff no-repeat center center; TOP: 0px; LEFT: 0px
+}
+.hpHro_ImgWrap {
+	OVERFLOW: hidden
+}
+.hpAcc_style2 {
+	BACKGROUND-COLOR: #eaeaea
+}
+.hpAcc_style2.hpAcc {
+	BACKGROUND-COLOR: #eaeaea
+}
+.hpAcc_style2 .hpAcc_header {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2 A.hpAccTitle {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_style2 A.hpAccTitle:link {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_style2 A.hpAccTitle:visited {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_style2.hpAcc .hpAccTitle {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_style2 A.hpAccTitle:hover {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_style2 A.hpAccTitle:active {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_style2.hpAcc .hpAccTitle:hover {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_style2 .mshpCrs_PriAct {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2 .hpAcc_Description A {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2 .hpAcc_Description A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2 .hpAcc_Description A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2 .hpAccFooter_Cta A {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2 .hpAccFooter_Cta A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2 .hpAccFooter_Cta A.visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2 .hpAcc_Description A:hover {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2 .hpAcc_Description A:active {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2 .hpAccFooter_Cta A:hover {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2 .hpAccFooter_Cta A:active {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2 .hpAccDetail {
+	BACKGROUND-COLOR: #f4f4f4
+}
+.hpAcc_style2.hpAcc .hpAccDetail {
+	BACKGROUND-COLOR: #f4f4f4
+}
+.hpAcc_style2 .hpAccList LI.hpAccListItem {
+	BORDER-TOP: #eaeaea 1px solid
+}
+.hpAcc_style2.hpAcc .hpAccList LI.hpAccListItem {
+	BORDER-TOP: #eaeaea 1px solid
+}
+.hpAcc_style2 .hpLst_body {
+	BORDER-BOTTOM: #eaeaea 1px solid
+}
+.hpAcc_style2.hpAcc .hpLst_body {
+	BORDER-BOTTOM: #eaeaea 1px solid
+}
+.hpAcc_style2.hpAcc {
+	BORDER-BOTTOM: #fff 1px solid; BORDER-LEFT: #fff 1px solid; BORDER-TOP: #fff 1px solid; BORDER-RIGHT: #fff 1px solid
+}
+.hpAcc_style2 {
+	BORDER-BOTTOM: #fff 1px solid; BORDER-LEFT: #fff 1px solid; BORDER-TOP: #fff 1px solid; BORDER-RIGHT: #fff 1px solid
+}
+.hpAcc_style2.hpAcc .hpAcc_header H3 A {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2.hpAcc .hpAcc_header H3 A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2.hpAcc .hpAcc_header H3 A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2 .hpAcc_header H3 A {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2 .hpAcc_header H3 A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2 .hpAcc_header H3 A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2.hpAcc .hpAcc_Description {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2 .hpAcc_Description {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2.hpAcc .hpAccTitle {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_expand_left_grey.png)
+}
+.hpAcc_style2 .hpAccTitle {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_expand_left_grey.png)
+}
+.hpAcc_style2.hpAcc .hpAccTitleOpen {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_collapse_left_grey.png)
+}
+hpAcc_style2 .hpAccTitleOpen {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_collapse_left_grey.png)
+}
+.hpAcc_style2.hpAcc .hpAcc_header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpAcc_style2 .hpAcc_header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpAcc_style3 {
+	BACKGROUND-COLOR: #eaeaea
+}
+.hpAcc_style3.hpAcc {
+	BACKGROUND-COLOR: #eaeaea
+}
+.hpAcc_style3 .hpAcc_header {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3 A.hpAccTitle {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_style3 A.hpAccTitle:link {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_style3 A.hpAccTitle:visited {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_style3.hpAcc .hpAccTitle {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_style3 A.hpAccTitle:hover {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_style3 A.hpAccTitle:active {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_style3.hpAcc .hpAccTitle:hover {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_style3 .mshpCrs_PriAct {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3 .hpAcc_Description A {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3 .hpAcc_Description A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3 .hpAcc_Description A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3 .hpAccFooter_Cta A {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3 .hpAccFooter_Cta A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3 .hpAccFooter_Cta A.visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3 .hpAcc_Description A:hover {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3 .hpAcc_Description A:active {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3 .hpAccFooter_Cta A:hover {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3 .hpAccFooter_Cta A:active {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3 .hpAccDetail {
+	BACKGROUND-COLOR: #f4f4f4
+}
+.hpAcc_style3.hpAcc .hpAccDetail {
+	BACKGROUND-COLOR: #f4f4f4
+}
+.hpAcc_style3 .hpAccList LI.hpAccListItem {
+	BORDER-TOP: #eaeaea 1px solid
+}
+.hpAcc_style3.hpAcc .hpAccList LI.hpAccListItem {
+	BORDER-TOP: #eaeaea 1px solid
+}
+.hpAcc_style3 .hpLst_body {
+	BORDER-BOTTOM: #eaeaea 1px solid
+}
+.hpAcc_style3.hpAcc .hpLst_body {
+	BORDER-BOTTOM: #eaeaea 1px solid
+}
+.hpAcc_style3.hpAcc {
+	BORDER-BOTTOM: #fff 1px solid; BORDER-LEFT: #fff 1px solid; BORDER-TOP: #fff 1px solid; BORDER-RIGHT: #fff 1px solid
+}
+.hpAcc_style3 {
+	BORDER-BOTTOM: #fff 1px solid; BORDER-LEFT: #fff 1px solid; BORDER-TOP: #fff 1px solid; BORDER-RIGHT: #fff 1px solid
+}
+.hpAcc_style3.hpAcc .hpAcc_header H3 A {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3.hpAcc .hpAcc_header H3 A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3.hpAcc .hpAcc_header H3 A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3 .hpAcc_header H3 A {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3 .hpAcc_header H3 A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3 .hpAcc_header H3 A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3.hpAcc .hpAcc_Description {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3 .hpAcc_Description {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3.hpAcc .hpAccTitle {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_expand_left_grey.png)
+}
+.hpAcc_style3 .hpAccTitle {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_expand_left_grey.png)
+}
+.hpAcc_style3.hpAcc .hpAccTitleOpen {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_collapse_left_grey.png)
+}
+hpAcc_style3 .hpAccTitleOpen {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_collapse_left_grey.png)
+}
+.hpAcc_style3.hpAcc .hpAcc_header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpAcc_style3 .hpAcc_header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpAcc_styleITPro {
+	BACKGROUND-COLOR: #eaeaea
+}
+.hpAcc_styleITPro.hpAcc {
+	BACKGROUND-COLOR: #eaeaea
+}
+.hpAcc_styleITPro .hpAcc_header {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro A.hpAccTitle {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_styleITPro A.hpAccTitle:link {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_styleITPro A.hpAccTitle:visited {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_styleITPro.hpAcc .hpAccTitle {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_styleITPro A.hpAccTitle:hover {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_styleITPro A.hpAccTitle:active {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_styleITPro.hpAcc .hpAccTitle:hover {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_styleITPro .mshpCrs_PriAct {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro .hpAcc_Description A {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro .hpAcc_Description A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro .hpAcc_Description A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro .hpAccFooter_Cta A {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro .hpAccFooter_Cta A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro .hpAccFooter_Cta A.visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro .hpAcc_Description A:hover {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro .hpAcc_Description A:active {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro .hpAccFooter_Cta A:hover {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro .hpAccFooter_Cta A:active {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro .hpAccDetail {
+	BACKGROUND-COLOR: #f4f4f4
+}
+.hpAcc_styleITPro.hpAcc .hpAccDetail {
+	BACKGROUND-COLOR: #f4f4f4
+}
+.hpAcc_styleITPro .hpAccList LI.hpAccListItem {
+	BORDER-TOP: #eaeaea 1px solid
+}
+.hpAcc_styleITPro.hpAcc .hpAccList LI.hpAccListItem {
+	BORDER-TOP: #eaeaea 1px solid
+}
+.hpAcc_styleITPro .hpLst_body {
+	BORDER-BOTTOM: #eaeaea 1px solid
+}
+.hpAcc_styleITPro.hpAcc .hpLst_body {
+	BORDER-BOTTOM: #eaeaea 1px solid
+}
+.hpAcc_styleITPro.hpAcc {
+	BORDER-BOTTOM: #fff 1px solid; BORDER-LEFT: #fff 1px solid; BORDER-TOP: #fff 1px solid; BORDER-RIGHT: #fff 1px solid
+}
+.hpAcc_styleITPro {
+	BORDER-BOTTOM: #fff 1px solid; BORDER-LEFT: #fff 1px solid; BORDER-TOP: #fff 1px solid; BORDER-RIGHT: #fff 1px solid
+}
+.hpAcc_styleITPro.hpAcc .hpAcc_header H3 A {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro.hpAcc .hpAcc_header H3 A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro.hpAcc .hpAcc_header H3 A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro .hpAcc_header H3 A {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro .hpAcc_header H3 A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro .hpAcc_header H3 A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro.hpAcc .hpAcc_Description {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro .hpAcc_Description {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro.hpAcc .hpAccTitle {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_expand_left_grey.png)
+}
+.hpAcc_styleITPro .hpAccTitle {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_expand_left_grey.png)
+}
+.hpAcc_styleITPro.hpAcc .hpAccTitleOpen {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_collapse_left_grey.png)
+}
+hpAcc_styleITPro .hpAccTitleOpen {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_collapse_left_grey.png)
+}
+.hpAcc_styleITPro.hpAcc .hpAcc_header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpAcc_styleITPro .hpAcc_header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpAcc_styleITPro2 {
+	BACKGROUND-COLOR: #eaeaea
+}
+.hpAcc_styleITPro2.hpAcc {
+	BACKGROUND-COLOR: #eaeaea
+}
+.hpAcc_styleITPro2 .hpAcc_header {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 A.hpAccTitle {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 A.hpAccTitle:link {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 A.hpAccTitle:visited {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2.hpAcc .hpAccTitle {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 A.hpAccTitle:hover {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 A.hpAccTitle:active {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2.hpAcc .hpAccTitle:hover {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 .mshpCrs_PriAct {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 .hpAcc_Description A {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 .hpAcc_Description A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 .hpAcc_Description A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 .hpAccFooter_Cta A {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 .hpAccFooter_Cta A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 .hpAccFooter_Cta A.visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 .hpAcc_Description A:hover {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 .hpAcc_Description A:active {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 .hpAccFooter_Cta A:hover {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 .hpAccFooter_Cta A:active {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 .hpAccDetail {
+	BACKGROUND-COLOR: #f4f4f4
+}
+.hpAcc_styleITPro2.hpAcc .hpAccDetail {
+	BACKGROUND-COLOR: #f4f4f4
+}
+.hpAcc_styleITPro2 .hpAccList LI.hpAccListItem {
+	BORDER-TOP: #eaeaea 1px solid
+}
+.hpAcc_styleITPro2.hpAcc .hpAccList LI.hpAccListItem {
+	BORDER-TOP: #eaeaea 1px solid
+}
+.hpAcc_styleITPro2 .hpLst_body {
+	BORDER-BOTTOM: #eaeaea 1px solid
+}
+.hpAcc_styleITPro2.hpAcc .hpLst_body {
+	BORDER-BOTTOM: #eaeaea 1px solid
+}
+.hpAcc_styleITPro2.hpAcc {
+	BORDER-BOTTOM: #fff 1px solid; BORDER-LEFT: #fff 1px solid; BORDER-TOP: #fff 1px solid; BORDER-RIGHT: #fff 1px solid
+}
+.hpAcc_styleITPro2 {
+	BORDER-BOTTOM: #fff 1px solid; BORDER-LEFT: #fff 1px solid; BORDER-TOP: #fff 1px solid; BORDER-RIGHT: #fff 1px solid
+}
+.hpAcc_styleITPro2.hpAcc .hpAcc_header H3 A {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2.hpAcc .hpAcc_header H3 A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2.hpAcc .hpAcc_header H3 A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 .hpAcc_header H3 A {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 .hpAcc_header H3 A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 .hpAcc_header H3 A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2.hpAcc .hpAcc_Description {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 .hpAcc_Description {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2.hpAcc .hpAccTitle {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_expand_left_grey.png)
+}
+.hpAcc_styleITPro2 .hpAccTitle {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_expand_left_grey.png)
+}
+.hpAcc_styleITPro2.hpAcc .hpAccTitleOpen {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_collapse_left_grey.png)
+}
+hpAcc_styleITPro2 .hpAccTitleOpen {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_collapse_left_grey.png)
+}
+.hpAcc_styleITPro2.hpAcc .hpAcc_header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpAcc_styleITPro2 .hpAcc_header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpAcc_styleDeveloper {
+	BACKGROUND-COLOR: #eaeaea
+}
+.hpAcc_styleDeveloper.hpAcc {
+	BACKGROUND-COLOR: #eaeaea
+}
+.hpAcc_styleDeveloper .hpAcc_header {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper A.hpAccTitle {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper A.hpAccTitle:link {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper A.hpAccTitle:visited {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper.hpAcc .hpAccTitle {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper A.hpAccTitle:hover {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper A.hpAccTitle:active {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper.hpAcc .hpAccTitle:hover {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper .mshpCrs_PriAct {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper .hpAcc_Description A {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper .hpAcc_Description A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper .hpAcc_Description A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper .hpAccFooter_Cta A {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper .hpAccFooter_Cta A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper .hpAccFooter_Cta A.visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper .hpAcc_Description A:hover {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper .hpAcc_Description A:active {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper .hpAccFooter_Cta A:hover {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper .hpAccFooter_Cta A:active {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper .hpAccDetail {
+	BACKGROUND-COLOR: #f4f4f4
+}
+.hpAcc_styleDeveloper.hpAcc .hpAccDetail {
+	BACKGROUND-COLOR: #f4f4f4
+}
+.hpAcc_styleDeveloper .hpAccList LI.hpAccListItem {
+	BORDER-TOP: #eaeaea 1px solid
+}
+.hpAcc_styleDeveloper.hpAcc .hpAccList LI.hpAccListItem {
+	BORDER-TOP: #eaeaea 1px solid
+}
+.hpAcc_styleDeveloper .hpLst_body {
+	BORDER-BOTTOM: #eaeaea 1px solid
+}
+.hpAcc_styleDeveloper.hpAcc .hpLst_body {
+	BORDER-BOTTOM: #eaeaea 1px solid
+}
+.hpAcc_styleDeveloper.hpAcc {
+	BORDER-BOTTOM: #fff 1px solid; BORDER-LEFT: #fff 1px solid; BORDER-TOP: #fff 1px solid; BORDER-RIGHT: #fff 1px solid
+}
+.hpAcc_styleDeveloper {
+	BORDER-BOTTOM: #fff 1px solid; BORDER-LEFT: #fff 1px solid; BORDER-TOP: #fff 1px solid; BORDER-RIGHT: #fff 1px solid
+}
+.hpAcc_styleDeveloper.hpAcc .hpAcc_header H3 A {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper.hpAcc .hpAcc_header H3 A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper.hpAcc .hpAcc_header H3 A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper .hpAcc_header H3 A {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper .hpAcc_header H3 A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper .hpAcc_header H3 A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper.hpAcc .hpAcc_Description {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper .hpAcc_Description {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper.hpAcc .hpAccTitle {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_expand_left_grey.png)
+}
+.hpAcc_styleDeveloper .hpAccTitle {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_expand_left_grey.png)
+}
+.hpAcc_styleDeveloper.hpAcc .hpAccTitleOpen {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_collapse_left_grey.png)
+}
+hpAcc_styleDeveloper .hpAccTitleOpen {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_collapse_left_grey.png)
+}
+.hpAcc_styleDeveloper.hpAcc .hpAcc_header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpAcc_styleDeveloper .hpAcc_header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpAcc_styleDeveloper2 {
+	BACKGROUND-COLOR: #eaeaea
+}
+.hpAcc_styleDeveloper2.hpAcc {
+	BACKGROUND-COLOR: #eaeaea
+}
+.hpAcc_styleDeveloper2 .hpAcc_header {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 A.hpAccTitle {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 A.hpAccTitle:link {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 A.hpAccTitle:visited {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2.hpAcc .hpAccTitle {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 A.hpAccTitle:hover {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 A.hpAccTitle:active {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2.hpAcc .hpAccTitle:hover {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 .mshpCrs_PriAct {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 .hpAcc_Description A {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 .hpAcc_Description A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 .hpAcc_Description A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 .hpAccFooter_Cta A {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 .hpAccFooter_Cta A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 .hpAccFooter_Cta A.visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 .hpAcc_Description A:hover {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 .hpAcc_Description A:active {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 .hpAccFooter_Cta A:hover {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 .hpAccFooter_Cta A:active {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 .hpAccDetail {
+	BACKGROUND-COLOR: #f4f4f4
+}
+.hpAcc_styleDeveloper2.hpAcc .hpAccDetail {
+	BACKGROUND-COLOR: #f4f4f4
+}
+.hpAcc_styleDeveloper2 .hpAccList LI.hpAccListItem {
+	BORDER-TOP: #eaeaea 1px solid
+}
+.hpAcc_styleDeveloper2.hpAcc .hpAccList LI.hpAccListItem {
+	BORDER-TOP: #eaeaea 1px solid
+}
+.hpAcc_styleDeveloper2 .hpLst_body {
+	BORDER-BOTTOM: #eaeaea 1px solid
+}
+.hpAcc_styleDeveloper2.hpAcc .hpLst_body {
+	BORDER-BOTTOM: #eaeaea 1px solid
+}
+.hpAcc_styleDeveloper2.hpAcc {
+	BORDER-BOTTOM: #fff 1px solid; BORDER-LEFT: #fff 1px solid; BORDER-TOP: #fff 1px solid; BORDER-RIGHT: #fff 1px solid
+}
+.hpAcc_styleDeveloper2 {
+	BORDER-BOTTOM: #fff 1px solid; BORDER-LEFT: #fff 1px solid; BORDER-TOP: #fff 1px solid; BORDER-RIGHT: #fff 1px solid
+}
+.hpAcc_styleDeveloper2.hpAcc .hpAcc_header H3 A {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2.hpAcc .hpAcc_header H3 A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2.hpAcc .hpAcc_header H3 A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 .hpAcc_header H3 A {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 .hpAcc_header H3 A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 .hpAcc_header H3 A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2.hpAcc .hpAcc_Description {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 .hpAcc_Description {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2.hpAcc .hpAccTitle {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_expand_left_grey.png)
+}
+.hpAcc_styleDeveloper2 .hpAccTitle {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_expand_left_grey.png)
+}
+.hpAcc_styleDeveloper2.hpAcc .hpAccTitleOpen {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_collapse_left_grey.png)
+}
+hpAcc_styleDeveloper2 .hpAccTitleOpen {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_collapse_left_grey.png)
+}
+.hpAcc_styleDeveloper2.hpAcc .hpAcc_header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpAcc_styleDeveloper2 .hpAcc_header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpAcc_style4 {
+	BACKGROUND-COLOR: #fff
+}
+.hpAcc_style4.hpAcc {
+	BACKGROUND-COLOR: #fff
+}
+.hpAcc_style4 .hpAcc_header {
+	COLOR: #646464
+}
+.hpAcc_style4 A.hpAccTitle {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #646464
+}
+.hpAcc_style4 A.hpAccTitle:link {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #646464
+}
+.hpAcc_style4 A.hpAccTitle:visited {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #646464
+}
+.hpAcc_style4.hpAcc .hpAccTitle {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #646464
+}
+.hpAcc_style4 A.hpAccTitle:hover {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #646464
+}
+.hpAcc_style4 A.hpAccTitle:active {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #646464
+}
+.hpAcc_style4.hpAcc .hpAccTitle:hover {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #646464
+}
+.hpAcc_style4 .mshpCrs_PriAct {
+	COLOR: #646464
+}
+.hpAcc_style4 .hpAcc_Description A {
+	COLOR: #646464
+}
+.hpAcc_style4 .hpAcc_Description A:link {
+	COLOR: #646464
+}
+.hpAcc_style4 .hpAcc_Description A:visited {
+	COLOR: #646464
+}
+.hpAcc_style4 .hpAccFooter_Cta A {
+	COLOR: #646464
+}
+.hpAcc_style4 .hpAccFooter_Cta A:link {
+	COLOR: #646464
+}
+.hpAcc_style4 .hpAccFooter_Cta A.visited {
+	COLOR: #646464
+}
+.hpAcc_style4 .hpAcc_Description A:hover {
+	COLOR: #646464
+}
+.hpAcc_style4 .hpAcc_Description A:active {
+	COLOR: #646464
+}
+.hpAcc_style4 .hpAccFooter_Cta A:hover {
+	COLOR: #646464
+}
+.hpAcc_style4 .hpAccFooter_Cta A:active {
+	COLOR: #646464
+}
+.hpAcc_style4 .hpAccDetail {
+	BACKGROUND-COLOR: #f3f3f3
+}
+.hpAcc_style4.hpAcc .hpAccDetail {
+	BACKGROUND-COLOR: #f3f3f3
+}
+.hpAcc_style4 .hpAccList LI.hpAccListItem {
+	BORDER-TOP: #fff 1px solid
+}
+.hpAcc_style4.hpAcc .hpAccList LI.hpAccListItem {
+	BORDER-TOP: #fff 1px solid
+}
+.hpAcc_style4 .hpLst_body {
+	BORDER-BOTTOM: #fff 1px solid
+}
+.hpAcc_style4.hpAcc .hpLst_body {
+	BORDER-BOTTOM: #fff 1px solid
+}
+.hpAcc_style4.hpAcc {
+	BORDER-BOTTOM: #fff 1px solid; BORDER-LEFT: #fff 1px solid; BORDER-TOP: #fff 1px solid; BORDER-RIGHT: #fff 1px solid
+}
+.hpAcc_style4 {
+	BORDER-BOTTOM: #fff 1px solid; BORDER-LEFT: #fff 1px solid; BORDER-TOP: #fff 1px solid; BORDER-RIGHT: #fff 1px solid
+}
+.hpAcc_style4.hpAcc .hpAcc_header H3 A {
+	COLOR: #646464
+}
+.hpAcc_style4.hpAcc .hpAcc_header H3 A:link {
+	COLOR: #646464
+}
+.hpAcc_style4.hpAcc .hpAcc_header H3 A:visited {
+	COLOR: #646464
+}
+.hpAcc_style4 .hpAcc_header H3 A {
+	COLOR: #646464
+}
+.hpAcc_style4 .hpAcc_header H3 A:link {
+	COLOR: #646464
+}
+.hpAcc_style4 .hpAcc_header H3 A:visited {
+	COLOR: #646464
+}
+.hpAcc_style4.hpAcc .hpAcc_Description {
+	COLOR: #fff
+}
+.hpAcc_style4 .hpAcc_Description {
+	COLOR: #fff
+}
+.hpAcc_style4.hpAcc .hpAccTitle {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_expand_left_grey.png)
+}
+.hpAcc_style4 .hpAccTitle {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_expand_left_grey.png)
+}
+.hpAcc_style4.hpAcc .hpAccTitleOpen {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_collapse_left_grey.png)
+}
+hpAcc_style4 .hpAccTitleOpen {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_collapse_left_grey.png)
+}
+.hpAcc_style4.hpAcc .hpAcc_header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpAcc_style4 .hpAcc_header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpAcc_style2 {
+	BACKGROUND-COLOR: #eaeaea
+}
+.hpAcc_style2.hpAcc {
+	BACKGROUND-COLOR: #eaeaea
+}
+.hpAcc_style2 .hpAcc_header {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2 A.hpAccTitle {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_style2 A.hpAccTitle:link {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_style2 A.hpAccTitle:visited {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_style2.hpAcc .hpAccTitle {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_style2 A.hpAccTitle:hover {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_style2 A.hpAccTitle:active {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_style2.hpAcc .hpAccTitle:hover {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_style2 .mshpCrs_PriAct {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2 .hpAcc_Description A {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2 .hpAcc_Description A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2 .hpAcc_Description A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2 .hpAccFooter_Cta A {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2 .hpAccFooter_Cta A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2 .hpAccFooter_Cta A.visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2 .hpAcc_Description A:hover {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2 .hpAcc_Description A:active {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2 .hpAccFooter_Cta A:hover {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2 .hpAccFooter_Cta A:active {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2 .hpAccDetail {
+	BACKGROUND-COLOR: #f4f4f4
+}
+.hpAcc_style2.hpAcc .hpAccDetail {
+	BACKGROUND-COLOR: #f4f4f4
+}
+.hpAcc_style2 .hpAccList LI.hpAccListItem {
+	BORDER-TOP: #eaeaea 1px solid
+}
+.hpAcc_style2.hpAcc .hpAccList LI.hpAccListItem {
+	BORDER-TOP: #eaeaea 1px solid
+}
+.hpAcc_style2 .hpLst_body {
+	BORDER-BOTTOM: #eaeaea 1px solid
+}
+.hpAcc_style2.hpAcc .hpLst_body {
+	BORDER-BOTTOM: #eaeaea 1px solid
+}
+.hpAcc_style2.hpAcc {
+	BORDER-BOTTOM: #fff 1px solid; BORDER-LEFT: #fff 1px solid; BORDER-TOP: #fff 1px solid; BORDER-RIGHT: #fff 1px solid
+}
+.hpAcc_style2 {
+	BORDER-BOTTOM: #fff 1px solid; BORDER-LEFT: #fff 1px solid; BORDER-TOP: #fff 1px solid; BORDER-RIGHT: #fff 1px solid
+}
+.hpAcc_style2.hpAcc .hpAcc_header H3 A {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2.hpAcc .hpAcc_header H3 A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2.hpAcc .hpAcc_header H3 A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2 .hpAcc_header H3 A {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2 .hpAcc_header H3 A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2 .hpAcc_header H3 A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2.hpAcc .hpAcc_Description {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2 .hpAcc_Description {
+	COLOR: #4f4f4f
+}
+.hpAcc_style2.hpAcc .hpAccTitle {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_expand_left_grey.png)
+}
+.hpAcc_style2 .hpAccTitle {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_expand_left_grey.png)
+}
+.hpAcc_style2.hpAcc .hpAccTitleOpen {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_collapse_left_grey.png)
+}
+hpAcc_style2 .hpAccTitleOpen {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_collapse_left_grey.png)
+}
+.hpAcc_style2.hpAcc .hpAcc_header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpAcc_style2 .hpAcc_header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpAcc_style3 {
+	BACKGROUND-COLOR: #eaeaea
+}
+.hpAcc_style3.hpAcc {
+	BACKGROUND-COLOR: #eaeaea
+}
+.hpAcc_style3 .hpAcc_header {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3 A.hpAccTitle {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_style3 A.hpAccTitle:link {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_style3 A.hpAccTitle:visited {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_style3.hpAcc .hpAccTitle {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_style3 A.hpAccTitle:hover {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_style3 A.hpAccTitle:active {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_style3.hpAcc .hpAccTitle:hover {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_style3 .mshpCrs_PriAct {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3 .hpAcc_Description A {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3 .hpAcc_Description A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3 .hpAcc_Description A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3 .hpAccFooter_Cta A {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3 .hpAccFooter_Cta A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3 .hpAccFooter_Cta A.visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3 .hpAcc_Description A:hover {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3 .hpAcc_Description A:active {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3 .hpAccFooter_Cta A:hover {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3 .hpAccFooter_Cta A:active {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3 .hpAccDetail {
+	BACKGROUND-COLOR: #f4f4f4
+}
+.hpAcc_style3.hpAcc .hpAccDetail {
+	BACKGROUND-COLOR: #f4f4f4
+}
+.hpAcc_style3 .hpAccList LI.hpAccListItem {
+	BORDER-TOP: #eaeaea 1px solid
+}
+.hpAcc_style3.hpAcc .hpAccList LI.hpAccListItem {
+	BORDER-TOP: #eaeaea 1px solid
+}
+.hpAcc_style3 .hpLst_body {
+	BORDER-BOTTOM: #eaeaea 1px solid
+}
+.hpAcc_style3.hpAcc .hpLst_body {
+	BORDER-BOTTOM: #eaeaea 1px solid
+}
+.hpAcc_style3.hpAcc {
+	BORDER-BOTTOM: #fff 1px solid; BORDER-LEFT: #fff 1px solid; BORDER-TOP: #fff 1px solid; BORDER-RIGHT: #fff 1px solid
+}
+.hpAcc_style3 {
+	BORDER-BOTTOM: #fff 1px solid; BORDER-LEFT: #fff 1px solid; BORDER-TOP: #fff 1px solid; BORDER-RIGHT: #fff 1px solid
+}
+.hpAcc_style3.hpAcc .hpAcc_header H3 A {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3.hpAcc .hpAcc_header H3 A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3.hpAcc .hpAcc_header H3 A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3 .hpAcc_header H3 A {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3 .hpAcc_header H3 A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3 .hpAcc_header H3 A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3.hpAcc .hpAcc_Description {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3 .hpAcc_Description {
+	COLOR: #4f4f4f
+}
+.hpAcc_style3.hpAcc .hpAccTitle {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_expand_left_grey.png)
+}
+.hpAcc_style3 .hpAccTitle {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_expand_left_grey.png)
+}
+.hpAcc_style3.hpAcc .hpAccTitleOpen {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_collapse_left_grey.png)
+}
+hpAcc_style3 .hpAccTitleOpen {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_collapse_left_grey.png)
+}
+.hpAcc_style3.hpAcc .hpAcc_header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpAcc_style3 .hpAcc_header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpAcc_styleITPro {
+	BACKGROUND-COLOR: #eaeaea
+}
+.hpAcc_styleITPro.hpAcc {
+	BACKGROUND-COLOR: #eaeaea
+}
+.hpAcc_styleITPro .hpAcc_header {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro A.hpAccTitle {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_styleITPro A.hpAccTitle:link {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_styleITPro A.hpAccTitle:visited {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_styleITPro.hpAcc .hpAccTitle {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_styleITPro A.hpAccTitle:hover {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_styleITPro A.hpAccTitle:active {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_styleITPro.hpAcc .hpAccTitle:hover {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_styleITPro .mshpCrs_PriAct {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro .hpAcc_Description A {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro .hpAcc_Description A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro .hpAcc_Description A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro .hpAccFooter_Cta A {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro .hpAccFooter_Cta A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro .hpAccFooter_Cta A.visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro .hpAcc_Description A:hover {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro .hpAcc_Description A:active {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro .hpAccFooter_Cta A:hover {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro .hpAccFooter_Cta A:active {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro .hpAccDetail {
+	BACKGROUND-COLOR: #f4f4f4
+}
+.hpAcc_styleITPro.hpAcc .hpAccDetail {
+	BACKGROUND-COLOR: #f4f4f4
+}
+.hpAcc_styleITPro .hpAccList LI.hpAccListItem {
+	BORDER-TOP: #eaeaea 1px solid
+}
+.hpAcc_styleITPro.hpAcc .hpAccList LI.hpAccListItem {
+	BORDER-TOP: #eaeaea 1px solid
+}
+.hpAcc_styleITPro .hpLst_body {
+	BORDER-BOTTOM: #eaeaea 1px solid
+}
+.hpAcc_styleITPro.hpAcc .hpLst_body {
+	BORDER-BOTTOM: #eaeaea 1px solid
+}
+.hpAcc_styleITPro.hpAcc {
+	BORDER-BOTTOM: #fff 1px solid; BORDER-LEFT: #fff 1px solid; BORDER-TOP: #fff 1px solid; BORDER-RIGHT: #fff 1px solid
+}
+.hpAcc_styleITPro {
+	BORDER-BOTTOM: #fff 1px solid; BORDER-LEFT: #fff 1px solid; BORDER-TOP: #fff 1px solid; BORDER-RIGHT: #fff 1px solid
+}
+.hpAcc_styleITPro.hpAcc .hpAcc_header H3 A {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro.hpAcc .hpAcc_header H3 A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro.hpAcc .hpAcc_header H3 A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro .hpAcc_header H3 A {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro .hpAcc_header H3 A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro .hpAcc_header H3 A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro.hpAcc .hpAcc_Description {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro .hpAcc_Description {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro.hpAcc .hpAccTitle {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_expand_left_grey.png)
+}
+.hpAcc_styleITPro .hpAccTitle {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_expand_left_grey.png)
+}
+.hpAcc_styleITPro.hpAcc .hpAccTitleOpen {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_collapse_left_grey.png)
+}
+hpAcc_styleITPro .hpAccTitleOpen {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_collapse_left_grey.png)
+}
+.hpAcc_styleITPro.hpAcc .hpAcc_header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpAcc_styleITPro .hpAcc_header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpAcc_styleITPro2 {
+	BACKGROUND-COLOR: #eaeaea
+}
+.hpAcc_styleITPro2.hpAcc {
+	BACKGROUND-COLOR: #eaeaea
+}
+.hpAcc_styleITPro2 .hpAcc_header {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 A.hpAccTitle {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 A.hpAccTitle:link {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 A.hpAccTitle:visited {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2.hpAcc .hpAccTitle {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 A.hpAccTitle:hover {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 A.hpAccTitle:active {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2.hpAcc .hpAccTitle:hover {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 .mshpCrs_PriAct {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 .hpAcc_Description A {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 .hpAcc_Description A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 .hpAcc_Description A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 .hpAccFooter_Cta A {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 .hpAccFooter_Cta A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 .hpAccFooter_Cta A.visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 .hpAcc_Description A:hover {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 .hpAcc_Description A:active {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 .hpAccFooter_Cta A:hover {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 .hpAccFooter_Cta A:active {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 .hpAccDetail {
+	BACKGROUND-COLOR: #f4f4f4
+}
+.hpAcc_styleITPro2.hpAcc .hpAccDetail {
+	BACKGROUND-COLOR: #f4f4f4
+}
+.hpAcc_styleITPro2 .hpAccList LI.hpAccListItem {
+	BORDER-TOP: #eaeaea 1px solid
+}
+.hpAcc_styleITPro2.hpAcc .hpAccList LI.hpAccListItem {
+	BORDER-TOP: #eaeaea 1px solid
+}
+.hpAcc_styleITPro2 .hpLst_body {
+	BORDER-BOTTOM: #eaeaea 1px solid
+}
+.hpAcc_styleITPro2.hpAcc .hpLst_body {
+	BORDER-BOTTOM: #eaeaea 1px solid
+}
+.hpAcc_styleITPro2.hpAcc {
+	BORDER-BOTTOM: #fff 1px solid; BORDER-LEFT: #fff 1px solid; BORDER-TOP: #fff 1px solid; BORDER-RIGHT: #fff 1px solid
+}
+.hpAcc_styleITPro2 {
+	BORDER-BOTTOM: #fff 1px solid; BORDER-LEFT: #fff 1px solid; BORDER-TOP: #fff 1px solid; BORDER-RIGHT: #fff 1px solid
+}
+.hpAcc_styleITPro2.hpAcc .hpAcc_header H3 A {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2.hpAcc .hpAcc_header H3 A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2.hpAcc .hpAcc_header H3 A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 .hpAcc_header H3 A {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 .hpAcc_header H3 A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 .hpAcc_header H3 A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2.hpAcc .hpAcc_Description {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2 .hpAcc_Description {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleITPro2.hpAcc .hpAccTitle {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_expand_left_grey.png)
+}
+.hpAcc_styleITPro2 .hpAccTitle {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_expand_left_grey.png)
+}
+.hpAcc_styleITPro2.hpAcc .hpAccTitleOpen {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_collapse_left_grey.png)
+}
+hpAcc_styleITPro2 .hpAccTitleOpen {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_collapse_left_grey.png)
+}
+.hpAcc_styleITPro2.hpAcc .hpAcc_header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpAcc_styleITPro2 .hpAcc_header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpAcc_styleDeveloper {
+	BACKGROUND-COLOR: #eaeaea
+}
+.hpAcc_styleDeveloper.hpAcc {
+	BACKGROUND-COLOR: #eaeaea
+}
+.hpAcc_styleDeveloper .hpAcc_header {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper A.hpAccTitle {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper A.hpAccTitle:link {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper A.hpAccTitle:visited {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper.hpAcc .hpAccTitle {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper A.hpAccTitle:hover {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper A.hpAccTitle:active {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper.hpAcc .hpAccTitle:hover {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper .mshpCrs_PriAct {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper .hpAcc_Description A {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper .hpAcc_Description A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper .hpAcc_Description A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper .hpAccFooter_Cta A {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper .hpAccFooter_Cta A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper .hpAccFooter_Cta A.visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper .hpAcc_Description A:hover {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper .hpAcc_Description A:active {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper .hpAccFooter_Cta A:hover {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper .hpAccFooter_Cta A:active {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper .hpAccDetail {
+	BACKGROUND-COLOR: #f4f4f4
+}
+.hpAcc_styleDeveloper.hpAcc .hpAccDetail {
+	BACKGROUND-COLOR: #f4f4f4
+}
+.hpAcc_styleDeveloper .hpAccList LI.hpAccListItem {
+	BORDER-TOP: #eaeaea 1px solid
+}
+.hpAcc_styleDeveloper.hpAcc .hpAccList LI.hpAccListItem {
+	BORDER-TOP: #eaeaea 1px solid
+}
+.hpAcc_styleDeveloper .hpLst_body {
+	BORDER-BOTTOM: #eaeaea 1px solid
+}
+.hpAcc_styleDeveloper.hpAcc .hpLst_body {
+	BORDER-BOTTOM: #eaeaea 1px solid
+}
+.hpAcc_styleDeveloper.hpAcc {
+	BORDER-BOTTOM: #fff 1px solid; BORDER-LEFT: #fff 1px solid; BORDER-TOP: #fff 1px solid; BORDER-RIGHT: #fff 1px solid
+}
+.hpAcc_styleDeveloper {
+	BORDER-BOTTOM: #fff 1px solid; BORDER-LEFT: #fff 1px solid; BORDER-TOP: #fff 1px solid; BORDER-RIGHT: #fff 1px solid
+}
+.hpAcc_styleDeveloper.hpAcc .hpAcc_header H3 A {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper.hpAcc .hpAcc_header H3 A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper.hpAcc .hpAcc_header H3 A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper .hpAcc_header H3 A {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper .hpAcc_header H3 A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper .hpAcc_header H3 A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper.hpAcc .hpAcc_Description {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper .hpAcc_Description {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper.hpAcc .hpAccTitle {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_expand_left_grey.png)
+}
+.hpAcc_styleDeveloper .hpAccTitle {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_expand_left_grey.png)
+}
+.hpAcc_styleDeveloper.hpAcc .hpAccTitleOpen {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_collapse_left_grey.png)
+}
+hpAcc_styleDeveloper .hpAccTitleOpen {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_collapse_left_grey.png)
+}
+.hpAcc_styleDeveloper.hpAcc .hpAcc_header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpAcc_styleDeveloper .hpAcc_header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpAcc_styleDeveloper2 {
+	BACKGROUND-COLOR: #eaeaea
+}
+.hpAcc_styleDeveloper2.hpAcc {
+	BACKGROUND-COLOR: #eaeaea
+}
+.hpAcc_styleDeveloper2 .hpAcc_header {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 A.hpAccTitle {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 A.hpAccTitle:link {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 A.hpAccTitle:visited {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2.hpAcc .hpAccTitle {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 A.hpAccTitle:hover {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 A.hpAccTitle:active {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2.hpAcc .hpAccTitle:hover {
+	BACKGROUND-COLOR: #d8d8d8; COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 .mshpCrs_PriAct {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 .hpAcc_Description A {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 .hpAcc_Description A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 .hpAcc_Description A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 .hpAccFooter_Cta A {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 .hpAccFooter_Cta A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 .hpAccFooter_Cta A.visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 .hpAcc_Description A:hover {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 .hpAcc_Description A:active {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 .hpAccFooter_Cta A:hover {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 .hpAccFooter_Cta A:active {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 .hpAccDetail {
+	BACKGROUND-COLOR: #f4f4f4
+}
+.hpAcc_styleDeveloper2.hpAcc .hpAccDetail {
+	BACKGROUND-COLOR: #f4f4f4
+}
+.hpAcc_styleDeveloper2 .hpAccList LI.hpAccListItem {
+	BORDER-TOP: #eaeaea 1px solid
+}
+.hpAcc_styleDeveloper2.hpAcc .hpAccList LI.hpAccListItem {
+	BORDER-TOP: #eaeaea 1px solid
+}
+.hpAcc_styleDeveloper2 .hpLst_body {
+	BORDER-BOTTOM: #eaeaea 1px solid
+}
+.hpAcc_styleDeveloper2.hpAcc .hpLst_body {
+	BORDER-BOTTOM: #eaeaea 1px solid
+}
+.hpAcc_styleDeveloper2.hpAcc {
+	BORDER-BOTTOM: #fff 1px solid; BORDER-LEFT: #fff 1px solid; BORDER-TOP: #fff 1px solid; BORDER-RIGHT: #fff 1px solid
+}
+.hpAcc_styleDeveloper2 {
+	BORDER-BOTTOM: #fff 1px solid; BORDER-LEFT: #fff 1px solid; BORDER-TOP: #fff 1px solid; BORDER-RIGHT: #fff 1px solid
+}
+.hpAcc_styleDeveloper2.hpAcc .hpAcc_header H3 A {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2.hpAcc .hpAcc_header H3 A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2.hpAcc .hpAcc_header H3 A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 .hpAcc_header H3 A {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 .hpAcc_header H3 A:link {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 .hpAcc_header H3 A:visited {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2.hpAcc .hpAcc_Description {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2 .hpAcc_Description {
+	COLOR: #4f4f4f
+}
+.hpAcc_styleDeveloper2.hpAcc .hpAccTitle {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_expand_left_grey.png)
+}
+.hpAcc_styleDeveloper2 .hpAccTitle {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_expand_left_grey.png)
+}
+.hpAcc_styleDeveloper2.hpAcc .hpAccTitleOpen {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_collapse_left_grey.png)
+}
+hpAcc_styleDeveloper2 .hpAccTitleOpen {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_collapse_left_grey.png)
+}
+.hpAcc_styleDeveloper2.hpAcc .hpAcc_header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpAcc_styleDeveloper2 .hpAcc_header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpAcc_style4 {
+	BACKGROUND-COLOR: #fff
+}
+.hpAcc_style4.hpAcc {
+	BACKGROUND-COLOR: #fff
+}
+.hpAcc_style4 .hpAcc_header {
+	COLOR: #646464
+}
+.hpAcc_style4 A.hpAccTitle {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #646464
+}
+.hpAcc_style4 A.hpAccTitle:link {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #646464
+}
+.hpAcc_style4 A.hpAccTitle:visited {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #646464
+}
+.hpAcc_style4.hpAcc .hpAccTitle {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #646464
+}
+.hpAcc_style4 A.hpAccTitle:hover {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #646464
+}
+.hpAcc_style4 A.hpAccTitle:active {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #646464
+}
+.hpAcc_style4.hpAcc .hpAccTitle:hover {
+	BACKGROUND-COLOR: #eaeaea; COLOR: #646464
+}
+.hpAcc_style4 .mshpCrs_PriAct {
+	COLOR: #646464
+}
+.hpAcc_style4 .hpAcc_Description A {
+	COLOR: #646464
+}
+.hpAcc_style4 .hpAcc_Description A:link {
+	COLOR: #646464
+}
+.hpAcc_style4 .hpAcc_Description A:visited {
+	COLOR: #646464
+}
+.hpAcc_style4 .hpAccFooter_Cta A {
+	COLOR: #646464
+}
+.hpAcc_style4 .hpAccFooter_Cta A:link {
+	COLOR: #646464
+}
+.hpAcc_style4 .hpAccFooter_Cta A.visited {
+	COLOR: #646464
+}
+.hpAcc_style4 .hpAcc_Description A:hover {
+	COLOR: #646464
+}
+.hpAcc_style4 .hpAcc_Description A:active {
+	COLOR: #646464
+}
+.hpAcc_style4 .hpAccFooter_Cta A:hover {
+	COLOR: #646464
+}
+.hpAcc_style4 .hpAccFooter_Cta A:active {
+	COLOR: #646464
+}
+.hpAcc_style4 .hpAccDetail {
+	BACKGROUND-COLOR: #f3f3f3
+}
+.hpAcc_style4.hpAcc .hpAccDetail {
+	BACKGROUND-COLOR: #f3f3f3
+}
+.hpAcc_style4 .hpAccList LI.hpAccListItem {
+	BORDER-TOP: #fff 1px solid
+}
+.hpAcc_style4.hpAcc .hpAccList LI.hpAccListItem {
+	BORDER-TOP: #fff 1px solid
+}
+.hpAcc_style4 .hpLst_body {
+	BORDER-BOTTOM: #fff 1px solid
+}
+.hpAcc_style4.hpAcc .hpLst_body {
+	BORDER-BOTTOM: #fff 1px solid
+}
+.hpAcc_style4.hpAcc {
+	BORDER-BOTTOM: #fff 1px solid; BORDER-LEFT: #fff 1px solid; BORDER-TOP: #fff 1px solid; BORDER-RIGHT: #fff 1px solid
+}
+.hpAcc_style4 {
+	BORDER-BOTTOM: #fff 1px solid; BORDER-LEFT: #fff 1px solid; BORDER-TOP: #fff 1px solid; BORDER-RIGHT: #fff 1px solid
+}
+.hpAcc_style4.hpAcc .hpAcc_header H3 A {
+	COLOR: #646464
+}
+.hpAcc_style4.hpAcc .hpAcc_header H3 A:link {
+	COLOR: #646464
+}
+.hpAcc_style4.hpAcc .hpAcc_header H3 A:visited {
+	COLOR: #646464
+}
+.hpAcc_style4 .hpAcc_header H3 A {
+	COLOR: #646464
+}
+.hpAcc_style4 .hpAcc_header H3 A:link {
+	COLOR: #646464
+}
+.hpAcc_style4 .hpAcc_header H3 A:visited {
+	COLOR: #646464
+}
+.hpAcc_style4.hpAcc .hpAcc_Description {
+	COLOR: #fff
+}
+.hpAcc_style4 .hpAcc_Description {
+	COLOR: #fff
+}
+.hpAcc_style4.hpAcc .hpAccTitle {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_expand_left_grey.png)
+}
+.hpAcc_style4 .hpAccTitle {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_expand_left_grey.png)
+}
+.hpAcc_style4.hpAcc .hpAccTitleOpen {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_collapse_left_grey.png)
+}
+hpAcc_style4 .hpAccTitleOpen {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_collapse_left_grey.png)
+}
+.hpAcc_style4.hpAcc .hpAcc_header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpAcc_style4 .hpAcc_header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpAcc {
+	POSITION: relative; BACKGROUND-REPEAT: repeat-x; BACKGROUND-POSITION: left bottom; _position: relative
+}
+.hpAcc_header {
+	PADDING-BOTTOM: 10px; PADDING-LEFT: 15px; PADDING-RIGHT: 8px; PADDING-TOP: 17px
+}
+.hpAccList {
+	LIST-STYLE-TYPE: none; CLEAR: both
+}
+.hpAccList LI.hpAccListItem {
+	BORDER-TOP: #eaeaea 1px solid
+}
+.hpAccList LI H4 {
+	PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px
+}
+.hpAccList .hpFeat_FeatureItem LI {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; BORDER-TOP: 0px; BORDER-RIGHT: 0px
+}
+.hpAcc .hpLst_body {
+	BORDER-BOTTOM: #eaeaea 1px solid
+}
+.hpAcc .hpAcc_HC {
+	BORDER-BOTTOM: transparent 1px solid; POSITION: absolute; BORDER-LEFT: transparent 1px solid; MARGIN-TOP: -1px; WIDTH: 18px; DISPLAY: block; HEIGHT: 18px; BORDER-TOP: transparent 1px solid; BORDER-RIGHT: transparent 1px solid; LEFT: 15px; _display: none
+}
+.hpAcc_header {
+	PADDING-BOTTOM: 10px; PADDING-LEFT: 15px; PADDING-RIGHT: 8px; PADDING-TOP: 17px
+}
+.hpAcc_header .hpAcc_Title {
+	LINE-HEIGHT: 115.38%; FONT-SIZE: 162.5%; FONT-WEIGHT: normal
+}
+.hpAcc_header .hpAcc_Description {
+	LINE-HEIGHT: 115.38%; MARGIN-TOP: 10px; FONT-SIZE: 75%
+}
+.hpAcc .hpLst_body {
+	BORDER-BOTTOM: #fff 1px solid
+}
+.hpAcc .hpAccTitle {
+	TEXT-ALIGN: left; PADDING-BOTTOM: 5px; MIN-HEIGHT: 15px; PADDING-LEFT: 40px; PADDING-RIGHT: 13px; DISPLAY: block; BACKGROUND: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_expand_left_grey.png) no-repeat -2px 50%; FONT-SIZE: 75%; FONT-WEIGHT: normal; TEXT-DECORATION: none; PADDING-TOP: 5px
+}
+.hpAcc .hpAccTitleOpen {
+	BACKGROUND-IMAGE: url(http://i.microsoft.com/global/en-us/homepage/PublishingImages/sprites/Accordion_Module_button_collapse_left_grey.png)
+}
+.hpAcc .hpAccTitle:hover {
+	CURSOR: pointer; TEXT-DECORATION: none
+}
+.hpAccDetail {
+	POSITION: relative; PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; PADDING-LEFT: 14px; PADDING-RIGHT: 14px; CLEAR: both; OVERFLOW: hidden; PADDING-TOP: 13px
+}
+.hpAccDetail_Hidden {
+	DISPLAY: none
+}
+.hpAccDetail .hpFeat_FeatureItem {
+	_width: 100%; _overflow: hidden
+}
+.hpAcc_Cta {
+	PADDING-RIGHT: 15px
+}
+.hpAcc .hpFeat_Wrap .hpFeat_Link {
+	PADDING-RIGHT: 14px
+}
+.mshpCrs_PriAct {
+	PADDING-RIGHT: 14px
+}
+.hpAcc .hpFeat_Wrap .hpFeat_Link:hover {
+	TEXT-DECORATION: underline
+}
+.hpAcc_Cta .hpFeat_Text {
+	
+}
+.hpAcc_Cta .hpFeat_Arrow {
+	
+}
+.hpAcc_Cta .hpFeat_Arrow {
+	POSITION: absolute; WIDTH: 5px; DISPLAY: block; HEIGHT: 5px; FONT-SIZE: 100%; RIGHT: 0px; TOP: 1px
+}
+.hpAccFooter_Cta {
+	TEXT-ALIGN: right; PADDING-BOTTOM: 15px; LINE-HEIGHT: 110%; MARGIN-TOP: 20px; MIN-HEIGHT: 10px; PADDING-LEFT: 0px; PADDING-RIGHT: 15px; FONT-SIZE: 75%; TEXT-DECORATION: none; PADDING-TOP: 2px
+}
+.hpAccFooter_Cta A:active {
+	TEXT-DECORATION: none
+}
+.hpAccFooter_Cta A:hover {
+	TEXT-DECORATION: none
+}
+.hpAccFooter_Cta A:active .hpFeat_Text {
+	TEXT-DECORATION: underline
+}
+.hpAccFooter_Cta A:hover .hpFeat_Text {
+	TEXT-DECORATION: underline
+}
+.hpAccFooter_Cta A .hpFeat_Arrow {
+	LINE-HEIGHT: 0.9em; PADDING-LEFT: 10px; FONT-SIZE: 140%
+}
+.hpFeat_FeatureItem {
+	PADDING-BOTTOM: 8px; PADDING-LEFT: 1px; MARGIN-LEFT: -1px; OVERFLOW: hidden; _position: relative; _padding-left: 0; _margin-left: 0
+}
+HTML .hpFeat_FeatureItem A {
+	COLOR: #0060a6
+}
+.hpFeat_FeatureItem A.hpFeat_Link:hover {
+	COLOR: #0060a6
+}
+.hpFeat_FeatureItem A.hpFeat_Link:active {
+	COLOR: #0060a6
+}
+.hpFeat_FeatureItem .hpFeat_ImageContainer {
+	PADDING-BOTTOM: 8px; PADDING-TOP: 1px
+}
+.hpFeat_Pos-left.hpFeat_FeatureItem .hpFeat_ImageContainer {
+	FLOAT: left; _display: inline; _position: relative
+}
+.hpFeat_FeatureItem .hpFeat_ItemContainer {
+	_zoom: 100%
+}
+.hpFeat_FeatureItem .hpFeat_ItemContainer .hpFeat_Item {
+	PADDING-BOTTOM: 6px; PADDING-TOP: 1px
+}
+.hpFeat_FeatureItem .hpFeat_Title {
+	LINE-HEIGHT: 1.25em; COLOR: #4f4f4f; FONT-SIZE: 75%
+}
+.hpFeat_FeatureItem .hpFeat_Description {
+	LINE-HEIGHT: 1.25em; COLOR: #4f4f4f; FONT-SIZE: 75%
+}
+.hpFeat_FeatureItem UL.hpFeat_List {
+	LINE-HEIGHT: 1.25em; LIST-STYLE-TYPE: disc; PADDING-LEFT: 20px; COLOR: #4f4f4f; FONT-SIZE: 70%
+}
+.hpFeat_FeatureItem UL.hpFeat_List LI {
+	MARGIN-LEFT: 7px
+}
+.hpFeat_FeatureItem .hpFeat_Caption {
+	TEXT-TRANSFORM: uppercase; FONT-SIZE: 65%; _color: #4f4f4f
+}
+.hpFeat_FeatureItem .hpFeat_Incentive .hpFeat_IncentiveOld {
+	COLOR: #333; FONT-SIZE: 75%; MARGIN-RIGHT: 15px; TEXT-DECORATION: line-through
+}
+.hpFeat_FeatureItem .hpFeat_Incentive .hpFeat_IncentiveNew {
+	LINE-HEIGHT: 1.25em; COLOR: #b3480e; FONT-SIZE: 115%
+}
+.hpFeat_FeatureItem .hpFeat_Item.hpFeat_PrimaryCta {
+	PADDING-BOTTOM: 0px; MARGIN: -3px 0px 0px -1px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px; _margin: 0
+}
+.hpFeat_FeatureItem .hpFeat_Item.hpFeat_SecondaryCta {
+	PADDING-BOTTOM: 0px; MARGIN: 0px 0px 0px -1px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px; _margin: 0
+}
+.hpFeat_FeatureItem .hpFeat_SecondaryCta LI {
+	PADDING-BOTTOM: 4px; PADDING-LEFT: 1px; PADDING-RIGHT: 0px; OVERFLOW: hidden; PADDING-TOP: 3px; _zoom: 1
+}
+.hpFeat_FeatureItem .hpFeat_PrimaryCta LI {
+	PADDING-BOTTOM: 4px; PADDING-LEFT: 1px; PADDING-RIGHT: 0px; OVERFLOW: hidden; PADDING-TOP: 3px; _zoom: 1
+}
+.hpFeat_FeatureItem .hpFeat_SecondaryCta .hpFeat_Arrow {
+	LINE-HEIGHT: 0; PADDING-LEFT: 5px; FONT-SIZE: 140%
+}
+.hpFeat_FeatureItem .hpFeat_PrimaryCta .hpFeat_Arrow {
+	POSITION: absolute; LINE-HEIGHT: 1.25em; PADDING-LEFT: 10px; DISPLAY: block; FONT-SIZE: 150%; RIGHT: 4px; TOP: -2px
+}
+.hpFeat_Wrap A.Arrow.hpFeat_Link:hover {
+	TEXT-DECORATION: none
+}
+.hpFeat_Wrap A.Arrow.hpFeat_Link:active {
+	TEXT-DECORATION: none
+}
+.hpFeat_Wrap A.Arrow.hpFeat_Link:active .hpFeat_Text {
+	TEXT-DECORATION: underline
+}
+.hpFeat_Wrap A.Arrow.hpFeat_Link:hover .hpFeat_Text {
+	TEXT-DECORATION: underline
+}
+.hpFeat_Wrap A.hpFeat_Link .hpFeat_Arrow {
+	LINE-HEIGHT: 100%; PADDING-LEFT: 5px; FONT-SIZE: 135%; TEXT-DECORATION: none
+}
+.hpFeat_FeatureItem .hpFeat_PrimaryCta {
+	FONT-SIZE: 70%
+}
+.hpFeat_FeatureItem .hpFeat_PrimaryCta A {
+	_zoom: 1
+}
+.hpFeat_Caption .hpFeat_Item {
+	FONT-SIZE: 75%
+}
+.hpFeat_FeatureItem .hpFeat_SecondaryCta {
+	FONT-SIZE: 75%
+}
+.hpFeat_Caption .hpFeat_Item {
+	LINE-HEIGHT: 1.25em; _zoom: 1; _line-height: 1.5em
+}
+.hpFeat_FeatureItem .hpFeat_SecondaryCta A {
+	LINE-HEIGHT: 1.25em; _zoom: 1; _line-height: 1.5em
+}
+.hpFeat_FeatureItem .hpFeat_PrimaryCta A {
+	BORDER-BOTTOM: #a1a1a1 1px solid; POSITION: relative; BORDER-LEFT: #a1a1a1 1px solid; PADDING-BOTTOM: 3px; BACKGROUND-COLOR: #fff; MIN-HEIGHT: 10px; PADDING-LEFT: 5px; PADDING-RIGHT: 40px; DISPLAY: block; FLOAT: left; COLOR: #0060a6; BORDER-TOP: #a1a1a1 1px solid; BORDER-RIGHT: #a1a1a1 1px solid; TEXT-DECORATION: none; PADDING-TOP: 2px
+}
+.hpFeat_FeatureItem .hpFeat_PrimaryCta A:link {
+	BORDER-BOTTOM: #a1a1a1 1px solid; POSITION: relative; BORDER-LEFT: #a1a1a1 1px solid; PADDING-BOTTOM: 3px; BACKGROUND-COLOR: #fff; MIN-HEIGHT: 10px; PADDING-LEFT: 5px; PADDING-RIGHT: 40px; DISPLAY: block; FLOAT: left; COLOR: #0060a6; BORDER-TOP: #a1a1a1 1px solid; BORDER-RIGHT: #a1a1a1 1px solid; TEXT-DECORATION: none; PADDING-TOP: 2px
+}
+.hpFeat_FeatureItem .hpFeat_PrimaryCta A:visited {
+	BORDER-BOTTOM: #a1a1a1 1px solid; POSITION: relative; BORDER-LEFT: #a1a1a1 1px solid; PADDING-BOTTOM: 3px; BACKGROUND-COLOR: #fff; MIN-HEIGHT: 10px; PADDING-LEFT: 5px; PADDING-RIGHT: 40px; DISPLAY: block; FLOAT: left; COLOR: #0060a6; BORDER-TOP: #a1a1a1 1px solid; BORDER-RIGHT: #a1a1a1 1px solid; TEXT-DECORATION: none; PADDING-TOP: 2px
+}
+.hpFeat_FeatureItem .hpFeat_PrimaryCta A:active {
+	BORDER-BOTTOM-COLOR: #a1a1a1; BACKGROUND-COLOR: #d2ebf9; BORDER-TOP-COLOR: #a1a1a1; COLOR: #0060a6; BORDER-RIGHT-COLOR: #a1a1a1; BORDER-LEFT-COLOR: #a1a1a1; TEXT-DECORATION: none
+}
+.hpFeat_FeatureItem .hpFeat_PrimaryCta A:hover {
+	BORDER-BOTTOM-COLOR: #a1a1a1; BACKGROUND-COLOR: #d2ebf9; BORDER-TOP-COLOR: #a1a1a1; COLOR: #0060a6; BORDER-RIGHT-COLOR: #a1a1a1; BORDER-LEFT-COLOR: #a1a1a1; TEXT-DECORATION: none
+}
+.hpFeat_FeatureItem .hpFeat_PrimaryCta A:active .hpFeat_Text {
+	TEXT-DECORATION: none
+}
+.hpFeat_FeatureItem .hpFeat_PrimaryCta A:hover .hpFeat_Text {
+	TEXT-DECORATION: none
+}
+.hpFeat_FeatureItem .hpFeat_SecondaryCta A {
+	POSITION: relative; PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; COLOR: #0060a6; TEXT-DECORATION: none; PADDING-TOP: 0px; _float: left
+}
+.hpFeat_FeatureItem .hpFeat_SecondaryCta A:link {
+	POSITION: relative; PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; COLOR: #0060a6; TEXT-DECORATION: none; PADDING-TOP: 0px; _float: left
+}
+.hpFeat_FeatureItem .hpFeat_SecondaryCta A:visited {
+	POSITION: relative; PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; COLOR: #0060a6; TEXT-DECORATION: none; PADDING-TOP: 0px; _float: left
+}
+.hpFeat_FeatureItem .hpFeat_SecondaryCta A:active {
+	COLOR: #0060a6
+}
+.hpFeat_FeatureItem .hpFeat_SecondaryCta A:hover {
+	COLOR: #0060a6
+}
+.hpFeat_FeatureItem .hpFeat_SecondaryCta A:active .hpFeat_Text {
+	TEXT-DECORATION: underline
+}
+.hpFeat_FeatureItem .hpFeat_SecondaryCta A:hover .hpFeat_Text {
+	TEXT-DECORATION: underline
+}
+.hpImage_Clip {
+	POSITION: relative; DISPLAY: block; OVERFLOW: hidden
+}
+.hpImage_Clip IMG {
+	POSITION: relative
+}
+.hpFeat_SecondaryCta A.hpImage_Link {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BACKGROUND: none transparent scroll repeat 0% 0%; BORDER-TOP: 0px; BORDER-RIGHT: 0px; PADDING-TOP: 0px
+}
+.hpFeat_PrimaryCta A.hpImage_Link {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BACKGROUND: none transparent scroll repeat 0% 0%; BORDER-TOP: 0px; BORDER-RIGHT: 0px; PADDING-TOP: 0px
+}
+.hpFeat_FeatureItem .hpFeat_PrimaryCta A.hpImage_Link {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BACKGROUND: none transparent scroll repeat 0% 0%; BORDER-TOP: 0px; BORDER-RIGHT: 0px; PADDING-TOP: 0px
+}
+.hpFeat_FeatureItem .hpFeat_SecondaryCta A.hpImage_Link {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BACKGROUND: none transparent scroll repeat 0% 0%; BORDER-TOP: 0px; BORDER-RIGHT: 0px; PADDING-TOP: 0px
+}
+.hpFeat_FeatureItem .hpImage_Link {
+	CURSOR: pointer
+}
+.hpFeat_FeatureItem .hpImage_Link .hpImage_Clip {
+	CURSOR: pointer
+}
+.hpFeat_FeatureItem .hpFeat_PrimaryCta A.hpImage_Link {
+	DISPLAY: inline-block; _display: inline; _zoom: 1
+}
+.hpFeat_FeatureItem .hpFeat_SecondaryCta A.hpImage_Link {
+	DISPLAY: inline-block; _display: inline; _zoom: 1
+}
+.hpFeat_FeatureItem .hpImage_Link {
+	DISPLAY: inline-block; _display: inline; _zoom: 1
+}
+.hpFeat_FeatureItem .hpImage_Img {
+	DISPLAY: inline-block; _display: inline; _zoom: 1
+}
+.hpFeat_FeatureItem .hpImage_Clip {
+	DISPLAY: inline-block; _display: inline; _zoom: 1
+}
+.hpFeat_FeatureItem .hpFeat_ItemContainer .hpImage_Link {
+	MARGIN-LEFT: 5px
+}
+.hpFeat_FeatureItem .hpFeat_ItemContainer .hpImage_Clip {
+	MARGIN-LEFT: 5px
+}
+.hpFeat_FeatureItem .hpFeat_ItemContainer .hpImage_Img {
+	MARGIN-LEFT: 5px
+}
+.hpFeat_FeatureItem .hpImage_Clip .hpImage_Img {
+	MARGIN: 0px
+}
+.hpFeat_FeatureItem .hpImage_Link .hpImage_Img {
+	MARGIN: 0px
+}
+.hpFeat_FeatureItem .hpImage_Link .hpImage_Clip {
+	MARGIN: 0px
+}
+.hpCrs_style1.hpCrs {
+	BORDER-BOTTOM-COLOR: #fff; BORDER-TOP-COLOR: #d3d3d3; BORDER-RIGHT-COLOR: #fff; BORDER-LEFT-COLOR: #fff
+}
+.hpCrs_style1 .hpCrs_Header {
+	BORDER-BOTTOM-COLOR: #d3d3d3; BACKGROUND-COLOR: #fff; COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Header P {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Categories LI {
+	BORDER-LEFT-COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Categories A:link {
+	COLOR: #0060a6
+}
+.hpCrs_style1 .hpCrs_Categories A:visited {
+	COLOR: #0060a6
+}
+.hpCrs_style1 .hpCrs_Categories A:active {
+	COLOR: #0060a6
+}
+.hpCrs_style1 .hpCrs_Categories A:hover {
+	COLOR: #0060a6
+}
+.hpCrs_style1 .hpCrs_Categories .hpCrs_Text {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Categories A.hpCrs_Cat_Current {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Item {
+	BORDER-RIGHT-COLOR: #fff
+}
+.hpCrs_style1 .hpCrs_Footer {
+	BACKGROUND-COLOR: #fff; BORDER-TOP-COLOR: #d3d3d3; COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Footer A {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Footer A:link {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Footer A:visited {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Footer A:active {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Footer A:hover {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Header H3 A {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Header H3 A:link {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Header H3 A:visited {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Header H3 A:active {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Header H3 A:hover {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Header P A {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Header P A:link {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Header P A:visited {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Header P A:active {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Header P A:hover {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1.hpCrs .hpCrs_ItemFooter {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_ItemFooter {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_ItemFooter A {
+	COLOR: #0060a6
+}
+.hpCrs_style1 .hpCrs_ItemFooter A:link {
+	COLOR: #0060a6
+}
+.hpCrs_style1 .hpCrs_ItemFooter A:visited {
+	COLOR: #0060a6
+}
+.hpCrs_style1 .hpCrs_ItemFooter A:active {
+	COLOR: #0060a6
+}
+.hpCrs_style1 .hpCrs_ItemFooter A:hover {
+	COLOR: #0060a6
+}
+.hpCrs_style1 .hpCrs_Header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpCrs_style2.hpCrs {
+	BORDER-BOTTOM-COLOR: #fff; BORDER-TOP-COLOR: #d3d3d3; BORDER-RIGHT-COLOR: #fff; BORDER-LEFT-COLOR: #fff
+}
+.hpCrs_style2 .hpCrs_Header {
+	BORDER-BOTTOM-COLOR: #d3d3d3; BACKGROUND-COLOR: #fff; COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Header P {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Categories LI {
+	BORDER-LEFT-COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Categories A:link {
+	COLOR: #0060a6
+}
+.hpCrs_style2 .hpCrs_Categories A:visited {
+	COLOR: #0060a6
+}
+.hpCrs_style2 .hpCrs_Categories A:active {
+	COLOR: #0060a6
+}
+.hpCrs_style2 .hpCrs_Categories A:hover {
+	COLOR: #0060a6
+}
+.hpCrs_style2 .hpCrs_Categories .hpCrs_Text {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Categories A.hpCrs_Cat_Current {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Item {
+	BORDER-RIGHT-COLOR: #fff
+}
+.hpCrs_style2 .hpCrs_Footer {
+	BACKGROUND-COLOR: #fff; BORDER-TOP-COLOR: #d3d3d3; COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Footer A {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Footer A:link {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Footer A:visited {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Footer A:active {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Footer A:hover {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Header H3 A {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Header H3 A:link {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Header H3 A:visited {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Header H3 A:active {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Header H3 A:hover {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Header P A {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Header P A:link {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Header P A:visited {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Header P A:active {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Header P A:hover {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2.hpCrs .hpCrs_ItemFooter {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_ItemFooter {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_ItemFooter A {
+	COLOR: #0060a6
+}
+.hpCrs_style2 .hpCrs_ItemFooter A:link {
+	COLOR: #0060a6
+}
+.hpCrs_style2 .hpCrs_ItemFooter A:visited {
+	COLOR: #0060a6
+}
+.hpCrs_style2 .hpCrs_ItemFooter A:active {
+	COLOR: #0060a6
+}
+.hpCrs_style2 .hpCrs_ItemFooter A:hover {
+	COLOR: #0060a6
+}
+.hpCrs_style2 .hpCrs_Header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpCrs_style3.hpCrs {
+	BORDER-BOTTOM-COLOR: #fff; BORDER-TOP-COLOR: #d3d3d3; BORDER-RIGHT-COLOR: #fff; BORDER-LEFT-COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Header {
+	BORDER-BOTTOM-COLOR: #d3d3d3; BACKGROUND-COLOR: #1777b1; COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Header P {
+	COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Categories LI {
+	BORDER-LEFT-COLOR: #0060a6
+}
+.hpCrs_style3 .hpCrs_Categories A:link {
+	COLOR: #0060a6
+}
+.hpCrs_style3 .hpCrs_Categories A:visited {
+	COLOR: #0060a6
+}
+.hpCrs_style3 .hpCrs_Categories A:active {
+	COLOR: #0060a6
+}
+.hpCrs_style3 .hpCrs_Categories A:hover {
+	COLOR: #0060a6
+}
+.hpCrs_style3 .hpCrs_Categories .hpCrs_Text {
+	COLOR: #4f4f4f
+}
+.hpCrs_style3 .hpCrs_Categories A.hpCrs_Cat_Current {
+	COLOR: #4f4f4f
+}
+.hpCrs_style3 .hpCrs_Item {
+	BORDER-RIGHT-COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Footer {
+	BACKGROUND-COLOR: #1777b1; BORDER-TOP-COLOR: #d3d3d3; COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Footer A {
+	COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Footer A:link {
+	COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Footer A:visited {
+	COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Footer A:active {
+	COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Footer A:hover {
+	COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Header H3 A {
+	COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Header H3 A:link {
+	COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Header H3 A:visited {
+	COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Header H3 A:active {
+	COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Header H3 A:hover {
+	COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Header P A {
+	COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Header P A:link {
+	COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Header P A:visited {
+	COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Header P A:active {
+	COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Header P A:hover {
+	COLOR: #fff
+}
+.hpCrs_style3.hpCrs .hpCrs_ItemFooter {
+	COLOR: #4f4f4f
+}
+.hpCrs_style3 .hpCrs_ItemFooter {
+	COLOR: #4f4f4f
+}
+.hpCrs_style3 .hpCrs_ItemFooter A {
+	COLOR: #0060a6
+}
+.hpCrs_style3 .hpCrs_ItemFooter A:link {
+	COLOR: #0060a6
+}
+.hpCrs_style3 .hpCrs_ItemFooter A:visited {
+	COLOR: #0060a6
+}
+.hpCrs_style3 .hpCrs_ItemFooter A:active {
+	COLOR: #0060a6
+}
+.hpCrs_style3 .hpCrs_ItemFooter A:hover {
+	COLOR: #0060a6
+}
+.hpCrs_style3 .hpCrs_Header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpCrs_style4.hpCrs {
+	BORDER-BOTTOM-COLOR: #fff; BORDER-TOP-COLOR: #d3d3d3; BORDER-RIGHT-COLOR: #fff; BORDER-LEFT-COLOR: #fff
+}
+.hpCrs_style4 .hpCrs_Header {
+	BORDER-BOTTOM-COLOR: #d3d3d3; BACKGROUND-COLOR: #ffaf00; COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Header P {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Categories LI {
+	BORDER-LEFT-COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Categories A:link {
+	COLOR: #0060a6
+}
+.hpCrs_style4 .hpCrs_Categories A:visited {
+	COLOR: #0060a6
+}
+.hpCrs_style4 .hpCrs_Categories A:active {
+	COLOR: #0060a6
+}
+.hpCrs_style4 .hpCrs_Categories A:hover {
+	COLOR: #0060a6
+}
+.hpCrs_style4 .hpCrs_Categories .hpCrs_Text {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Categories A.hpCrs_Cat_Current {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Item {
+	BORDER-RIGHT-COLOR: #fff
+}
+.hpCrs_style4 .hpCrs_Footer {
+	BACKGROUND-COLOR: #ffaf00; BORDER-TOP-COLOR: #d3d3d3; COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Footer A {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Footer A:link {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Footer A:visited {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Footer A:active {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Footer A:hover {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Header H3 A {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Header H3 A:link {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Header H3 A:visited {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Header H3 A:active {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Header H3 A:hover {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Header P A {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Header P A:link {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Header P A:visited {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Header P A:active {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Header P A:hover {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4.hpCrs .hpCrs_ItemFooter {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_ItemFooter {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_ItemFooter A {
+	COLOR: #0060a6
+}
+.hpCrs_style4 .hpCrs_ItemFooter A:link {
+	COLOR: #0060a6
+}
+.hpCrs_style4 .hpCrs_ItemFooter A:visited {
+	COLOR: #0060a6
+}
+.hpCrs_style4 .hpCrs_ItemFooter A:active {
+	COLOR: #0060a6
+}
+.hpCrs_style4 .hpCrs_ItemFooter A:hover {
+	COLOR: #0060a6
+}
+.hpCrs_style4 .hpCrs_Header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpCrs_style1.hpCrs {
+	BORDER-BOTTOM-COLOR: #fff; BORDER-TOP-COLOR: #d3d3d3; BORDER-RIGHT-COLOR: #fff; BORDER-LEFT-COLOR: #fff
+}
+.hpCrs_style1 .hpCrs_Header {
+	BORDER-BOTTOM-COLOR: #d3d3d3; BACKGROUND-COLOR: #fff; COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Header P {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Categories LI {
+	BORDER-LEFT-COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Categories A:link {
+	COLOR: #0060a6
+}
+.hpCrs_style1 .hpCrs_Categories A:visited {
+	COLOR: #0060a6
+}
+.hpCrs_style1 .hpCrs_Categories A:active {
+	COLOR: #0060a6
+}
+.hpCrs_style1 .hpCrs_Categories A:hover {
+	COLOR: #0060a6
+}
+.hpCrs_style1 .hpCrs_Categories .hpCrs_Text {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Categories A.hpCrs_Cat_Current {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Item {
+	BORDER-RIGHT-COLOR: #fff
+}
+.hpCrs_style1 .hpCrs_Footer {
+	BACKGROUND-COLOR: #fff; BORDER-TOP-COLOR: #d3d3d3; COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Footer A {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Footer A:link {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Footer A:visited {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Footer A:active {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Footer A:hover {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Header H3 A {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Header H3 A:link {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Header H3 A:visited {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Header H3 A:active {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Header H3 A:hover {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Header P A {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Header P A:link {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Header P A:visited {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Header P A:active {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_Header P A:hover {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1.hpCrs .hpCrs_ItemFooter {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_ItemFooter {
+	COLOR: #4f4f4f
+}
+.hpCrs_style1 .hpCrs_ItemFooter A {
+	COLOR: #0060a6
+}
+.hpCrs_style1 .hpCrs_ItemFooter A:link {
+	COLOR: #0060a6
+}
+.hpCrs_style1 .hpCrs_ItemFooter A:visited {
+	COLOR: #0060a6
+}
+.hpCrs_style1 .hpCrs_ItemFooter A:active {
+	COLOR: #0060a6
+}
+.hpCrs_style1 .hpCrs_ItemFooter A:hover {
+	COLOR: #0060a6
+}
+.hpCrs_style1 .hpCrs_Header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpCrs_style2.hpCrs {
+	BORDER-BOTTOM-COLOR: #fff; BORDER-TOP-COLOR: #d3d3d3; BORDER-RIGHT-COLOR: #fff; BORDER-LEFT-COLOR: #fff
+}
+.hpCrs_style2 .hpCrs_Header {
+	BORDER-BOTTOM-COLOR: #d3d3d3; BACKGROUND-COLOR: #fff; COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Header P {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Categories LI {
+	BORDER-LEFT-COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Categories A:link {
+	COLOR: #0060a6
+}
+.hpCrs_style2 .hpCrs_Categories A:visited {
+	COLOR: #0060a6
+}
+.hpCrs_style2 .hpCrs_Categories A:active {
+	COLOR: #0060a6
+}
+.hpCrs_style2 .hpCrs_Categories A:hover {
+	COLOR: #0060a6
+}
+.hpCrs_style2 .hpCrs_Categories .hpCrs_Text {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Categories A.hpCrs_Cat_Current {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Item {
+	BORDER-RIGHT-COLOR: #fff
+}
+.hpCrs_style2 .hpCrs_Footer {
+	BACKGROUND-COLOR: #fff; BORDER-TOP-COLOR: #d3d3d3; COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Footer A {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Footer A:link {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Footer A:visited {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Footer A:active {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Footer A:hover {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Header H3 A {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Header H3 A:link {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Header H3 A:visited {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Header H3 A:active {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Header H3 A:hover {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Header P A {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Header P A:link {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Header P A:visited {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Header P A:active {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_Header P A:hover {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2.hpCrs .hpCrs_ItemFooter {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_ItemFooter {
+	COLOR: #4f4f4f
+}
+.hpCrs_style2 .hpCrs_ItemFooter A {
+	COLOR: #0060a6
+}
+.hpCrs_style2 .hpCrs_ItemFooter A:link {
+	COLOR: #0060a6
+}
+.hpCrs_style2 .hpCrs_ItemFooter A:visited {
+	COLOR: #0060a6
+}
+.hpCrs_style2 .hpCrs_ItemFooter A:active {
+	COLOR: #0060a6
+}
+.hpCrs_style2 .hpCrs_ItemFooter A:hover {
+	COLOR: #0060a6
+}
+.hpCrs_style2 .hpCrs_Header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpCrs_style3.hpCrs {
+	BORDER-BOTTOM-COLOR: #fff; BORDER-TOP-COLOR: #d3d3d3; BORDER-RIGHT-COLOR: #fff; BORDER-LEFT-COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Header {
+	BORDER-BOTTOM-COLOR: #d3d3d3; BACKGROUND-COLOR: #1777b1; COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Header P {
+	COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Categories LI {
+	BORDER-LEFT-COLOR: #0060a6
+}
+.hpCrs_style3 .hpCrs_Categories A:link {
+	COLOR: #0060a6
+}
+.hpCrs_style3 .hpCrs_Categories A:visited {
+	COLOR: #0060a6
+}
+.hpCrs_style3 .hpCrs_Categories A:active {
+	COLOR: #0060a6
+}
+.hpCrs_style3 .hpCrs_Categories A:hover {
+	COLOR: #0060a6
+}
+.hpCrs_style3 .hpCrs_Categories .hpCrs_Text {
+	COLOR: #4f4f4f
+}
+.hpCrs_style3 .hpCrs_Categories A.hpCrs_Cat_Current {
+	COLOR: #4f4f4f
+}
+.hpCrs_style3 .hpCrs_Item {
+	BORDER-RIGHT-COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Footer {
+	BACKGROUND-COLOR: #1777b1; BORDER-TOP-COLOR: #d3d3d3; COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Footer A {
+	COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Footer A:link {
+	COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Footer A:visited {
+	COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Footer A:active {
+	COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Footer A:hover {
+	COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Header H3 A {
+	COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Header H3 A:link {
+	COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Header H3 A:visited {
+	COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Header H3 A:active {
+	COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Header H3 A:hover {
+	COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Header P A {
+	COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Header P A:link {
+	COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Header P A:visited {
+	COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Header P A:active {
+	COLOR: #fff
+}
+.hpCrs_style3 .hpCrs_Header P A:hover {
+	COLOR: #fff
+}
+.hpCrs_style3.hpCrs .hpCrs_ItemFooter {
+	COLOR: #4f4f4f
+}
+.hpCrs_style3 .hpCrs_ItemFooter {
+	COLOR: #4f4f4f
+}
+.hpCrs_style3 .hpCrs_ItemFooter A {
+	COLOR: #0060a6
+}
+.hpCrs_style3 .hpCrs_ItemFooter A:link {
+	COLOR: #0060a6
+}
+.hpCrs_style3 .hpCrs_ItemFooter A:visited {
+	COLOR: #0060a6
+}
+.hpCrs_style3 .hpCrs_ItemFooter A:active {
+	COLOR: #0060a6
+}
+.hpCrs_style3 .hpCrs_ItemFooter A:hover {
+	COLOR: #0060a6
+}
+.hpCrs_style3 .hpCrs_Header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpCrs_style4.hpCrs {
+	BORDER-BOTTOM-COLOR: #fff; BORDER-TOP-COLOR: #d3d3d3; BORDER-RIGHT-COLOR: #fff; BORDER-LEFT-COLOR: #fff
+}
+.hpCrs_style4 .hpCrs_Header {
+	BORDER-BOTTOM-COLOR: #d3d3d3; BACKGROUND-COLOR: #ffaf00; COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Header P {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Categories LI {
+	BORDER-LEFT-COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Categories A:link {
+	COLOR: #0060a6
+}
+.hpCrs_style4 .hpCrs_Categories A:visited {
+	COLOR: #0060a6
+}
+.hpCrs_style4 .hpCrs_Categories A:active {
+	COLOR: #0060a6
+}
+.hpCrs_style4 .hpCrs_Categories A:hover {
+	COLOR: #0060a6
+}
+.hpCrs_style4 .hpCrs_Categories .hpCrs_Text {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Categories A.hpCrs_Cat_Current {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Item {
+	BORDER-RIGHT-COLOR: #fff
+}
+.hpCrs_style4 .hpCrs_Footer {
+	BACKGROUND-COLOR: #ffaf00; BORDER-TOP-COLOR: #d3d3d3; COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Footer A {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Footer A:link {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Footer A:visited {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Footer A:active {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Footer A:hover {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Header H3 A {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Header H3 A:link {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Header H3 A:visited {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Header H3 A:active {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Header H3 A:hover {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Header P A {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Header P A:link {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Header P A:visited {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Header P A:active {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_Header P A:hover {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4.hpCrs .hpCrs_ItemFooter {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_ItemFooter {
+	COLOR: #4f4f4f
+}
+.hpCrs_style4 .hpCrs_ItemFooter A {
+	COLOR: #0060a6
+}
+.hpCrs_style4 .hpCrs_ItemFooter A:link {
+	COLOR: #0060a6
+}
+.hpCrs_style4 .hpCrs_ItemFooter A:visited {
+	COLOR: #0060a6
+}
+.hpCrs_style4 .hpCrs_ItemFooter A:active {
+	COLOR: #0060a6
+}
+.hpCrs_style4 .hpCrs_ItemFooter A:hover {
+	COLOR: #0060a6
+}
+.hpCrs_style4 .hpCrs_Header H3 {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpCrs {
+	BORDER-BOTTOM: 1px solid; POSITION: relative; BORDER-LEFT: 1px solid; OVERFLOW: hidden; BORDER-TOP: 1px solid; BORDER-RIGHT: 1px solid
+}
+.hpCrs_Header {
+	BORDER-BOTTOM: 1px solid; PADDING-BOTTOM: 10px; PADDING-LEFT: 15px; PADDING-RIGHT: 100px; PADDING-TOP: 17px
+}
+.hpCrs_Header H3 {
+	FONT-SIZE: 162.5%; FONT-WEIGHT: normal
+}
+.hpCrs_Header P {
+	MARGIN-TOP: 10px; FONT-SIZE: 75%
+}
+.hpCrs_Controls {
+	POSITION: absolute; HEIGHT: 42px; OVERFLOW: hidden; RIGHT: 0px; TOP: 0px; LEFT: 0px; _width: 100%
+}
+.hpCrs_Controls_Buttons {
+	POSITION: absolute; DISPLAY: none; RIGHT: -1px; TOP: -1px
+}
+.hpCrs_Controls A {
+	POSITION: relative; WIDTH: 53px; DISPLAY: block; FLOAT: left; HEIGHT: 43px; MARGIN-LEFT: 5px; OVERFLOW: hidden
+}
+.hpCrs_Controls A IMG {
+	POSITION: absolute
+}
+.hpCrs_Controls A.hpCrs_Prev IMG {
+	TOP: -10px; LEFT: 0px
+}
+.hpCrs_Controls A.hpCrs_Prev IMG:hover {
+	LEFT: -61px
+}
+.hpCrs_Controls A.hpCrs_Prev IMG.hpCrs_Hover {
+	LEFT: -61px
+}
+.hpCrs_Controls A.hpCrs_Next {
+	WIDTH: 41px
+}
+.hpCrs_Controls A.hpCrs_Next IMG {
+	TOP: -10px; LEFT: -122px
+}
+.hpCrs_Controls A.hpCrs_Next IMG:hover {
+	LEFT: -183px
+}
+.hpCrs_Controls A.hpCrs_Next IMG.hpCrs_Hover {
+	LEFT: -183px
+}
+.hpCrs_Categories {
+	PADDING-BOTTOM: 25px
+}
+.hpCrs_Categories UL {
+	LIST-STYLE-TYPE: none; LIST-STYLE-IMAGE: none
+}
+.hpCrs_Categories LI {
+	BORDER-LEFT: 1px solid; PADDING-BOTTOM: 0px; TEXT-TRANSFORM: uppercase; MARGIN-TOP: 8px; PADDING-LEFT: 9px; PADDING-RIGHT: 9px; FLOAT: left; FONT-SIZE: 11px; PADDING-TOP: 0px
+}
+.hpCrs_Categories H4 {
+	FONT-WEIGHT: normal
+}
+.hpCrs_Categories LI.first {
+	BORDER-LEFT: 0px; PADDING-LEFT: 15px
+}
+.hpCrs_Categories LI:first-child {
+	BORDER-LEFT: 0px; PADDING-LEFT: 15px
+}
+.hpCrs_Categories A:link {
+	POSITION: relative; DISPLAY: block; _white-space: nowrap
+}
+.hpCrs_Categories A:visited {
+	POSITION: relative; DISPLAY: block; _white-space: nowrap
+}
+.hpCrs_Categories A:active {
+	POSITION: relative; DISPLAY: block; _white-space: nowrap
+}
+.hpCrs_Categories A:hover {
+	TEXT-DECORATION: none
+}
+.hpCrs_Categories A.hpCrs_Cat_Current {
+	BACKGROUND-POSITION: center -43px; TEXT-DECORATION: none
+}
+.hpCrs_Categories .hpCrs_Caret {
+	DISPLAY: none
+}
+.hpCrs_Categories .hpCrs_Text .hpCrs_Caret {
+	POSITION: absolute; WIDTH: 100%; DISPLAY: block; HEIGHT: 10px; OVERFLOW: hidden; TOP: -8px; LEFT: 0px; _display: none
+}
+.hpCrs_Categories A.hpCrs_Cat_Current .hpCrs_Caret {
+	POSITION: absolute; WIDTH: 100%; DISPLAY: block; HEIGHT: 10px; OVERFLOW: hidden; TOP: -8px; LEFT: 0px; _display: none
+}
+.hpCrs_Categories .hpCrs_Text .hpCrs_Caret SPAN {
+	MARGIN: 0px auto; WIDTH: 9px; DISPLAY: block; HEIGHT: 10px
+}
+.hpCrs_Categories A.hpCrs_Cat_Current .hpCrs_Caret SPAN {
+	MARGIN: 0px auto; WIDTH: 9px; DISPLAY: block; HEIGHT: 10px
+}
+.hpCrs_Categories .hpCrs_Text .hpCrs_Caret SPAN IMG {
+	MARGIN: -61px 0px 0px -113px
+}
+.hpCrs_Categories A.hpCrs_Cat_Current .hpCrs_Caret SPAN IMG {
+	MARGIN: -61px 0px 0px -113px
+}
+HTML .hpCrs_Categories .hpCrs_Text {
+	POSITION: relative; DISPLAY: none
+}
+.hpCrs_Categories .hpCrs_Text {
+	POSITION: relative; DISPLAY: none
+}
+A.hpCrs_Cat_Current {
+	DISPLAY: none
+}
+.hpCrs_Categories .hpCrs_Cat_Selected A.hpCrs_Cat_Current {
+	DISPLAY: none
+}
+.hpCrs_Cat_Selected A.hpCrs_Cat_Current {
+	DISPLAY: none
+}
+HTML .hpCrs_Cat_Selected .hpCrs_Text {
+	DISPLAY: block
+}
+.hpCrs_Cat_Selected .hpCrs_Text {
+	DISPLAY: block
+}
+.hpCrs_slide {
+	POSITION: relative; WIDTH: 5000px; CLEAR: both; LEFT: 0px
+}
+.hpCrs_Item {
+	POSITION: relative; PADDING-BOTTOM: 0px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; FLOAT: left; BORDER-RIGHT: 1px solid; PADDING-TOP: 0px
+}
+.hpCrs_ItemFooter {
+	PADDING-BOTTOM: 15px; PADDING-LEFT: 15px; PADDING-RIGHT: 15px; CLEAR: both; FONT-SIZE: 75%; PADDING-TOP: 15px
+}
+.hpCrs_ItemFooter DIV.hpFeat_Wrap {
+	MARGIN-TOP: 10px
+}
+.hpCrs_Footer {
+	TEXT-ALIGN: right; PADDING-BOTTOM: 15px; MIN-HEIGHT: 10px; PADDING-LEFT: 15px; PADDING-RIGHT: 15px; CLEAR: both; FONT-SIZE: 75%; BORDER-TOP: 1px solid; PADDING-TOP: 15px; _height: 10px
+}
+.hpCrs_Footer A:active {
+	TEXT-DECORATION: none
+}
+.hpCrs_Footer A:hover {
+	TEXT-DECORATION: none
+}
+.hpCrs_Footer A:active .hpFeat_Text {
+	TEXT-DECORATION: underline
+}
+.hpCrs_Footer A:hover .hpFeat_Text {
+	TEXT-DECORATION: underline
+}
+.hpCrs_Footer A .hpFeat_Arrow {
+	LINE-HEIGHT: 0.9em; PADDING-LEFT: 10px; FONT-SIZE: 140%
+}
+.hpLst_style1.hpLst {
+	BACKGROUND-COLOR: #fff
+}
+.hpLst_style1 .hpLst_title {
+	BORDER-BOTTOM: transparent 1px solid; COLOR: #4f4f4f
+}
+.hpLst_style1 .hpLst_description {
+	COLOR: #4f4f4f
+}
+.hpLst_style1 .hpLst_description A {
+	COLOR: #0060a6
+}
+.hpLst_style1 .hpLst_description A:link {
+	COLOR: #0060a6
+}
+.hpLst_style1 .hpLst_description A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style1 .hpLst_description A.hpFeat_Link:hover {
+	COLOR: #0060a6
+}
+.hpLst_style1 .hpLst_description A.hpFeat_Link:active {
+	COLOR: #0060a6
+}
+.hpLst_style1 .hpLst_footer_cta A {
+	COLOR: #0060a6
+}
+.hpLst_style1 .hpLst_footer_cta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style1 .hpLst_footer_cta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style1 .hpLst_footer_cta A.hpFeat_Link:hover {
+	COLOR: #0060a6
+}
+.hpLst_style1 .hpLst_footer_cta A.hpFeat_Link:active {
+	COLOR: #0060a6
+}
+.hpLst_style1 .hpLst_title A {
+	COLOR: #4f4f4f
+}
+.hpLst_style1 .hpLst_title A:link {
+	COLOR: #4f4f4f
+}
+.hpLst_style1 .hpLst_title A:visited {
+	COLOR: #4f4f4f
+}
+.hpLst_style1.hpLst {
+	BORDER-BOTTOM: #d3d3d3 1px solid; BORDER-LEFT: #d3d3d3 1px solid; PADDING-BOTTOM: 0px; PADDING-LEFT: 14px; PADDING-RIGHT: 14px; BORDER-TOP: #d3d3d3 1px solid; BORDER-RIGHT: #d3d3d3 1px solid; PADDING-TOP: 16px
+}
+.hpLst_style1 {
+	BORDER-BOTTOM: #d3d3d3 1px solid; BORDER-LEFT: #d3d3d3 1px solid; PADDING-BOTTOM: 0px; PADDING-LEFT: 14px; PADDING-RIGHT: 14px; BORDER-TOP: #d3d3d3 1px solid; BORDER-RIGHT: #d3d3d3 1px solid; PADDING-TOP: 16px
+}
+.hpLst_style1 .hpFeat_FeatureItem .hpFeat_PrimaryCta A {
+	COLOR: #0060a6
+}
+.hpLst_style1 .hpFeat_FeatureItem .hpFeat_PrimaryCta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style1 .hpFeat_FeatureItem .hpFeat_PrimaryCta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style1 .hpFeat_FeatureItem .hpFeat_SecondaryCta A {
+	COLOR: #0060a6
+}
+.hpLst_style1 .hpFeat_FeatureItem .hpFeat_SecondaryCta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style1 .hpFeat_FeatureItem .hpFeat_SecondaryCta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style1 .hpLst_title {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpLst_style2.hpLst {
+	BACKGROUND-COLOR: #fff
+}
+.hpLst_style2 .hpLst_title {
+	BORDER-BOTTOM: transparent 1px solid; COLOR: #4f4f4f
+}
+.hpLst_style2 .hpLst_description {
+	COLOR: #4f4f4f
+}
+.hpLst_style2 .hpLst_description A {
+	COLOR: #0060a6
+}
+.hpLst_style2 .hpLst_description A:link {
+	COLOR: #0060a6
+}
+.hpLst_style2 .hpLst_description A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style2 .hpLst_description A.hpFeat_Link:hover {
+	COLOR: #0060a6
+}
+.hpLst_style2 .hpLst_description A.hpFeat_Link:active {
+	COLOR: #0060a6
+}
+.hpLst_style2 .hpLst_footer_cta A {
+	COLOR: #0060a6
+}
+.hpLst_style2 .hpLst_footer_cta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style2 .hpLst_footer_cta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style2 .hpLst_footer_cta A.hpFeat_Link:hover {
+	COLOR: #0060a6
+}
+.hpLst_style2 .hpLst_footer_cta A.hpFeat_Link:active {
+	COLOR: #0060a6
+}
+.hpLst_style2 .hpLst_title A {
+	COLOR: #4f4f4f
+}
+.hpLst_style2 .hpLst_title A:link {
+	COLOR: #4f4f4f
+}
+.hpLst_style2 .hpLst_title A:visited {
+	COLOR: #4f4f4f
+}
+.hpLst_style2.hpLst {
+	BORDER-BOTTOM: #d3d3d3 1px solid; BORDER-LEFT: #d3d3d3 1px solid; PADDING-BOTTOM: 0px; PADDING-LEFT: 14px; PADDING-RIGHT: 14px; BORDER-TOP: #d3d3d3 1px solid; BORDER-RIGHT: #d3d3d3 1px solid; PADDING-TOP: 16px
+}
+.hpLst_style2 {
+	BORDER-BOTTOM: #d3d3d3 1px solid; BORDER-LEFT: #d3d3d3 1px solid; PADDING-BOTTOM: 0px; PADDING-LEFT: 14px; PADDING-RIGHT: 14px; BORDER-TOP: #d3d3d3 1px solid; BORDER-RIGHT: #d3d3d3 1px solid; PADDING-TOP: 16px
+}
+.hpLst_style2 .hpFeat_FeatureItem .hpFeat_PrimaryCta A {
+	COLOR: #0060a6
+}
+.hpLst_style2 .hpFeat_FeatureItem .hpFeat_PrimaryCta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style2 .hpFeat_FeatureItem .hpFeat_PrimaryCta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style2 .hpFeat_FeatureItem .hpFeat_SecondaryCta A {
+	COLOR: #0060a6
+}
+.hpLst_style2 .hpFeat_FeatureItem .hpFeat_SecondaryCta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style2 .hpFeat_FeatureItem .hpFeat_SecondaryCta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style2 .hpLst_title {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpLst_style3.hpLst {
+	BACKGROUND-COLOR: #fff
+}
+.hpLst_style3 .hpLst_title {
+	BORDER-BOTTOM: transparent 1px solid; COLOR: #4f4f4f
+}
+.hpLst_style3 .hpLst_description {
+	COLOR: #4f4f4f
+}
+.hpLst_style3 .hpLst_description A {
+	COLOR: #0060a6
+}
+.hpLst_style3 .hpLst_description A:link {
+	COLOR: #0060a6
+}
+.hpLst_style3 .hpLst_description A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style3 .hpLst_description A.hpFeat_Link:hover {
+	COLOR: #0060a6
+}
+.hpLst_style3 .hpLst_description A.hpFeat_Link:active {
+	COLOR: #0060a6
+}
+.hpLst_style3 .hpLst_footer_cta A {
+	COLOR: #0060a6
+}
+.hpLst_style3 .hpLst_footer_cta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style3 .hpLst_footer_cta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style3 .hpLst_footer_cta A.hpFeat_Link:hover {
+	COLOR: #0060a6
+}
+.hpLst_style3 .hpLst_footer_cta A.hpFeat_Link:active {
+	COLOR: #0060a6
+}
+.hpLst_style3 .hpLst_title A {
+	COLOR: #4f4f4f
+}
+.hpLst_style3 .hpLst_title A:link {
+	COLOR: #4f4f4f
+}
+.hpLst_style3 .hpLst_title A:visited {
+	COLOR: #4f4f4f
+}
+.hpLst_style3.hpLst {
+	BORDER-BOTTOM: #d3d3d3 1px solid; BORDER-LEFT: #d3d3d3 1px solid; PADDING-BOTTOM: 0px; PADDING-LEFT: 14px; PADDING-RIGHT: 14px; BORDER-TOP: #d3d3d3 1px solid; BORDER-RIGHT: #d3d3d3 1px solid; PADDING-TOP: 16px
+}
+.hpLst_style3 {
+	BORDER-BOTTOM: #d3d3d3 1px solid; BORDER-LEFT: #d3d3d3 1px solid; PADDING-BOTTOM: 0px; PADDING-LEFT: 14px; PADDING-RIGHT: 14px; BORDER-TOP: #d3d3d3 1px solid; BORDER-RIGHT: #d3d3d3 1px solid; PADDING-TOP: 16px
+}
+.hpLst_style3 .hpFeat_FeatureItem .hpFeat_PrimaryCta A {
+	COLOR: #0060a6
+}
+.hpLst_style3 .hpFeat_FeatureItem .hpFeat_PrimaryCta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style3 .hpFeat_FeatureItem .hpFeat_PrimaryCta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style3 .hpFeat_FeatureItem .hpFeat_SecondaryCta A {
+	COLOR: #0060a6
+}
+.hpLst_style3 .hpFeat_FeatureItem .hpFeat_SecondaryCta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style3 .hpFeat_FeatureItem .hpFeat_SecondaryCta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style3 .hpLst_title {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpLst_style2work.hpLst {
+	BACKGROUND-COLOR: #fff
+}
+.hpLst_style2work .hpLst_title {
+	BORDER-BOTTOM: transparent 1px solid; COLOR: #4f4f4f
+}
+.hpLst_style2work .hpLst_description {
+	COLOR: #4f4f4f
+}
+.hpLst_style2work .hpLst_description A {
+	COLOR: #0060a6
+}
+.hpLst_style2work .hpLst_description A:link {
+	COLOR: #0060a6
+}
+.hpLst_style2work .hpLst_description A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style2work .hpLst_description A.hpFeat_Link:hover {
+	COLOR: #0060a6
+}
+.hpLst_style2work .hpLst_description A.hpFeat_Link:active {
+	COLOR: #0060a6
+}
+.hpLst_style2work .hpLst_footer_cta A {
+	COLOR: #0060a6
+}
+.hpLst_style2work .hpLst_footer_cta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style2work .hpLst_footer_cta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style2work .hpLst_footer_cta A.hpFeat_Link:hover {
+	COLOR: #0060a6
+}
+.hpLst_style2work .hpLst_footer_cta A.hpFeat_Link:active {
+	COLOR: #0060a6
+}
+.hpLst_style2work .hpLst_title A {
+	COLOR: #4f4f4f
+}
+.hpLst_style2work .hpLst_title A:link {
+	COLOR: #4f4f4f
+}
+.hpLst_style2work .hpLst_title A:visited {
+	COLOR: #4f4f4f
+}
+.hpLst_style2work.hpLst {
+	BORDER-BOTTOM: #d3d3d3 1px solid; BORDER-LEFT: #d3d3d3 1px solid; PADDING-BOTTOM: 0px; PADDING-LEFT: 14px; PADDING-RIGHT: 14px; BORDER-TOP: #d3d3d3 1px solid; BORDER-RIGHT: #d3d3d3 1px solid; PADDING-TOP: 16px
+}
+.hpLst_style2work {
+	BORDER-BOTTOM: #d3d3d3 1px solid; BORDER-LEFT: #d3d3d3 1px solid; PADDING-BOTTOM: 0px; PADDING-LEFT: 14px; PADDING-RIGHT: 14px; BORDER-TOP: #d3d3d3 1px solid; BORDER-RIGHT: #d3d3d3 1px solid; PADDING-TOP: 16px
+}
+.hpLst_style2work .hpFeat_FeatureItem .hpFeat_PrimaryCta A {
+	COLOR: #0060a6
+}
+.hpLst_style2work .hpFeat_FeatureItem .hpFeat_PrimaryCta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style2work .hpFeat_FeatureItem .hpFeat_PrimaryCta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style2work .hpFeat_FeatureItem .hpFeat_SecondaryCta A {
+	COLOR: #0060a6
+}
+.hpLst_style2work .hpFeat_FeatureItem .hpFeat_SecondaryCta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style2work .hpFeat_FeatureItem .hpFeat_SecondaryCta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style2work .hpLst_title {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpLst_style3work.hpLst {
+	BACKGROUND-COLOR: #fff
+}
+.hpLst_style3work .hpLst_title {
+	BORDER-BOTTOM: transparent 1px solid; COLOR: #4f4f4f
+}
+.hpLst_style3work .hpLst_description {
+	COLOR: #4f4f4f
+}
+.hpLst_style3work .hpLst_description A {
+	COLOR: #0060a6
+}
+.hpLst_style3work .hpLst_description A:link {
+	COLOR: #0060a6
+}
+.hpLst_style3work .hpLst_description A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style3work .hpLst_description A.hpFeat_Link:hover {
+	COLOR: #0060a6
+}
+.hpLst_style3work .hpLst_description A.hpFeat_Link:active {
+	COLOR: #0060a6
+}
+.hpLst_style3work .hpLst_footer_cta A {
+	COLOR: #0060a6
+}
+.hpLst_style3work .hpLst_footer_cta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style3work .hpLst_footer_cta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style3work .hpLst_footer_cta A.hpFeat_Link:hover {
+	COLOR: #0060a6
+}
+.hpLst_style3work .hpLst_footer_cta A.hpFeat_Link:active {
+	COLOR: #0060a6
+}
+.hpLst_style3work .hpLst_title A {
+	COLOR: #4f4f4f
+}
+.hpLst_style3work .hpLst_title A:link {
+	COLOR: #4f4f4f
+}
+.hpLst_style3work .hpLst_title A:visited {
+	COLOR: #4f4f4f
+}
+.hpLst_style3work.hpLst {
+	BORDER-BOTTOM: #d3d3d3 1px solid; BORDER-LEFT: #d3d3d3 1px solid; PADDING-BOTTOM: 0px; PADDING-LEFT: 14px; PADDING-RIGHT: 14px; BORDER-TOP: #d3d3d3 1px solid; BORDER-RIGHT: #d3d3d3 1px solid; PADDING-TOP: 16px
+}
+.hpLst_style3work {
+	BORDER-BOTTOM: #d3d3d3 1px solid; BORDER-LEFT: #d3d3d3 1px solid; PADDING-BOTTOM: 0px; PADDING-LEFT: 14px; PADDING-RIGHT: 14px; BORDER-TOP: #d3d3d3 1px solid; BORDER-RIGHT: #d3d3d3 1px solid; PADDING-TOP: 16px
+}
+.hpLst_style3work .hpFeat_FeatureItem .hpFeat_PrimaryCta A {
+	COLOR: #0060a6
+}
+.hpLst_style3work .hpFeat_FeatureItem .hpFeat_PrimaryCta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style3work .hpFeat_FeatureItem .hpFeat_PrimaryCta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style3work .hpFeat_FeatureItem .hpFeat_SecondaryCta A {
+	COLOR: #0060a6
+}
+.hpLst_style3work .hpFeat_FeatureItem .hpFeat_SecondaryCta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style3work .hpFeat_FeatureItem .hpFeat_SecondaryCta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style3work .hpLst_title {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpLst_style4work.hpLst {
+	BACKGROUND-COLOR: #fff
+}
+.hpLst_style4work .hpLst_title {
+	BORDER-BOTTOM: transparent 1px solid; COLOR: #4f4f4f
+}
+.hpLst_style4work .hpLst_description {
+	COLOR: #4f4f4f
+}
+.hpLst_style4work .hpLst_description A {
+	COLOR: #0060a6
+}
+.hpLst_style4work .hpLst_description A:link {
+	COLOR: #0060a6
+}
+.hpLst_style4work .hpLst_description A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style4work .hpLst_description A.hpFeat_Link:hover {
+	COLOR: #0060a6
+}
+.hpLst_style4work .hpLst_description A.hpFeat_Link:active {
+	COLOR: #0060a6
+}
+.hpLst_style4work .hpLst_footer_cta A {
+	COLOR: #0060a6
+}
+.hpLst_style4work .hpLst_footer_cta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style4work .hpLst_footer_cta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style4work .hpLst_footer_cta A.hpFeat_Link:hover {
+	COLOR: #0060a6
+}
+.hpLst_style4work .hpLst_footer_cta A.hpFeat_Link:active {
+	COLOR: #0060a6
+}
+.hpLst_style4work .hpLst_title A {
+	COLOR: #4f4f4f
+}
+.hpLst_style4work .hpLst_title A:link {
+	COLOR: #4f4f4f
+}
+.hpLst_style4work .hpLst_title A:visited {
+	COLOR: #4f4f4f
+}
+.hpLst_style4work.hpLst {
+	BORDER-BOTTOM: #d3d3d3 1px solid; BORDER-LEFT: #d3d3d3 1px solid; PADDING-BOTTOM: 0px; PADDING-LEFT: 14px; PADDING-RIGHT: 14px; BORDER-TOP: #d3d3d3 1px solid; BORDER-RIGHT: #d3d3d3 1px solid; PADDING-TOP: 16px
+}
+.hpLst_style4work {
+	BORDER-BOTTOM: #d3d3d3 1px solid; BORDER-LEFT: #d3d3d3 1px solid; PADDING-BOTTOM: 0px; PADDING-LEFT: 14px; PADDING-RIGHT: 14px; BORDER-TOP: #d3d3d3 1px solid; BORDER-RIGHT: #d3d3d3 1px solid; PADDING-TOP: 16px
+}
+.hpLst_style4work .hpFeat_FeatureItem .hpFeat_PrimaryCta A {
+	COLOR: #0060a6
+}
+.hpLst_style4work .hpFeat_FeatureItem .hpFeat_PrimaryCta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style4work .hpFeat_FeatureItem .hpFeat_PrimaryCta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style4work .hpFeat_FeatureItem .hpFeat_SecondaryCta A {
+	COLOR: #0060a6
+}
+.hpLst_style4work .hpFeat_FeatureItem .hpFeat_SecondaryCta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style4work .hpFeat_FeatureItem .hpFeat_SecondaryCta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style4work .hpLst_title {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpLst_news.hpLst {
+	BACKGROUND-COLOR: #fff
+}
+.hpLst_news .hpLst_title {
+	BORDER-BOTTOM: transparent 1px solid; COLOR: #4f4f4f
+}
+.hpLst_news .hpLst_description {
+	COLOR: #4f4f4f
+}
+.hpLst_news .hpLst_description A {
+	COLOR: #0060a6
+}
+.hpLst_news .hpLst_description A:link {
+	COLOR: #0060a6
+}
+.hpLst_news .hpLst_description A:visited {
+	COLOR: #0060a6
+}
+.hpLst_news .hpLst_description A.hpFeat_Link:hover {
+	COLOR: #0060a6
+}
+.hpLst_news .hpLst_description A.hpFeat_Link:active {
+	COLOR: #0060a6
+}
+.hpLst_news .hpLst_footer_cta A {
+	COLOR: #0060a6
+}
+.hpLst_news .hpLst_footer_cta A:link {
+	COLOR: #0060a6
+}
+.hpLst_news .hpLst_footer_cta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_news .hpLst_footer_cta A.hpFeat_Link:hover {
+	COLOR: #0060a6
+}
+.hpLst_news .hpLst_footer_cta A.hpFeat_Link:active {
+	COLOR: #0060a6
+}
+.hpLst_news .hpLst_title A {
+	COLOR: #4f4f4f
+}
+.hpLst_news .hpLst_title A:link {
+	COLOR: #4f4f4f
+}
+.hpLst_news .hpLst_title A:visited {
+	COLOR: #4f4f4f
+}
+.hpLst_news.hpLst {
+	BORDER-BOTTOM: #d3d3d3 1px solid; BORDER-LEFT: #d3d3d3 1px solid; PADDING-BOTTOM: 0px; PADDING-LEFT: 14px; PADDING-RIGHT: 14px; BORDER-TOP: #d3d3d3 1px solid; BORDER-RIGHT: #d3d3d3 1px solid; PADDING-TOP: 16px
+}
+.hpLst_news {
+	BORDER-BOTTOM: #d3d3d3 1px solid; BORDER-LEFT: #d3d3d3 1px solid; PADDING-BOTTOM: 0px; PADDING-LEFT: 14px; PADDING-RIGHT: 14px; BORDER-TOP: #d3d3d3 1px solid; BORDER-RIGHT: #d3d3d3 1px solid; PADDING-TOP: 16px
+}
+.hpLst_news .hpFeat_FeatureItem .hpFeat_PrimaryCta A {
+	COLOR: #0060a6
+}
+.hpLst_news .hpFeat_FeatureItem .hpFeat_PrimaryCta A:link {
+	COLOR: #0060a6
+}
+.hpLst_news .hpFeat_FeatureItem .hpFeat_PrimaryCta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_news .hpFeat_FeatureItem .hpFeat_SecondaryCta A {
+	COLOR: #0060a6
+}
+.hpLst_news .hpFeat_FeatureItem .hpFeat_SecondaryCta A:link {
+	COLOR: #0060a6
+}
+.hpLst_news .hpFeat_FeatureItem .hpFeat_SecondaryCta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_news .hpLst_title {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpLst_style1.hpLst {
+	BACKGROUND-COLOR: #fff
+}
+.hpLst_style1 .hpLst_title {
+	BORDER-BOTTOM: transparent 1px solid; COLOR: #4f4f4f
+}
+.hpLst_style1 .hpLst_description {
+	COLOR: #4f4f4f
+}
+.hpLst_style1 .hpLst_description A {
+	COLOR: #0060a6
+}
+.hpLst_style1 .hpLst_description A:link {
+	COLOR: #0060a6
+}
+.hpLst_style1 .hpLst_description A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style1 .hpLst_description A.hpFeat_Link:hover {
+	COLOR: #0060a6
+}
+.hpLst_style1 .hpLst_description A.hpFeat_Link:active {
+	COLOR: #0060a6
+}
+.hpLst_style1 .hpLst_footer_cta A {
+	COLOR: #0060a6
+}
+.hpLst_style1 .hpLst_footer_cta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style1 .hpLst_footer_cta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style1 .hpLst_footer_cta A.hpFeat_Link:hover {
+	COLOR: #0060a6
+}
+.hpLst_style1 .hpLst_footer_cta A.hpFeat_Link:active {
+	COLOR: #0060a6
+}
+.hpLst_style1 .hpLst_title A {
+	COLOR: #4f4f4f
+}
+.hpLst_style1 .hpLst_title A:link {
+	COLOR: #4f4f4f
+}
+.hpLst_style1 .hpLst_title A:visited {
+	COLOR: #4f4f4f
+}
+.hpLst_style1.hpLst {
+	BORDER-BOTTOM: #d3d3d3 1px solid; BORDER-LEFT: #d3d3d3 1px solid; PADDING-BOTTOM: 0px; PADDING-LEFT: 14px; PADDING-RIGHT: 14px; BORDER-TOP: #d3d3d3 1px solid; BORDER-RIGHT: #d3d3d3 1px solid; PADDING-TOP: 16px
+}
+.hpLst_style1 {
+	BORDER-BOTTOM: #d3d3d3 1px solid; BORDER-LEFT: #d3d3d3 1px solid; PADDING-BOTTOM: 0px; PADDING-LEFT: 14px; PADDING-RIGHT: 14px; BORDER-TOP: #d3d3d3 1px solid; BORDER-RIGHT: #d3d3d3 1px solid; PADDING-TOP: 16px
+}
+.hpLst_style1 .hpFeat_FeatureItem .hpFeat_PrimaryCta A {
+	COLOR: #0060a6
+}
+.hpLst_style1 .hpFeat_FeatureItem .hpFeat_PrimaryCta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style1 .hpFeat_FeatureItem .hpFeat_PrimaryCta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style1 .hpFeat_FeatureItem .hpFeat_SecondaryCta A {
+	COLOR: #0060a6
+}
+.hpLst_style1 .hpFeat_FeatureItem .hpFeat_SecondaryCta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style1 .hpFeat_FeatureItem .hpFeat_SecondaryCta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style1 .hpLst_title {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpLst_style2.hpLst {
+	BACKGROUND-COLOR: #fff
+}
+.hpLst_style2 .hpLst_title {
+	BORDER-BOTTOM: transparent 1px solid; COLOR: #4f4f4f
+}
+.hpLst_style2 .hpLst_description {
+	COLOR: #4f4f4f
+}
+.hpLst_style2 .hpLst_description A {
+	COLOR: #0060a6
+}
+.hpLst_style2 .hpLst_description A:link {
+	COLOR: #0060a6
+}
+.hpLst_style2 .hpLst_description A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style2 .hpLst_description A.hpFeat_Link:hover {
+	COLOR: #0060a6
+}
+.hpLst_style2 .hpLst_description A.hpFeat_Link:active {
+	COLOR: #0060a6
+}
+.hpLst_style2 .hpLst_footer_cta A {
+	COLOR: #0060a6
+}
+.hpLst_style2 .hpLst_footer_cta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style2 .hpLst_footer_cta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style2 .hpLst_footer_cta A.hpFeat_Link:hover {
+	COLOR: #0060a6
+}
+.hpLst_style2 .hpLst_footer_cta A.hpFeat_Link:active {
+	COLOR: #0060a6
+}
+.hpLst_style2 .hpLst_title A {
+	COLOR: #4f4f4f
+}
+.hpLst_style2 .hpLst_title A:link {
+	COLOR: #4f4f4f
+}
+.hpLst_style2 .hpLst_title A:visited {
+	COLOR: #4f4f4f
+}
+.hpLst_style2.hpLst {
+	BORDER-BOTTOM: #d3d3d3 1px solid; BORDER-LEFT: #d3d3d3 1px solid; PADDING-BOTTOM: 0px; PADDING-LEFT: 14px; PADDING-RIGHT: 14px; BORDER-TOP: #d3d3d3 1px solid; BORDER-RIGHT: #d3d3d3 1px solid; PADDING-TOP: 16px
+}
+.hpLst_style2 {
+	BORDER-BOTTOM: #d3d3d3 1px solid; BORDER-LEFT: #d3d3d3 1px solid; PADDING-BOTTOM: 0px; PADDING-LEFT: 14px; PADDING-RIGHT: 14px; BORDER-TOP: #d3d3d3 1px solid; BORDER-RIGHT: #d3d3d3 1px solid; PADDING-TOP: 16px
+}
+.hpLst_style2 .hpFeat_FeatureItem .hpFeat_PrimaryCta A {
+	COLOR: #0060a6
+}
+.hpLst_style2 .hpFeat_FeatureItem .hpFeat_PrimaryCta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style2 .hpFeat_FeatureItem .hpFeat_PrimaryCta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style2 .hpFeat_FeatureItem .hpFeat_SecondaryCta A {
+	COLOR: #0060a6
+}
+.hpLst_style2 .hpFeat_FeatureItem .hpFeat_SecondaryCta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style2 .hpFeat_FeatureItem .hpFeat_SecondaryCta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style2 .hpLst_title {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpLst_style3.hpLst {
+	BACKGROUND-COLOR: #fff
+}
+.hpLst_style3 .hpLst_title {
+	BORDER-BOTTOM: transparent 1px solid; COLOR: #4f4f4f
+}
+.hpLst_style3 .hpLst_description {
+	COLOR: #4f4f4f
+}
+.hpLst_style3 .hpLst_description A {
+	COLOR: #0060a6
+}
+.hpLst_style3 .hpLst_description A:link {
+	COLOR: #0060a6
+}
+.hpLst_style3 .hpLst_description A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style3 .hpLst_description A.hpFeat_Link:hover {
+	COLOR: #0060a6
+}
+.hpLst_style3 .hpLst_description A.hpFeat_Link:active {
+	COLOR: #0060a6
+}
+.hpLst_style3 .hpLst_footer_cta A {
+	COLOR: #0060a6
+}
+.hpLst_style3 .hpLst_footer_cta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style3 .hpLst_footer_cta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style3 .hpLst_footer_cta A.hpFeat_Link:hover {
+	COLOR: #0060a6
+}
+.hpLst_style3 .hpLst_footer_cta A.hpFeat_Link:active {
+	COLOR: #0060a6
+}
+.hpLst_style3 .hpLst_title A {
+	COLOR: #4f4f4f
+}
+.hpLst_style3 .hpLst_title A:link {
+	COLOR: #4f4f4f
+}
+.hpLst_style3 .hpLst_title A:visited {
+	COLOR: #4f4f4f
+}
+.hpLst_style3.hpLst {
+	BORDER-BOTTOM: #d3d3d3 1px solid; BORDER-LEFT: #d3d3d3 1px solid; PADDING-BOTTOM: 0px; PADDING-LEFT: 14px; PADDING-RIGHT: 14px; BORDER-TOP: #d3d3d3 1px solid; BORDER-RIGHT: #d3d3d3 1px solid; PADDING-TOP: 16px
+}
+.hpLst_style3 {
+	BORDER-BOTTOM: #d3d3d3 1px solid; BORDER-LEFT: #d3d3d3 1px solid; PADDING-BOTTOM: 0px; PADDING-LEFT: 14px; PADDING-RIGHT: 14px; BORDER-TOP: #d3d3d3 1px solid; BORDER-RIGHT: #d3d3d3 1px solid; PADDING-TOP: 16px
+}
+.hpLst_style3 .hpFeat_FeatureItem .hpFeat_PrimaryCta A {
+	COLOR: #0060a6
+}
+.hpLst_style3 .hpFeat_FeatureItem .hpFeat_PrimaryCta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style3 .hpFeat_FeatureItem .hpFeat_PrimaryCta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style3 .hpFeat_FeatureItem .hpFeat_SecondaryCta A {
+	COLOR: #0060a6
+}
+.hpLst_style3 .hpFeat_FeatureItem .hpFeat_SecondaryCta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style3 .hpFeat_FeatureItem .hpFeat_SecondaryCta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style3 .hpLst_title {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpLst_style2work.hpLst {
+	BACKGROUND-COLOR: #fff
+}
+.hpLst_style2work .hpLst_title {
+	BORDER-BOTTOM: transparent 1px solid; COLOR: #4f4f4f
+}
+.hpLst_style2work .hpLst_description {
+	COLOR: #4f4f4f
+}
+.hpLst_style2work .hpLst_description A {
+	COLOR: #0060a6
+}
+.hpLst_style2work .hpLst_description A:link {
+	COLOR: #0060a6
+}
+.hpLst_style2work .hpLst_description A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style2work .hpLst_description A.hpFeat_Link:hover {
+	COLOR: #0060a6
+}
+.hpLst_style2work .hpLst_description A.hpFeat_Link:active {
+	COLOR: #0060a6
+}
+.hpLst_style2work .hpLst_footer_cta A {
+	COLOR: #0060a6
+}
+.hpLst_style2work .hpLst_footer_cta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style2work .hpLst_footer_cta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style2work .hpLst_footer_cta A.hpFeat_Link:hover {
+	COLOR: #0060a6
+}
+.hpLst_style2work .hpLst_footer_cta A.hpFeat_Link:active {
+	COLOR: #0060a6
+}
+.hpLst_style2work .hpLst_title A {
+	COLOR: #4f4f4f
+}
+.hpLst_style2work .hpLst_title A:link {
+	COLOR: #4f4f4f
+}
+.hpLst_style2work .hpLst_title A:visited {
+	COLOR: #4f4f4f
+}
+.hpLst_style2work.hpLst {
+	BORDER-BOTTOM: #d3d3d3 1px solid; BORDER-LEFT: #d3d3d3 1px solid; PADDING-BOTTOM: 0px; PADDING-LEFT: 14px; PADDING-RIGHT: 14px; BORDER-TOP: #d3d3d3 1px solid; BORDER-RIGHT: #d3d3d3 1px solid; PADDING-TOP: 16px
+}
+.hpLst_style2work {
+	BORDER-BOTTOM: #d3d3d3 1px solid; BORDER-LEFT: #d3d3d3 1px solid; PADDING-BOTTOM: 0px; PADDING-LEFT: 14px; PADDING-RIGHT: 14px; BORDER-TOP: #d3d3d3 1px solid; BORDER-RIGHT: #d3d3d3 1px solid; PADDING-TOP: 16px
+}
+.hpLst_style2work .hpFeat_FeatureItem .hpFeat_PrimaryCta A {
+	COLOR: #0060a6
+}
+.hpLst_style2work .hpFeat_FeatureItem .hpFeat_PrimaryCta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style2work .hpFeat_FeatureItem .hpFeat_PrimaryCta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style2work .hpFeat_FeatureItem .hpFeat_SecondaryCta A {
+	COLOR: #0060a6
+}
+.hpLst_style2work .hpFeat_FeatureItem .hpFeat_SecondaryCta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style2work .hpFeat_FeatureItem .hpFeat_SecondaryCta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style2work .hpLst_title {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpLst_style3work.hpLst {
+	BACKGROUND-COLOR: #fff
+}
+.hpLst_style3work .hpLst_title {
+	BORDER-BOTTOM: transparent 1px solid; COLOR: #4f4f4f
+}
+.hpLst_style3work .hpLst_description {
+	COLOR: #4f4f4f
+}
+.hpLst_style3work .hpLst_description A {
+	COLOR: #0060a6
+}
+.hpLst_style3work .hpLst_description A:link {
+	COLOR: #0060a6
+}
+.hpLst_style3work .hpLst_description A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style3work .hpLst_description A.hpFeat_Link:hover {
+	COLOR: #0060a6
+}
+.hpLst_style3work .hpLst_description A.hpFeat_Link:active {
+	COLOR: #0060a6
+}
+.hpLst_style3work .hpLst_footer_cta A {
+	COLOR: #0060a6
+}
+.hpLst_style3work .hpLst_footer_cta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style3work .hpLst_footer_cta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style3work .hpLst_footer_cta A.hpFeat_Link:hover {
+	COLOR: #0060a6
+}
+.hpLst_style3work .hpLst_footer_cta A.hpFeat_Link:active {
+	COLOR: #0060a6
+}
+.hpLst_style3work .hpLst_title A {
+	COLOR: #4f4f4f
+}
+.hpLst_style3work .hpLst_title A:link {
+	COLOR: #4f4f4f
+}
+.hpLst_style3work .hpLst_title A:visited {
+	COLOR: #4f4f4f
+}
+.hpLst_style3work.hpLst {
+	BORDER-BOTTOM: #d3d3d3 1px solid; BORDER-LEFT: #d3d3d3 1px solid; PADDING-BOTTOM: 0px; PADDING-LEFT: 14px; PADDING-RIGHT: 14px; BORDER-TOP: #d3d3d3 1px solid; BORDER-RIGHT: #d3d3d3 1px solid; PADDING-TOP: 16px
+}
+.hpLst_style3work {
+	BORDER-BOTTOM: #d3d3d3 1px solid; BORDER-LEFT: #d3d3d3 1px solid; PADDING-BOTTOM: 0px; PADDING-LEFT: 14px; PADDING-RIGHT: 14px; BORDER-TOP: #d3d3d3 1px solid; BORDER-RIGHT: #d3d3d3 1px solid; PADDING-TOP: 16px
+}
+.hpLst_style3work .hpFeat_FeatureItem .hpFeat_PrimaryCta A {
+	COLOR: #0060a6
+}
+.hpLst_style3work .hpFeat_FeatureItem .hpFeat_PrimaryCta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style3work .hpFeat_FeatureItem .hpFeat_PrimaryCta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style3work .hpFeat_FeatureItem .hpFeat_SecondaryCta A {
+	COLOR: #0060a6
+}
+.hpLst_style3work .hpFeat_FeatureItem .hpFeat_SecondaryCta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style3work .hpFeat_FeatureItem .hpFeat_SecondaryCta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style3work .hpLst_title {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpLst_style4work.hpLst {
+	BACKGROUND-COLOR: #fff
+}
+.hpLst_style4work .hpLst_title {
+	BORDER-BOTTOM: transparent 1px solid; COLOR: #4f4f4f
+}
+.hpLst_style4work .hpLst_description {
+	COLOR: #4f4f4f
+}
+.hpLst_style4work .hpLst_description A {
+	COLOR: #0060a6
+}
+.hpLst_style4work .hpLst_description A:link {
+	COLOR: #0060a6
+}
+.hpLst_style4work .hpLst_description A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style4work .hpLst_description A.hpFeat_Link:hover {
+	COLOR: #0060a6
+}
+.hpLst_style4work .hpLst_description A.hpFeat_Link:active {
+	COLOR: #0060a6
+}
+.hpLst_style4work .hpLst_footer_cta A {
+	COLOR: #0060a6
+}
+.hpLst_style4work .hpLst_footer_cta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style4work .hpLst_footer_cta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style4work .hpLst_footer_cta A.hpFeat_Link:hover {
+	COLOR: #0060a6
+}
+.hpLst_style4work .hpLst_footer_cta A.hpFeat_Link:active {
+	COLOR: #0060a6
+}
+.hpLst_style4work .hpLst_title A {
+	COLOR: #4f4f4f
+}
+.hpLst_style4work .hpLst_title A:link {
+	COLOR: #4f4f4f
+}
+.hpLst_style4work .hpLst_title A:visited {
+	COLOR: #4f4f4f
+}
+.hpLst_style4work.hpLst {
+	BORDER-BOTTOM: #d3d3d3 1px solid; BORDER-LEFT: #d3d3d3 1px solid; PADDING-BOTTOM: 0px; PADDING-LEFT: 14px; PADDING-RIGHT: 14px; BORDER-TOP: #d3d3d3 1px solid; BORDER-RIGHT: #d3d3d3 1px solid; PADDING-TOP: 16px
+}
+.hpLst_style4work {
+	BORDER-BOTTOM: #d3d3d3 1px solid; BORDER-LEFT: #d3d3d3 1px solid; PADDING-BOTTOM: 0px; PADDING-LEFT: 14px; PADDING-RIGHT: 14px; BORDER-TOP: #d3d3d3 1px solid; BORDER-RIGHT: #d3d3d3 1px solid; PADDING-TOP: 16px
+}
+.hpLst_style4work .hpFeat_FeatureItem .hpFeat_PrimaryCta A {
+	COLOR: #0060a6
+}
+.hpLst_style4work .hpFeat_FeatureItem .hpFeat_PrimaryCta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style4work .hpFeat_FeatureItem .hpFeat_PrimaryCta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style4work .hpFeat_FeatureItem .hpFeat_SecondaryCta A {
+	COLOR: #0060a6
+}
+.hpLst_style4work .hpFeat_FeatureItem .hpFeat_SecondaryCta A:link {
+	COLOR: #0060a6
+}
+.hpLst_style4work .hpFeat_FeatureItem .hpFeat_SecondaryCta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_style4work .hpLst_title {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpLst_news.hpLst {
+	BACKGROUND-COLOR: #fff
+}
+.hpLst_news .hpLst_title {
+	BORDER-BOTTOM: transparent 1px solid; COLOR: #4f4f4f
+}
+.hpLst_news .hpLst_description {
+	COLOR: #4f4f4f
+}
+.hpLst_news .hpLst_description A {
+	COLOR: #0060a6
+}
+.hpLst_news .hpLst_description A:link {
+	COLOR: #0060a6
+}
+.hpLst_news .hpLst_description A:visited {
+	COLOR: #0060a6
+}
+.hpLst_news .hpLst_description A.hpFeat_Link:hover {
+	COLOR: #0060a6
+}
+.hpLst_news .hpLst_description A.hpFeat_Link:active {
+	COLOR: #0060a6
+}
+.hpLst_news .hpLst_footer_cta A {
+	COLOR: #0060a6
+}
+.hpLst_news .hpLst_footer_cta A:link {
+	COLOR: #0060a6
+}
+.hpLst_news .hpLst_footer_cta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_news .hpLst_footer_cta A.hpFeat_Link:hover {
+	COLOR: #0060a6
+}
+.hpLst_news .hpLst_footer_cta A.hpFeat_Link:active {
+	COLOR: #0060a6
+}
+.hpLst_news .hpLst_title A {
+	COLOR: #4f4f4f
+}
+.hpLst_news .hpLst_title A:link {
+	COLOR: #4f4f4f
+}
+.hpLst_news .hpLst_title A:visited {
+	COLOR: #4f4f4f
+}
+.hpLst_news.hpLst {
+	BORDER-BOTTOM: #d3d3d3 1px solid; BORDER-LEFT: #d3d3d3 1px solid; PADDING-BOTTOM: 0px; PADDING-LEFT: 14px; PADDING-RIGHT: 14px; BORDER-TOP: #d3d3d3 1px solid; BORDER-RIGHT: #d3d3d3 1px solid; PADDING-TOP: 16px
+}
+.hpLst_news {
+	BORDER-BOTTOM: #d3d3d3 1px solid; BORDER-LEFT: #d3d3d3 1px solid; PADDING-BOTTOM: 0px; PADDING-LEFT: 14px; PADDING-RIGHT: 14px; BORDER-TOP: #d3d3d3 1px solid; BORDER-RIGHT: #d3d3d3 1px solid; PADDING-TOP: 16px
+}
+.hpLst_news .hpFeat_FeatureItem .hpFeat_PrimaryCta A {
+	COLOR: #0060a6
+}
+.hpLst_news .hpFeat_FeatureItem .hpFeat_PrimaryCta A:link {
+	COLOR: #0060a6
+}
+.hpLst_news .hpFeat_FeatureItem .hpFeat_PrimaryCta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_news .hpFeat_FeatureItem .hpFeat_SecondaryCta A {
+	COLOR: #0060a6
+}
+.hpLst_news .hpFeat_FeatureItem .hpFeat_SecondaryCta A:link {
+	COLOR: #0060a6
+}
+.hpLst_news .hpFeat_FeatureItem .hpFeat_SecondaryCta A:visited {
+	COLOR: #0060a6
+}
+.hpLst_news .hpLst_title {
+	FONT-FAMILY: Segoe UI Light, Segoe UI, Tahoma, Arial, Verdana, sans-serif
+}
+.hpLst {
+	MARGIN: 0px; BACKGROUND-REPEAT: repeat-x; BACKGROUND-POSITION: left bottom
+}
+.hpLst_box {
+	PADDING-BOTTOM: 0px; MARGIN: 0px -1px; PADDING-LEFT: 1px; PADDING-RIGHT: 1px; OVERFLOW: hidden; PADDING-TOP: 0px; _width: 100%; _padding: 0; _margin: 0
+}
+.hpLst_title {
+	LINE-HEIGHT: 115.38%; MARGIN-BOTTOM: 14px; FONT-SIZE: 162.5%; FONT-WEIGHT: normal
+}
+.hpLst_description {
+	LINE-HEIGHT: 115.38%; MARGIN-BOTTOM: 10px; FONT-SIZE: 75%
+}
+.hpLst_footer_cta {
+	TEXT-ALIGN: right; PADDING-BOTTOM: 0px; LINE-HEIGHT: 115.38%; MARGIN: 20px 0px 15px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; FONT-SIZE: 75%; TEXT-DECORATION: none; PADDING-TOP: 0px
+}
+.hpLst_footer_cta A:active {
+	TEXT-DECORATION: none
+}
+.hpLst_footer_cta A:hover {
+	TEXT-DECORATION: none
+}
+.hpLst_footer_cta A:active .hpFeat_Text {
+	TEXT-DECORATION: underline
+}
+.hpLst_footer_cta A:hover .hpFeat_Text {
+	TEXT-DECORATION: underline
+}
+.hpLst_footer_cta A .hpFeat_Arrow {
+	LINE-HEIGHT: 0.9em; PADDING-LEFT: 10px; FONT-SIZE: 140%
+}

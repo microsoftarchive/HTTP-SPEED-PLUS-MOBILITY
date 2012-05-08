@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:difx='http://schemas.microsoft.com/wix/DifxAppExtension'
+     xmlns:ui='http://schemas.microsoft.com/wix/UIExtension'
+     xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+  <Product Id="b81632e0-8d85-477b-ac16-84d5a3f0135c" 
+           Name="ClientSetup" 
+           Language="1033" 
+           Version="1.0.0.0" 
+           Manufacturer="ClientSetup" 
+           UpgradeCode="892310fb-f372-411d-ab90-8bd0b83b949a">
+    
+    <Package InstallerVersion="200" Compressed="yes" />
+
+    <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+    
+
+    <Condition Message="This setup requires the .NET Framework 4.0 to be installed.">
+      Installed OR NETFRAMEWORK40
+    </Condition>
+    
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLLOCATION" Name="ClientSetup">
+          <Component Id='Client' Guid='05718C48-D309-4C7F-B97B-A0688CC1D606'>
+            <File Id="Client" Source="..\Drop\Client.exe"></File>
+          </Component>
+
+
+          <Component Id='ClientProtocol' Guid='05718C48-D309-4C7F-B97B-A0688CC1D607'>
+            <File Id='ClientProtocol' Source='..\Drop\ClientProtocol.dll'></File>
+          </Component>
+
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id="ProductFeature" Level="1">
+      <ComponentRef Id='Client' />
+      <ComponentRef Id='ClientProtocol' />
+    </Feature>
+
+  </Product>
+</Wix>

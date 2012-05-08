@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>Test page example </title>
+	<link rel="stylesheet" type="text/css" href="test1.css" />
+	<link rel="stylesheet" type="text/css" href="test2.css" />
+	<link rel="stylesheet" type="text/css" href="test3.css" />
+	<script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="jquery.delegate.js"></script>
+	<script type="text/javascript" src="jquery.dimensions.js"></script>
+	<script type="text/javascript" src="jquery.tooltip.pack.js"></script>
+	<script type="text/javascript" src="jquery.bgiframe.js"></script>
+	<script type="text/javascript" language="javascript">
+		$(document).ready(function () {
+			$("#selDay").change(onDaySelect);
+		});
+
+		function onDaySelect(evt) {
+			alert('You have selected ' + $("#selDay").val());
+		}
+	</script>
+</head>
+<body>
+	<div>
+		<ul class="header">
+			<li><a href="#home">Home</a></li>
+			<li><a href="#news">News</a></li>
+			<li><a href="#contact">Contact</a></li>
+			<li><a href="#about">About</a></li>
+		</ul>
+	</div>
+	<div style="clear: both">
+		<p>
+			Please Choose a Day:
+			<br />
+			<br />
+			<select name="day" id="selDay">
+				<option selected="selected">Monday</option>
+				<option>Tuesday</option>
+				<option>Wednesday</option>
+				<option>Thursday</option>
+				<option>Friday</option>
+				<option>Saturday</option>
+				<option>Sunday</option>
+			</select>
+		</p>
+	</div>
+	<div>
+		<p class="test">
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vel arcu sit amet
+			augue lobortis rutrum sit amet in est. Aenean varius semper dolor, sed sollicitudin
+			felis viverra eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+			varius malesuada dui, egestas imperdiet felis mattis id. Cras vel diam diam, at
+			aliquet nulla. Fusce tempor nisi scelerisque ipsum hendrerit nec condimentum eros
+			vulputate. Pellentesque habitant morbi tristique senectus et netus et malesuada
+			fames ac turpis egestas.
+			<img src="testImage1.jpg" alt="test1" style="float: right" />
+			Vivamus tristique lacinia mi, vel gravida quam malesuada in. Pellentesque imperdiet
+			lorem sit amet metus aliquam rhoncus. Cras purus nunc, volutpat id fringilla ut,
+			pulvinar eget nibh. Nulla suscipit adipiscing nibh sed fermentum. Morbi sit amet
+			velit at mauris eleifend condimentum. Cras et feugiat nunc. In vestibulum libero
+			ut purus pharetra volutpat. Suspendisse eleifend justo sed magna ullamcorper et
+			pulvinar ipsum egestas. Sed a scelerisque lorem. Lorem ipsum dolor sit amet, consectetur
+			adipiscing elit.
+			<img src="testImage2.png" alt="test" style="float: left" />
+			Aenean rhoncus, mauris nec viverra faucibus, eros libero rhoncus quam, quis volutpat
+			magna velit vitae lectus. Donec posuere posuere lacus, quis ultricies massa interdum
+			a. Fusce ornare dui in velit dictum accumsan. Suspendisse leo urna, sagittis a congue
+			ut, hendrerit nec orci. Morbi eget ullamcorper purus. Sed blandit porta gravida.
+			Aenean porta urna quam. Aenean tempor nulla ut urna gravida vitae eleifend magna
+			venenatis. In quam tortor, condimentum ac lacinia vel, gravida facilisis neque.
+			Aenean sem eros, lobortis et fringilla eu, dapibus venenatis erat. Curabitur facilisis,
+			massa sollicitudin laoreet luctus, metus felis placerat leo, laoreet feugiat eros
+			magna ut nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra,
+			per inceptos himenaeos. Class aptent taciti sociosqu ad litora torquent per conubia
+			nostra, per inceptos himenaeos. Nulla euismod, nisi luctus eleifend aliquam, lacus
+			sem condimentum dui, vitae fermentum libero enim eget nisi. Curabitur velit risus,
+			bibendum ac posuere sit amet, pulvinar vestibulum lacus. Nullam dictum venenatis
+			nisl eu mattis. Pellentesque habitant morbi tristique senectus et netus et malesuada
+			fames ac turpis egestas. In augue lacus, tincidunt quis malesuada eu, interdum non
+			elit. Integer magna elit, euismod vel fermentum at, egestas vitae lectus. Donec
+			mollis, erat ac pharetra tempor, lorem felis tempus ante, cursus vulputate urna
+			<img src="testImage13.jpg" alt="test" style="float: right" />
+			leo sit amet turpis. Donec adipiscing varius dui, vitae blandit leo posuere sit
+			amet. Vivamus eleifend ultricies ultricies. Aliquam scelerisque sapien sed lorem
+			fringilla lobortis ut sed velit. Pellentesque metus urna, elementum sed sagittis
+			non, sagittis sed massa. Nulla facilisi. Pellentesque ut arcu et lacus convallis
+			<img src="testImage14.jpg" alt="test13" style="float: left" />
+			lacinia ut ac eros. Suspendisse at mauris risus, sit amet tempus mi. Ut laoreet
+			mi a magna vestibulum suscipit. Ut eget accumsan lorem. Duis ut nulla et nunc ultricies
+			semper. Maecenas in massa augue, in vulputate urna. Ut interdum ultrices urna eu
+			luctus. Pellentesque lorem urna, molestie eget tempor vel, ullamcorper vel nisi.
+			Proin iaculis semper lorem, sed tristique eros rhoncus sed. Maecenas enim mi, elementum
+			a tincidunt eget, pharetra quis ipsum.
+		</p>
+	</div>
+	<div style="width: 100%; clear: both; font-weight: bold; font-size: x-large; text-align: center;
+		color: Black">
+		Header</div>
+	<div style="width: 40%; float: left">
+		<div>
+			<img src="testImage3.png" alt="test" />
+			<div id="lipsum">
+				<p>
+				</p>
+				<ul class="a">
+					<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+					<li>Donec et metus nec est volutpat euismod vel malesuada ligula.</li>
+					<li>Maecenas eget lorem a urna pulvinar ullamcorper.</li>
+					<li>Fusce id augue eu leo rhoncus tincidunt at ut quam.</li>
+				</ul>
+				<p>
+				</p>
+				<p>
+				</p>
+				<ul class="a">
+					<li>Nam tincidunt convallis neque, aliquet interdum metus venenatis vitae.</li>
+				</ul>
+				<p>
+				</p>
+				<p>
+				</p>
+				<ul class="a">
+					<li>Fusce vulputate vehicula ligula, eget convallis enim fermentum ut.</li>
+					<li>Aliquam fermentum orci vitae dolor fringilla venenatis.</li>
+				</ul>
+				<p>
+				</p>
+				<p>
+				</p>
+				<ul class="a">
+					<li>Aliquam egestas dui a justo sodales sed ultrices nisl gravida.</li>
+					<li>Vestibulum varius vehicula eros, ac tincidunt tortor viverra interdum.</li>
+					<li>Nulla mattis massa id augue dictum volutpat.</li>
+				</ul>
+				<p>
+				</p>
+				<p>
+				</p>
+				<ul class="a">
+					<li>Proin suscipit quam at diam laoreet ut posuere arcu volutpat.</li>
+					<li>Donec in dolor ut eros bibendum suscipit.</li>
+					<li>Proin dignissim justo at felis facilisis sagittis.</li>
+					<li>Vivamus sit amet metus non ante semper placerat.</li>
+					<li>Maecenas nec tellus sed ipsum gravida commodo eget a libero.</li>
+					<li>Sed nec orci at ante euismod tincidunt vel quis odio.</li>
+				</ul>
+				<p>
+				</p>
+			</div>
+		</div>
+	</div>
+	<div style="width: 40%; float: right">
+		<div>
+			<div id="Div1">
+				<p>
+				</p>
+				<ul class="b">
+					<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+					<li>Donec et metus nec est volutpat euismod vel malesuada ligula.</li>
+					<li>Maecenas eget lorem a urna pulvinar ullamcorper.</li>
+					<li>Fusce id augue eu leo rhoncus tincidunt at ut quam.</li>
+				</ul>
+				<p>
+				</p>
+				<p>
+				</p>
+				<ul class="b">
+					<li>Nam tincidunt convallis neque, aliquet interdum metus venenatis vitae.</li>
+				</ul>
+				<p>
+				</p>
+				<p>
+				</p>
+				<ul class="b">
+					<li>Fusce vulputate vehicula ligula, eget convallis enim fermentum ut.</li>
+					<li>Aliquam fermentum orci vitae dolor fringilla venenatis.</li>
+				</ul>
+				<p>
+				</p>
+				<p>
+				</p>
+				<ul class="b">
+					<li>Aliquam egestas dui a justo sodales sed ultrices nisl gravida.</li>
+					<li>Vestibulum varius vehicula eros, ac tincidunt tortor viverra interdum.</li>
+					<li>Nulla mattis massa id augue dictum volutpat.</li>
+				</ul>
+				<p>
+				</p>
+				<p>
+				</p>
+				<ul class="b">
+					<li>Proin suscipit quam at diam laoreet ut posuere arcu volutpat.</li>
+					<li>Donec in dolor ut eros bibendum suscipit.</li>
+					<li>Proin dignissim justo at felis facilisis sagittis.</li>
+					<li>Vivamus sit amet metus non ante semper placerat.</li>
+					<li>Maecenas nec tellus sed ipsum gravida commodo eget a libero.</li>
+					<li>Sed nec orci at ante euismod tincidunt vel quis odio.</li>
+				</ul>
+				<p>
+				</p>
+			</div>
+		</div>
+	</div>
+	<table id="imgTable">
+		<colgroup>
+			<col style="width: 50%" />
+			<col style="width: 50%" />
+		</colgroup>
+		<tr>
+			<td>
+				<img src="testImage4.jpg" alt="test1" style="float: right" />
+			</td>
+			<td>
+				<img src="testImage5.jpg" alt="test1" style="float: right" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<img src="testImage5.jpg" alt="test1" style="float: right" />
+			</td>
+			<td>
+				<img src="testImage7.jpg" alt="test1" style="float: right" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<img src="testImage8.jpg" alt="test1" style="float: right" />
+			</td>
+			<td>
+				<img src="testImage9.jpg" alt="test1" style="float: right" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<img src="testImage10.jpg" alt="test1" style="float: right" />
+			</td>
+			<td>
+				<img src="testImage11.jpg" alt="test1" style="float: right" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<img src="testImage17.jpg" alt="test1" style="float: right" />
+			</td>
+			<td>
+				<img src="testImage18.jpg" alt="test1" style="float: right" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<img src="testImage19.jpg" alt="test1" style="float: right" />
+			</td>
+			<td>
+				<img src="testImage20.jpg" alt="test1" style="float: right" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<img src="testImage12.jpg" alt="test1" style="float: right" />
+			</td>
+			<td>
+				Aenean rhoncus, mauris nec viverra faucibus, eros libero rhoncus quam, quis volutpat
+				magna velit vitae lectus. Donec posuere posuere lacus, quis ultricies massa interdum
+				a. Fusce ornare dui in velit dictum accumsan. Suspendisse leo urna, sagittis a congue
+				ut, hendrerit nec orci. Morbi eget ullamcorper purus. Sed blandit porta gravida.
+				Aenean porta urna quam. Aenean tempor nulla ut urna gravida vitae eleifend magna
+				venenatis. In quam tortor, condimentum ac lacinia vel, gravida facilisis neque.
+				Aenean sem eros, lobortis et fringilla eu, dapibus venenatis erat. Curabitur facilisis,
+				massa sollicitudin laoreet luctus, metus felis placerat leo, laoreet feugiat eros
+				<img src="testImage15.jpg" alt="test" style="float: left" />
+				magna ut nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra,
+				per inceptos himenaeos. Class aptent taciti sociosqu ad litora torquent per conubia
+				nostra, per inceptos himenaeos. Nulla euismod, nisi luctus eleifend aliquam, lacus
+				sem condimentum dui, vitae fermentum libero enim eget nisi. Curabitur velit risus,
+				bibendum ac posuere sit amet, pulvinar vestibulum lacus. Nullam dictum venenatis
+				nisl eu mattis. Pellentesque habitant morbi tristique senectus et netus et malesuada
+				fames ac turpis egestas. In augue lacus, tincidunt quis malesuada eu, interdum non
+				elit. Integer magna elit, euismod vel fermentum at, egestas vitae lectus. Donec
+				<img src="testImage16.jpg" alt="test" style="float: left" />
+				mollis, erat ac pharetra tempor, lorem felis tempus ante, cursus vulputate urna
+				leo sit amet turpis. Donec adipiscing varius dui, vitae blandit leo posuere sit
+				amet. Vivamus eleifend ultricies ultricies. Aliquam scelerisque sapien sed lorem
+				fringilla lobortis ut sed velit. Pellentesque metus urna, elementum sed sagittis
+				non, sagittis sed massa. Nulla facilisi. Pellentesque ut arcu et lacus convallis
+				lacinia ut ac eros. Suspendisse at mauris risus, sit amet tempus mi. Ut laoreet
+				mi a magna vestibulum suscipit. Ut eget accumsan lorem. Duis ut nulla et nunc ultricies
+				semper. Maecenas in massa augue, in vulputate urna. Ut interdum ultrices urna eu
+				luctus. Pellentesque lorem urna, molestie eget tempor vel, ullamcorper vel nisi.
+				Proin iaculis semper lorem, sed tristique eros rhoncus sed. Maecenas enim mi, elementum
+				a tincidunt eget, pharetra quis ipsum.
+			</td>
+		</tr>
+	</table>
+	<table id="customers">
+		<tr>
+			<th>
+				Company
+			</th>
+			<th>
+				Contact
+			</th>
+			<th>
+				Country
+			</th>
+		</tr>
+		<tr>
+			<td>
+				Alfreds Futterkiste
+			</td>
+			<td>
+				Maria Anders
+			</td>
+			<td>
+				Germany
+			</td>
+		</tr>
+		<tr class="alt">
+			<td>
+				Berglunds snabbk�p
+			</td>
+			<td>
+				Christina Berglund
+			</td>
+			<td>
+				Sweden
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Centro comercial Moctezuma
+			</td>
+			<td>
+				Francisco Chang
+			</td>
+			<td>
+				Mexico
+			</td>
+		</tr>
+		<tr class="alt">
+			<td>
+				Ernst Handel
+			</td>
+			<td>
+				Roland Mendel
+			</td>
+			<td>
+				Austria
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Island Trading
+			</td>
+			<td>
+				Helen Bennett
+			</td>
+			<td>
+				UK
+			</td>
+		</tr>
+		<tr class="alt">
+			<td>
+				K�niglich Essen
+			</td>
+			<td>
+				Philip Cramer
+			</td>
+			<td>
+				Germany
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Laughing Bacchus Winecellars
+			</td>
+			<td>
+				Yoshi Tannamuri
+			</td>
+			<td>
+				Canada
+			</td>
+		</tr>
+		<tr class="alt">
+			<td>
+				Magazzini Alimentari Riuniti
+			</td>
+			<td>
+				Giovanni Rovelli
+			</td>
+			<td>
+				Italy
+			</td>
+		</tr>
+		<tr>
+			<td>
+				North/South
+			</td>
+			<td>
+				Simon Crowther
+			</td>
+			<td>
+				UK
+			</td>
+		</tr>
+		<tr class="alt">
+			<td>
+				Paris sp�cialit�s
+			</td>
+			<td>
+				Marie Bertrand
+			</td>
+			<td>
+				France
+			</td>
+		</tr>
+	</table>
+</body>
+</html>
