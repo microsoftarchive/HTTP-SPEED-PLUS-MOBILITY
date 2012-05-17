@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Http\HttpReportLines.cs" />
     <Compile Include="ProtocolLog\FrameLogItem.cs" />
     <Compile Include="ProtocolLog\ProtocolMonitor.cs" />
     <Compile Include="ProtocolLog\ProtocolMonitorLog.cs" />
@@ -60,6 +61,8 @@
     <Compile Include="Http\HttpRequest.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProtocolLog\ProtocolReportLines.cs" />
+    <Compile Include="ProtocolLog\StatisticsSnapshot.cs" />
     <Compile Include="ProtocolLog\StreamInfo.cs" />
     <Compile Include="ProtocolLog\StreamStats.cs" />
     <Compile Include="Utils\ArgPair.cs" />

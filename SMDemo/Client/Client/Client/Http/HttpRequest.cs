@@ -57,18 +57,29 @@ namespace Client.Http
         }
 
         /// <summary>
-        /// Get files via http request.
+        /// Get files via http request. Public interface to call for top file of the tree
         /// </summary>
         /// <param name="uri">The address site.</param>
         /// <returns>New traffic log.</returns>
         public HttpTrafficLog GetFile(string uri)
         {
+            this.httpMonitor.LogTitle = "HTTP load " + Path.GetFileName(uri);
+            return this.PrivateGetFile(uri);
+        }
+
+        /// <summary>
+        /// Get files via http request.
+        /// </summary>
+        /// <param name="uri">The address site.</param>
+        /// <returns>New traffic log.</returns>
+        private HttpTrafficLog PrivateGetFile(string uri)
+        {
             string type = ContentTypes.GetTypeFromFileName(uri);
-            string file = Path.GetFileName(uri);
+
             try
             {
-                Uri requetUri = new Uri(uri);
-                byte[] content = this.Get(requetUri);
+                Uri requestUri = new Uri(uri);
+                byte[] content = this.Get(requestUri);
                 byte[] headers = this.GetHeaders(content);
                 this.httpMonitor.LogResponse(headers, content.Length);
 
@@ -84,16 +95,31 @@ namespace Client.Http
 
                 if (status == 200)
                 {
-                    string url = requetUri.Scheme + "://" + requetUri.Authority;
+                    string url = requestUri.Scheme + "://" + requestUri.Authority;
                     string directory = string.Empty;
+                    string localDir = string.Empty;
+                    string file = requestUri.LocalPath;
+                    string localFile = Path.GetFileName(uri);
 
-                    for (int i = 0; i < requetUri.Segments.Length - 1; i++)
+                    for (int i = 0; i < requestUri.Segments.Length - 1; i++)
                     {
-                        directory += requetUri.Segments[i];
+                        directory += requestUri.Segments[i];
+                        localDir += requestUri.Segments[i].Replace('/', '\\');
+                    }
+
+                    if (!string.IsNullOrEmpty(localDir))
+                    {
+                        if (localDir[0] == '\\')
+                        {
+                            localDir = '.' + localDir;
+                        }
+
+                        Directory.CreateDirectory(localDir);
+                        localFile = localDir + '\\' + localFile;
                     }
 
                     int contentOffset = headers.Length;
-                    using (var fs = new FileStream(file, FileMode.Create))
+                    using (var fs = new FileStream(localFile, FileMode.Create))
                     {
                         fs.Write(content, contentOffset, content.Length - contentOffset);
                     }
@@ -104,17 +130,17 @@ namespace Client.Http
 
                         foreach (var image in document.Images)
                         {
-                            this.GetFile(string.Format("{0}/{1}", url + directory, image));
+                            this.PrivateGetFile(string.Format("{0}/{1}", url + directory, image));
                         }
 
                         foreach (var link in document.Links)
                         {
-                            this.GetFile(string.Format("{0}/{1}", url + directory, link));
+                            this.PrivateGetFile(string.Format("{0}/{1}", url + directory, link));
                         }
 
                         foreach (var script in document.Scripts)
                         {
-                            this.GetFile(string.Format("{0}/{1}", url + directory, script));
+                            this.PrivateGetFile(string.Format("{0}/{1}", url + directory, script));
                         }
                     }
                 }

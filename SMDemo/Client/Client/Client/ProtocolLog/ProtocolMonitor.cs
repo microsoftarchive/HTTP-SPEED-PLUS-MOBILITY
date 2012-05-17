@@ -24,6 +24,8 @@ namespace Client.Benchmark
     using System.ServiceModel.SMProtocol;
     using System.ServiceModel.SMProtocol.SMFrames;
     using System.Threading;
+    using Client.HttpBenchmark;
+    using Client.Utils;
 
     /// <summary>
     /// Monitor session log.
@@ -48,6 +50,12 @@ namespace Client.Benchmark
         private readonly ManualResetEvent exitEvent;
 
         /// <summary>
+        /// Locking object to serialize inserts in dictionary
+        /// </summary>
+        [NonSerialized]
+        private object exclusiveLock;
+
+        /// <summary>
         /// Disposed flag
         /// </summary>   
         private bool disposed;
@@ -67,6 +75,11 @@ namespace Client.Benchmark
         /// </summary>   
         private StreamStats statsByStream;
 
+        /// <summary>
+        /// Saved statistics
+        /// </summary>   
+        private Dictionary<int, StatisticsSnapshot> savedStats;
+
         #endregion
 
         #region Constructor
@@ -77,6 +90,8 @@ namespace Client.Benchmark
         /// <param name="session">The sm session instance.</param>
         public ProtocolMonitor(SMSession session)
         {
+            this.exclusiveLock = new object();
+
             if (session == null)
             {
                 throw new ArgumentNullException("session");
@@ -87,6 +102,7 @@ namespace Client.Benchmark
             this.exitEvent = new ManualResetEvent(false);
             this.statsByStream = new StreamStats();
             this.State = MonitorState.MonitorOff;
+            this.savedStats = new Dictionary<int, StatisticsSnapshot>();
         }
 
         #endregion
@@ -106,6 +122,11 @@ namespace Client.Benchmark
         {
             get { return this.totals; }
         }
+
+        /// <summary>
+        /// Gets or sets last HTTP log.
+        /// </summary>
+        public HttpTrafficLog LastHTTPLog { get; set; }
 
         #endregion
 
@@ -205,6 +226,101 @@ namespace Client.Benchmark
         {
             this.totals.Reset();
             this.statsByStream.Reset();
+            this.LastHTTPLog = null;
+        }
+
+        /// <summary>
+        ///  Saves current SM statistics into storage slot.
+        /// </summary>
+        /// <param name="slotId">The slot id.</param>
+        /// <returns>True is operation succeeded.</returns>
+        public bool SaveSlot(int slotId)
+        {
+            bool result = false;
+            lock (this.exclusiveLock)
+            {
+                StatisticsSnapshot ss;
+                if (!this.savedStats.TryGetValue(slotId, out ss))
+                {
+                    if (this.LastHTTPLog != null)
+                    {
+                        ss = new StatisticsSnapshot(this.LastHTTPLog);
+                        this.LastHTTPLog = null;
+                    }
+                    else
+                    {
+                        ss = new StatisticsSnapshot(this.totals);
+                    }
+
+                    this.savedStats.Add(slotId, ss);
+                    result = true;
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Create protocol monitoring report
+        /// </summary>
+        /// <param name="level">The verbosity level.</param>
+        /// <returns>
+        /// string representation of report
+        /// </returns>
+        public string GetMonitoringStats(SMLoggerState level)
+        {
+            string result = string.Empty;
+
+            // if we have zero saved result slots - just make totals
+            if (this.savedStats.Count == 0)
+            {
+                // if HTTP log is avaialble, assume it is the last download operation
+                if (this.LastHTTPLog != null)
+                {
+                    return this.LastHTTPLog.ToString();
+                }
+                else
+                {
+                    // output S+M operation
+                    if (level < SMLoggerState.VerboseLogging)
+                    {
+                        return this.totals.GetShortLog();
+                    }
+                    else
+                    {
+                        return this.totals.ToString();
+                    }
+                }
+            }
+
+            // if we have saved slots, we make new side-by-side format
+            int maxLines = 0;
+            foreach (KeyValuePair<int, StatisticsSnapshot> kvp in this.savedStats)
+            {
+                StatisticsSnapshot ss = kvp.Value;
+                if (maxLines < ss.MaxTotalsLines)
+                {
+                    maxLines = ss.MaxTotalsLines;
+                }
+
+                ss.StartSxSOutput();
+                result += string.Format("{0,-40}    ", ss.GetLogTitle());
+            }
+
+            result += "\r\n";
+
+            for (int i = 0; i < maxLines; i++)
+            {
+                foreach (KeyValuePair<int, StatisticsSnapshot> kvp in this.savedStats)
+                {
+                    StatisticsSnapshot ss = kvp.Value;
+                    result += string.Format("{0,-35}  ", ss.GetSxSLine());
+                }
+
+                result += "\r\n";
+            }
+
+            return result;
         }
 
         /// <summary>

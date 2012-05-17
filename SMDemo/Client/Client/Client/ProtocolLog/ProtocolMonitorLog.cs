@@ -41,9 +41,53 @@ namespace Client.Benchmark
         /// </summary>   
         private readonly List<FrameLogItem> framesLog = new List<FrameLogItem>();
 
+        /// <summary>
+        /// Current line number for SxS output.
+        /// </summary>
+        private ProtocolReportLines sideBySideLine = ProtocolReportLines.InvalidLine;
+
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProtocolMonitorLog"/> class.
+        /// </summary>
+        public ProtocolMonitorLog()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProtocolMonitorLog"/> class.
+        /// </summary>
+        /// <param name="theOtherLog">the other object.</param>
+        public ProtocolMonitorLog(ProtocolMonitorLog theOtherLog)
+        {
+            this.TotalSizeDataFrameReceived = theOtherLog.TotalSizeDataFrameReceived;
+            this.TotalSizeControlFrameReceived = theOtherLog.TotalSizeControlFrameReceived;
+            this.TotalSizeFrameSent = theOtherLog.TotalSizeFrameSent;
+            this.TotalCountControlFramesSent = theOtherLog.TotalCountControlFramesSent;
+            this.TotalCountControlFramesReceived = theOtherLog.TotalCountControlFramesReceived;
+            this.TotalCountDataFramesSent = theOtherLog.TotalCountDataFramesSent;
+            this.TotalCountDataFramesReceived = theOtherLog.TotalCountDataFramesReceived;
+            this.TotalCountStreamsOpened = theOtherLog.TotalCountStreamsOpened;
+            this.LogTitle = theOtherLog.LogTitle;
+        }
+
         #endregion
 
         #region Public Properties
+
+        /// <summary>
+        /// Gets max number of lines in totals report
+        /// </summary>   
+        public int MaxLines 
+        { 
+            get
+            {
+                return (int)ProtocolReportLines.SMReportMaxLine;
+            } 
+        }
 
         /// <summary>
         /// Gets or sets begin time
@@ -106,9 +150,85 @@ namespace Client.Benchmark
             get { return this.TotalCountControlFramesReceived + this.TotalCountControlFramesSent; }
         }
 
+        /// <summary>
+        /// Gets or sets title of the log
+        /// </summary>   
+        public string LogTitle { get; set; }
+
         #endregion
 
         #region Public Methods
+
+        /// <summary>
+        /// Starts output for side-by-side
+        /// </summary>
+        public void StartSxSOutput()
+        {
+            this.sideBySideLine = 0;
+        }
+
+        /// <summary>
+        /// Starts output for side-by-side
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String"/> that represents one line.
+        /// </returns>
+        public string GetSxSLine()
+        {
+            string output = string.Empty;
+
+            if ((this.sideBySideLine == ProtocolReportLines.InvalidLine) || 
+                (this.sideBySideLine >= ProtocolReportLines.SMReportMaxLine))
+            {
+                return output;
+            }
+
+            switch (this.sideBySideLine)
+            {
+                case ProtocolReportLines.LineZero:
+                    output = string.Format("Size of data exchanged:         {0,10}", this.TotalSizeDataFrameReceived + this.TotalSizeControlFrameReceived + this.TotalSizeFrameSent);
+                    break;
+                case ProtocolReportLines.LineOne:
+                    output = string.Format("Total size received:            {0,10}", this.TotalSizeDataFrameReceived + this.TotalSizeControlFrameReceived);
+                    break;
+                case ProtocolReportLines.LineTwo:
+                    output = string.Format("Size of frames sent:            {0,10}", this.TotalSizeFrameSent);
+                    break;
+                case ProtocolReportLines.LineThree:
+                    output = string.Format("Size of data frames received:   {0,10}", this.TotalSizeDataFrameReceived);
+                    break;
+                case ProtocolReportLines.LineFour:
+                    output = string.Format("Size of control frames received:{0,10}", this.TotalSizeControlFrameReceived);
+                    break;
+                case ProtocolReportLines.LineFive:
+                    output = string.Format("# streams opened:               {0,10}", this.TotalCountStreamsOpened);
+                    break;
+                case ProtocolReportLines.LineSix:
+                    output = string.Format("# control frames sent:          {0,10}", this.TotalCountControlFramesSent);
+                    break;
+                case ProtocolReportLines.LineSeven:
+                    output = string.Format("# control frames received:      {0,10}", this.TotalCountControlFramesReceived);
+                    break;
+                case ProtocolReportLines.LineEight:
+                    output = string.Format("# control frames:               {0,10}", this.TotalCountControlFrames);
+                    break;
+                case ProtocolReportLines.LineNine:
+                    output = string.Format("# data frames sent:             {0,10}", this.TotalCountDataFramesSent);
+                    break;
+                case ProtocolReportLines.LineTen:
+                    output = string.Format("# data frames received:         {0,10}", this.TotalCountDataFramesReceived);
+                    break;
+                case ProtocolReportLines.LineEleven:
+                    output = string.Format("# frames exchanged:             {0,10}", this.TotalCountControlFrames + this.TotalCountDataFramesSent + this.TotalCountDataFramesReceived);
+                    break;
+                case ProtocolReportLines.LineTwelve:
+                    output = string.Format("# connections opened:           {0,10}", 1);
+                    break;
+            }
+
+            this.sideBySideLine++;
+            return output;
+        }
 
         /// <summary>
         /// Returns a <see cref="System.String"/> that represents this instance.
@@ -134,22 +254,14 @@ namespace Client.Benchmark
         {
             string result = Separator;
             result += "                TOTAL\n";
-            result += string.Format("Begin time: {0}\n", this.BeginTime);
-            result += string.Format("Total size of data frames received(bytes):    {0}\r\n", this.TotalSizeDataFrameReceived);
-            result += string.Format("Total size of control frames received(bytes): {0}\r\n", this.TotalSizeControlFrameReceived);
-            result += string.Format("Total size of frames received(bytes):         {0}\r\n", this.TotalSizeDataFrameReceived + this.TotalSizeControlFrameReceived);
-            result += string.Format("Total size of frames sent(bytes):             {0}\r\n", this.TotalSizeFrameSent);
-            result += string.Format("Total size of data exchanged(bytes):          {0}\r\n", this.TotalSizeDataFrameReceived + this.TotalSizeControlFrameReceived + this.TotalSizeFrameSent);
-            result += string.Format("Total count of control frames sent:           {0}\r\n", this.TotalCountControlFramesSent);
-            result += string.Format("Total count of control frames received:       {0}\r\n", this.TotalCountControlFramesReceived);
-            result += string.Format("Total count of control frames:                {0}\r\n", this.TotalCountControlFrames);
-            result += string.Format("Total count of data frames sent:              {0}\r\n", this.TotalCountDataFramesSent);
-            result += string.Format("Total count of data frames received:          {0}\r\n", this.TotalCountDataFramesReceived);
-            result += string.Format("Total count of frames exchanged:              {0}\r\n", this.TotalCountControlFrames + this.TotalCountDataFramesSent + this.TotalCountDataFramesReceived);
-            result += string.Format("Total count of streams opened:                {0}\r\n", this.TotalCountStreamsOpened);
-            result += string.Format("Total count of connections opened:            1\r\n");
-            result += Separator;
+            this.StartSxSOutput();
+            for (ProtocolReportLines i = 0; i < ProtocolReportLines.SMReportMaxLine; i++)
+            {
+                result += this.GetSxSLine();
+                result += "\n";
+            }
 
+            result += Separator;
             return result;
         }
 

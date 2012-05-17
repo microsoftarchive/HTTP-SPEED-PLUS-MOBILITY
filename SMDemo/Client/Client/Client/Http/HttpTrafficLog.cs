@@ -28,6 +28,8 @@ namespace Client.HttpBenchmark
     /// </summary>
     public class HttpTrafficLog
     {
+        #region Fields
+
         /// <summary>
         /// Separator constant.
         /// </summary>
@@ -36,7 +38,59 @@ namespace Client.HttpBenchmark
         /// <summary>
         /// List of http logs.
         /// </summary>
-        private readonly List<HttpHeaderLogItem> httpLogs = new List<HttpHeaderLogItem>();
+        private readonly List<HttpHeaderLogItem> httpLogs;
+
+        /// <summary>
+        /// Current line number for SxS output.
+        /// </summary>
+        private HttpReportLines sideBySideLine = HttpReportLines.InvalidLine;
+
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HttpTrafficLog"/> class.
+        /// </summary>
+        public HttpTrafficLog()
+        {
+            this.httpLogs = new List<HttpHeaderLogItem>();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HttpTrafficLog"/> class.
+        /// </summary>
+        /// <param name="theOther">The other log.</param>
+        public HttpTrafficLog(HttpTrafficLog theOther)
+        {
+            this.httpLogs = new List<HttpHeaderLogItem>(theOther.httpLogs);
+            this.TotalSizeDataReceived = theOther.TotalSizeDataReceived;
+            this.TotalSizeHeadersReceived = theOther.TotalSizeHeadersReceived;
+            this.TotalSizeHeadersSent = theOther.TotalSizeHeadersSent;
+            this.TotalCountRequestSent = theOther.TotalCountRequestSent;
+            this.TotalCountResponseReceived = theOther.TotalCountResponseReceived;
+            this.LogTitle = theOther.LogTitle;
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets max number of lines in totals report
+        /// </summary>   
+        public int MaxLines
+        {
+            get
+            {
+                return (int)HttpReportLines.HTTPReportMaxLine;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets title of the log
+        /// </summary>   
+        public string LogTitle { get; set; }
 
         /// <summary>
         /// Gets or sets total size data received.
@@ -71,6 +125,10 @@ namespace Client.HttpBenchmark
             get { return this.httpLogs; }
         }
 
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// Logs request headers.
         /// </summary>
@@ -98,6 +156,59 @@ namespace Client.HttpBenchmark
         }
 
         /// <summary>
+        /// Starts output for side-by-side
+        /// </summary>
+        public void StartSxSOutput()
+        {
+            this.sideBySideLine = 0;
+        }
+
+        /// <summary>
+        /// Starts output for side-by-side
+        /// </summary>
+        /// <returns>String representation.</returns>
+        public string GetSxSLine()
+        {
+            string output = string.Empty;
+
+            if ((this.sideBySideLine < 0) || (this.sideBySideLine >= HttpReportLines.HTTPReportMaxLine))
+            {
+                return output;
+            }
+
+            switch (this.sideBySideLine)
+            {
+                case HttpReportLines.LineZero:
+                    output = string.Format("Size of data exchanged:  {0,10}", this.TotalSizeHeadersSent + this.TotalSizeHeadersReceived + this.TotalSizeDataReceived);
+                    break;
+                case HttpReportLines.LineOne:
+                    output = string.Format("Total size received:     {0,10}", this.TotalSizeHeadersReceived + this.TotalSizeDataReceived);
+                    break;
+                case HttpReportLines.LineTwo:
+                    output = string.Format("Size of headers sent:    {0,10}", this.TotalSizeHeadersSent);
+                    break;
+                case HttpReportLines.LineThree:
+                    output = string.Format("Size of data received:   {0,10}", this.TotalSizeDataReceived);
+                    break;
+                case HttpReportLines.LineFour:
+                    output = string.Format("Size of headers received:{0,10}", this.TotalSizeHeadersReceived);
+                    break;
+                case HttpReportLines.LineFive:
+                    output = string.Format("# requests sent:         {0,10}", this.TotalCountRequestSent);
+                    break;
+                case HttpReportLines.LineSix:
+                    output = string.Format("# responses received:    {0,10}", this.TotalCountResponseReceived);
+                    break;
+                case HttpReportLines.LineSeven:
+                    output = string.Format("# connections opened:    {0,10}", this.TotalCountRequestSent);
+                    break;
+            }
+
+            this.sideBySideLine++;
+            return output;
+        }
+
+        /// <summary>
         /// Converts to string representation.
         /// </summary>
         /// <returns>String representation.</returns>
@@ -107,18 +218,18 @@ namespace Client.HttpBenchmark
 
             result += Separator;
             result += "                TOTAL\n";
-            result += string.Format("Total size of data received(bytes):       {0}\n", this.TotalSizeDataReceived);
-            result += string.Format("Total size of headers received(bytes):    {0}\n", this.TotalSizeHeadersReceived);
-            result += string.Format("Total size received(bytes):               {0}\n", this.TotalSizeHeadersReceived + this.TotalSizeDataReceived);
-            result += string.Format("Total size of headers sent(bytes):        {0}\n", this.TotalSizeHeadersSent);
-            result += string.Format("Total size of data exchanged(bytes):      {0}\n", this.TotalSizeHeadersSent + this.TotalSizeHeadersReceived + this.TotalSizeDataReceived);
-            result += string.Format("Total count of requests sent:             {0}\n", this.TotalCountRequestSent);
-            result += string.Format("Total count of responses received:        {0}\n", this.TotalCountResponseReceived);
-            result += string.Format("Total count of connections opened:        {0}\n", this.TotalCountRequestSent);
+            this.StartSxSOutput();
+            for (HttpReportLines i = HttpReportLines.LineZero; i < HttpReportLines.HTTPReportMaxLine; i++)
+            {
+                result += this.GetSxSLine();
+                result += "\n";
+            }
 
             result += Separator;
 
             return result;
         }
+
+        #endregion
     }
 }

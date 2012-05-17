@@ -22,6 +22,7 @@ namespace Client
 {
     using System;
     using System.Collections;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.ServiceModel.SMProtocol;
@@ -101,6 +102,8 @@ namespace Client
                         case "CONNECT":
                         case "GET":
                         case "HTTPGET":
+                        case "RUN":
+                        case "SAVE-STATS":
                         case "VERBOSE":
                             cmd = txt;
                             needNext = true;
@@ -123,7 +126,7 @@ namespace Client
             {
                 ArgPair ap = (ArgPair)parameters.Dequeue();
                 res = ExecuteOneCommand(ap.Cmd, ap.Value);
-                Thread.Sleep(200);
+                Thread.Sleep(400);
             }
 
             return 0;
@@ -158,7 +161,7 @@ namespace Client
                         break;
                     }
 
-                    DownloadPath(val);
+                    DownloadRootFile(val);
                     break;
                 case "DIR":
                     if (session != null)
@@ -177,11 +180,17 @@ namespace Client
                 case "DUMP-STATS":
                     GetMonitoringStats();
                     break;
+                case "SAVE-STATS":
+                    SaveStats(val);
+                    break;
                 case "CLOSE":
                     CloseSession();
                     break;
                 case "HTTPGET":
                     HttpGetFile(val);
+                    break;
+                case "RUN":
+                    RunScriptFile(val);
                     break;
                 default:
                     SMLogger.LogError("Unknown command " + cmd);
@@ -284,13 +293,19 @@ namespace Client
         {
             if (protocolMonitor != null)
             {
+                string output = protocolMonitor.GetMonitoringStats(SMLogger.LoggerLevel);
+
                 if (SMLogger.LoggerLevel < SMLoggerState.VerboseLogging)
                 {
-                    SMLogger.LogConsole("\r\n" + protocolMonitor.Totals.GetShortLog());
+                    // verbose level is too low to output as INFO
+                    // if we trigger DUMP-STATS from script we still want to see the results
+                    SMLogger.LoggerConsole = true;
+                    SMLogger.LogConsole("\r\n" + output);
+                    SMLogger.LoggerConsole = false;
                 }
                 else
                 {
-                    SMLogger.LogInfo("\r\n" + protocolMonitor.Totals);
+                    SMLogger.LogInfo("\r\n" + output);
                 }
             }
             else
@@ -303,6 +318,51 @@ namespace Client
                 {
                     SMLogger.LogError("Please use \"CAPTURE-STATS On\" to start monitoring.");
                 }
+            }
+        }
+
+        /// <summary>
+        /// saves the monitoring stats.
+        /// </summary>
+        /// <param name="slotid">The slot id</param>
+        private static void SaveStats(string slotid)
+        {
+            if (slotid == string.Empty)
+            {
+                SMLogger.LogError("SAVE-STATS needs integer SlotId (0,1,..).");
+                return;
+            }
+
+            int slot = 0;
+
+            // process potential garbage from input
+            try
+            {
+                slot = int.Parse(slotid);
+            }
+            catch
+            {
+                SMLogger.LogError("SAVE-STATS needs integer SlotId (0,1,..).");
+                return;
+            }
+
+            if (protocolMonitor == null)
+            {
+                if (session == null || session.State != SMSessionState.Opened)
+                {
+                    SMLogger.LogError("Session was closed due to error or not opened. Use CONNECT <Uri> to open a new session.");
+                }
+                else
+                {
+                    SMLogger.LogError("Please use \"CAPTURE-STATS On\" to start monitoring.");
+                }
+
+                return;
+            }
+
+            if (!protocolMonitor.SaveSlot(slot))
+            {
+                SMLogger.LogError("Unable to save statistics into slot " + slot);
             }
         }
 
@@ -322,11 +382,13 @@ namespace Client
             Console.WriteLine("VERBOSE [1|2|3]               Display verbose output.\n" + 
                               "                              1 is least and 3 most verbose");
             Console.WriteLine("CAPTURE-STATS [On|Off|Reset]  Start/stop/reset protocol monitoring.");
+            Console.WriteLine("SAVE-STATS <Id>               Save statistics for side-by-side viewing.");
             Console.WriteLine("DUMP-STATS                    Display statistics captured using CAPTURE-STATS.");
             Console.WriteLine("HTTPGET                       Download file using http.\n" + 
                               "                              Ex. http://localhost:8080/microsoft/default.htm.\n" +
                               "                              Or for current connection /microsoft/default.htm");
             Console.WriteLine("CLOSE                         Close session");
+            Console.WriteLine("RUN <filename>                Run command script");
             Console.WriteLine("EXIT                          Exit application");
             Console.WriteLine();
         }
@@ -453,6 +515,24 @@ namespace Client
             {
                 SMLogger.LogError("Unable to open session for " + uri.ToString());
             }
+        }
+
+        /// <summary>
+        /// File download. Called from command processor for top of the file tree
+        /// </summary>
+        /// <param name="fileName">The file name</param>
+        private static void DownloadRootFile(string fileName)
+        {
+            if (protocolMonitor != null)
+            {
+                // set title of S+M dowload
+                protocolMonitor.Totals.LogTitle = "S+M load " + fileName;
+
+                // clear previous HTTP download
+                protocolMonitor.LastHTTPLog = null;
+            }
+
+            DownloadPath(fileName);
         }
 
         /// <summary>
@@ -649,7 +729,7 @@ namespace Client
 
             if (uri[0] == '/')
             {
-                // if session is active prepend http://<HOST>
+                // if session is active prepend http://<HOST>:<PORT>
                 if (session != null && session.State == SMSessionState.Opened)
                 {
                     string portString = string.Empty;
@@ -669,8 +749,37 @@ namespace Client
             }
 
             HttpRequest request = new HttpRequest();
-            var log = request.GetFile(uri);
-            SMLogger.LogInfo("\r\n" + log);
+            protocolMonitor.LastHTTPLog = request.GetFile(uri);
+        }
+
+        /// <summary>
+        /// Run all commands in script file and produce totals
+        /// </summary>
+        /// <param name="filename">The file name.</param>
+        private static void RunScriptFile(string filename)
+        {
+            if ((filename == string.Empty) || (!File.Exists(filename)))
+            {
+                SMLogger.LogError("RUN needs valid script file name.");
+                return;
+            }
+
+            List<string> args = new List<string>();
+            using (StreamReader sr = new StreamReader(filename))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    string[] commands;
+                    if ((line != string.Empty) && (line[0] != '#'))
+                    {
+                        commands = line.ToLower().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                        args.AddRange(commands);
+                    }
+                }
+            }
+
+            ParseAndExec(args.ToArray());
         }
     }
 }
