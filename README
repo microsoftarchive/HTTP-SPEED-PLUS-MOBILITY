@@ -1,6 +1,6 @@
 Microsoft Open Technologies, Inc.
-5/17/2012
-Rev 1.1
+7/5/2012
+Rev 1.2
 
 HTTP Speed+Mobility (“S+M”) Prototype
 Getting Started Guide
@@ -17,7 +17,7 @@ Table of Content:
 	6.2) DIR
 	6.3) GET
 	6.4) VERBOSE
-	6.5) STATS
+	6.5) Statistics
 	6.6) HTTPGET
 	6.7) CLOSE
 	6.8) EXIT
@@ -86,17 +86,19 @@ A shortcut will be added to the desktop.
 	HTTP Speed+Mobility Prototype Client help
 
 	HELP                          Display this help information
-	CONNECT <URI>                 Connect to the server endpoint. If no URI is specified,
+	CONNECT [C|S| ] <URI>         Connect to the server endpoint. If no URI is specified,
         	                      defaults to ws://smserver.cloudapp.net:8080
+                                  defaults to no compression of headers
+                                  'C' enables compression of headers
+                                  'S' enables stateful compression of headers
 	DIR                           List files on server.
 	GET <filename>                Download web page and associated resources using
-					    the S+M Protocol. E.g. GET /files/test.txt
+					              the S+M Protocol. E.g. GET /files/test.txt
 	VERBOSE [1|2|3]               Display verbose output.
 	CAPTURE-STATS [On|Off|Reset]  Start/stop/reset protocol monitoring.
-    SAVE-STATS <Id>               Save statistics for side-by-side viewing.
 	DUMP-STATS                    Display statistics captured using CAPTURE-STATS.
-	HTTPGET                       Download file using http 1.1
-                                     Ex. http://localhost:8080/microsoft/default.htm
+	HTTPGET                       Download file using HTTP 1.1
+                                  Ex. http://localhost:8080/microsoft/default.htm
 	CLOSE                         Close session
     RUN <filename>                Run command script
 	EXIT                          Exit application
@@ -113,6 +115,14 @@ If you have set up your own S+M server, add the URI of that server. Otherwise le
 	connect
 	Executing connect
 	[2:58:17 PM] INFO:Session is opened: ws://smserver.cloudapp.net:8080/
+
+CONNECT command accepts additional switch ('c' or 's')
+'c' enabled compression of HTTP headers using static dictionary
+'s' enables compression of HTTP headers using dynamic dictionary
+
+	connect s ws://smserver.cloudapp.net:8080/
+
+Connect to  Azure endpoint, use dynamic header copression
 
 
 6.2) DIR
@@ -167,7 +177,7 @@ VERBOSE controls the amount of information that is displayed in response to the 
 	[1:06:39 AM] INFO:VERBOSE output VerboseLogging
 
 
-6.5) STATS
+6.5) Statistics
 
 The client keeps track by default of all the frames (data and control) it exchanges with the server. The CAPTURE-STATS command allows to either stop the capture, reset it if it is in progress, or start it again if it was stopped:
 
@@ -181,7 +191,6 @@ The client keeps track by default of all the frames (data and control) it exchan
 	Executing capture-stats off
 
 The DUMP-STATS command will display the aggregate information on the files 
-The SAVE-STATS command will save statistics for side-by-side display
 
 
 6.6) HTTPGET
@@ -242,34 +251,31 @@ Execute the script by passing it as an argument to RUN
 
 Below is an example of a script
 
-# 
+#-------------------------------------- 
 # Script to download a web page from server using S+M and HTTP1.1
 # The statistics are displayed side by side.
 #
-VERBOSE 2
-CONNECT ws://smserver.cloudapp.net:8080
-CAPTURE-STATS Reset
 #
-# Get files with Speed+Mobility protocol
+# Set verbose output to Info
+#
+VERBOSE 2
+#
+# Connect to Azure endpoint (ws://smserver.cloudapp.net:8080)
+#
+CONNECT
+#
+# Get file with Speed+Mobility protocol
 #
 GET /files/test.txt
-#
-# Save download statistics in slot 1
-#
-SAVE-STATS 1
-CAPTURE-STATS Reset
 #
 # Get files with HTTP1.1
 #
 HTTPGET /files/test.txt
 #
-# Save download statistics in slot 2
-#
-SAVE-STATS 2
-#
 # Display statistics side by side
 #
 DUMP-STATS
+#--------------------------------------
 
 
 7) Installing and configuring the server
@@ -292,4 +298,4 @@ By default, the server runs on port 8080. Note that depending on your firewall’s
 8) References
 
 HTTP Speed+Mobility Proposal
-http://tools.ietf.org/html/montenegro-httpbis-speed-mobility-01 
+http://tools.ietf.org/html/montenegro-httpbis-speed-mobility-02 
