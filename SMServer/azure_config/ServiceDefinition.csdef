@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ServiceDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="SMServer" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition">
+<ServiceDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="smserver" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition">
   <WorkerRole name="WorkerRole1">
     <Imports>
       <Import moduleName="RemoteForwarder" />
@@ -16,6 +16,7 @@
     </Startup>
     <Endpoints>
       <InputEndpoint name="HttpIn" protocol="tcp" port="8080" />
+      <InputEndpoint name="HttpsIn" protocol="tcp" port="8081" />
     </Endpoints>
     <Runtime>
       <Environment>
