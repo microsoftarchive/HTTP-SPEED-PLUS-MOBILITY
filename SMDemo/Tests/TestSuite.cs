@@ -4,6 +4,7 @@ using System.IO;
 using System.ServiceModel.SMProtocol;
 using System.Threading;
 using Client;
+using ClientProtocol.ServiceModel.SMProtocol.MessageProcessing;
 using NUnit.Framework;
 using System.Configuration;
 
@@ -15,6 +16,12 @@ namespace Tests
 	[TestFixture]
 	public class TestSuite
 	{
+		private enum CheckModes
+		{
+			session,
+			stream,
+			fin
+		}
 		#region Fields
 
 		private static SMSession _session;
@@ -26,6 +33,17 @@ namespace Tests
 		private static readonly string CountSession = String.Empty;
 		private static readonly string CountStream = String.Empty;
 
+		private static string _errorMessage = String.Empty;
+		private static bool _isOpenSession = false;
+		private static bool _isOpenStream = false;
+		private static bool _isError = false;
+		private static bool _isReceived = false;
+		private static bool _isClose = false;
+		private static ManualResetEvent _eventRaisedStream = new ManualResetEvent(false);
+		private static ManualResetEvent _eventRaisedSession = new ManualResetEvent(false);
+		private static ManualResetEvent _eventRaisedSmProtocol = new ManualResetEvent(false);
+
+		private static SMProtocolOptions _options;
 		#endregion
 
 		#region Constructor
@@ -34,6 +52,7 @@ namespace Tests
 		{
 			try
 			{
+				_options = new SMProtocolOptions("s");
 				Host = ConfigurationManager.AppSettings["host"];
 				Port = ConfigurationManager.AppSettings["port"];
 				FileName = ConfigurationManager.AppSettings["file"];
@@ -51,20 +70,38 @@ namespace Tests
 
 		#region Support methods
 
-		private static SMSession CreateSession(Uri uri)
+		/// <summary>
+		/// Create new session.
+		/// </summary>
+		/// <param name="uri">Uri.</param>
+		/// <returns>New session.</returns>
+		private static SMSession CreateSession(Uri uri, SMProtocolOptions options)
 		{
-			_session = new SMSession(uri, false);
+			_session = new SMSession(uri, false, options);
 			_session.Open();
 			return _session;
 		}
-
+		/// <summary>
+		/// Create new session.
+		/// </summary>
+		/// <param name="uri">Uri.</param>
+		/// <returns>New session.</returns>
+		private static SMSession CreateSession(Uri uri)
+		{
+			return CreateSession(uri, _options);
+		}
+		/// <summary>
+		/// Open of stream and sent request for receive data.
+		/// </summary>
+		/// <param name="fileName">Path to the data on server.</param>
+		/// <param name="isFin">Flag fin.</param>
+		/// <returns>New SMstream.</returns>
 		private static SMStream DownloadPath(string fileName, bool isFin)
 		{
 			if (_session.State == SMSessionState.Opened)
 			{
 				SMHeaders headers = new SMHeaders();
 				headers[SMHeaders.Path] = fileName;
-				headers[SMHeaders.Scheme] = fileName;
 				headers[SMHeaders.Version] = "http/1.1";
 				headers[SMHeaders.Method] = "GET";
 				headers[SMHeaders.Scheme] = "http";
@@ -74,14 +111,19 @@ namespace Tests
 			}
 			return null;
 		}
-
+		/// <summary>
+		/// Open of stream and sent request for receive data.
+		/// </summary>
+		/// <param name="fileName">Path to the data on server.</param>
+		/// <param name="session">Current session.</param>
+		/// <param name="isFin">Flag fin.</param>
+		/// <returns>New SMstream.</returns>
 		private static SMStream DownloadPathForList(string fileName, ref SMSession session, bool isFin)
 		{
 			if (session.State == SMSessionState.Opened)
 			{
 				SMHeaders headers = new SMHeaders();
 				headers[SMHeaders.Path] = fileName;
-				headers[SMHeaders.Scheme] = fileName;
 				headers[SMHeaders.Version] = "http/1.1";
 				headers[SMHeaders.Method] = "GET";
 				headers[SMHeaders.Scheme] = "http";
@@ -91,840 +133,719 @@ namespace Tests
 			}
 			return null;
 		}
-		#endregion
-
-		#region Test methods
-
-		[STAThread]
-		[Test]
-		public void ConnectionOpenOddStreamSuccessfull()
+		/// <summary>
+		/// Attached to events on session.
+		/// </summary>
+		/// <param name="session">Session.</param>
+		private static void AttachSessionEvents(SMSession session)
 		{
-			ManualResetEvent eventRaised = new ManualResetEvent(false);
-			Uri uri;
-			Uri.TryCreate(Host + Port, UriKind.Absolute, out uri);
-			CreateSession(uri);
-			string errorMessage = String.Empty;
-			bool isOpenSession = false;
-			bool isError = false;
-
-			_session.OnOpen += (s, e) =>
+			session.OnOpen += (s, e) =>
 			{
-				isOpenSession = true;
-				eventRaised.Set();
+				_isOpenSession = true;
+				_eventRaisedSession.Set();
 			};
-			_session.OnError += (s, e) =>
-			{
-				isError = true;
-				errorMessage = "Internal session error.";
-				eventRaised.Set();
-			};
-			_session.OnStreamOpened += (s, e) =>
+			
+			session.OnStreamOpened += (s, e) =>
 			{
 				if (e.Stream.StreamId % 2 == 0)
 				{
-					isError = true;
-					errorMessage = "StreamId must be odd";
+					_isError = true;
+					_errorMessage = "StreamId must be odd";
 				}
-				eventRaised.Set();
+				_isOpenStream = true;
+				_eventRaisedStream.Set();
 			};
-			eventRaised.WaitOne();
-
-			if (isError)
-				Assert.Fail(errorMessage);
-			if (!isOpenSession)
-				Assert.Fail("Could not open stream.");
-
-			eventRaised.Reset();
-
-			string fileName = FileName;
-			bool isReceived = false;
-			bool isFin = true;
-			bool isClose = false;
-			SMStream stream = DownloadPath(fileName, isFin);
-
-			eventRaised.WaitOne();
-			if ((stream.State == SMStreamState.HalfClosed) ^ isFin)
-				Assert.Fail("Incorrect SMStreamState.");
-
-			stream.OnRSTReceived += (s, e) => eventRaised.Set();
-			stream.OnDataReceived += (s, e) =>
-			{
-				string file = Path.GetFileName(e.Stream.Headers[SMHeaders.Path]);
-
-				using (var fs = new FileStream(file, FileMode.Create))
-				{
-					fs.Write(e.Data.Data, 0, e.Data.Data.Length);
-				}
-
-				string text = e.Data.AsUtf8Text();
-				isReceived = !string.IsNullOrEmpty(text);
-				eventRaised.Set();
-			};
-			stream.OnClose += (s, e) =>
-			{
-				isClose = true;
-				eventRaised.Set();
-			};
-
-			eventRaised.WaitOne();
-
-			if ((stream.State == SMStreamState.HalfClosed) ^ isFin)
-				Assert.Fail("Incorrect SMStreamState.");
-			if (isClose)
-				Assert.Fail("Could not close stream.");
-			if (isReceived)
-				Assert.Fail("Could not recieve data.");
+			session.OnError += (s, e) =>
+									{
+										_isError = true;
+										_errorMessage = e.Exeption.Message;
+										_eventRaisedStream.Set();
+										_eventRaisedSession.Set();
+									};
 		}
+		/// <summary>
+		/// Attached to events on stream.
+		/// </summary>
+		/// <param name="stream">Stream.</param>
+		private static void AttachStreamEvents(SMStream stream)
+		{
+			stream.OnRSTReceived += (s, e) =>
+			                        	{
+			                        		_isError = true;
+			                        		_errorMessage = e.Reason.ToString();
+			                        		_eventRaisedStream.Set();
+			                        	};
+			stream.OnDataReceived += (s, e) =>
+			                         	{
+			                         		string file = Path.GetFileName(e.Stream.Headers[SMHeaders.Path]);
 
+			                         		using (var fs = new FileStream(file, FileMode.Create))
+			                         		{
+			                         			fs.Write(e.Data.Data, 0, e.Data.Data.Length);
+			                         		}
+
+			                         		string text = e.Data.AsUtf8Text();
+			                         		_isReceived = !string.IsNullOrEmpty(text);
+			                         		if (_isClose)
+			                         			_eventRaisedStream.Set();
+			                         	};
+			stream.OnClose += (s, e) =>
+			                  	{
+			                  		_isClose = true;
+			                  		if (_isReceived)
+			                  			_eventRaisedStream.Set();
+			                  	};
+		}
+		/// <summary>
+		/// Attached to events on protocol.
+		/// </summary>
+		/// <param name="smProtocol">Protocol.</param>
+		private static void AttachProtocolEvents(SMProtocol smProtocol)
+		{
+			smProtocol.OnError += (s, e) =>
+			{
+				_eventRaisedSmProtocol.Reset();
+				_isError = true;
+				_eventRaisedSmProtocol.Set();
+				_eventRaisedStream.Set();
+			};
+			/*	smProtocol.OnSessionFrame += (Object s, ControlFrameEventArgs e) =>
+												{
+													eventRaisedSMProtocol.Reset();
+													ControlFrame frame = e.Frame;
+													// isFinal and (State == HalfClose) MUST take the same values
+													if (frame.IsFinal ^
+														(_session.GetStreamById(frame.StreamId).State == SMStreamState.HalfClosed))
+													{
+														isError = true;
+														errorMessage = "Incorrect value Stream.State.";
+
+														eventRaised.Set();
+													}
+													eventRaisedSMProtocol.Set();
+												};*/
+			smProtocol.OnStreamError += (s, e) =>
+			{
+				_eventRaisedSmProtocol.Reset();
+				_isError = true;
+				_errorMessage = "Internal stream error.";
+				_eventRaisedSmProtocol.Set();
+				_eventRaisedStream.Set();
+			};
+			smProtocol.OnStreamFrame += (s, e) =>
+			{
+				_eventRaisedSmProtocol.Reset();
+
+				if (e is HeadersEventArgs)
+				{
+					HeadersEventArgs headersEventArgs = e as HeadersEventArgs;
+
+					if (headersEventArgs.Headers.Count == 0)
+					{
+						_isError = true;
+						_errorMessage = "Incorrect value Frame.Headers.Count.";
+						_eventRaisedStream.Set();
+					}
+				}
+				else if (e is StreamDataEventArgs)
+				{
+					StreamDataEventArgs streamDataEventArgs = e as StreamDataEventArgs;
+
+					if (streamDataEventArgs.Data.Data.Length == 0)
+					{
+						_isError = true;
+						_errorMessage = "Incorrect Data.Length.";
+						_eventRaisedStream.Set();
+					}
+				}
+				else if (e is RSTEventArgs)
+				{
+					RSTEventArgs rstEventArgs = e as RSTEventArgs;
+
+					if (rstEventArgs.Reason != StatusCode.Cancel)
+					{
+						_isError = true;
+						_errorMessage = "Incorrect reason in RST frame.";
+						_eventRaisedStream.Set();
+					}
+				}
+
+				_eventRaisedSmProtocol.Set();
+			};
+		}
+		/// <summary>
+		/// Checked current state on exceptions.
+		/// </summary>
+		/// <param name="mode">Mode for checked.</param>
+		private static void Check(CheckModes mode)
+		{
+			if (_isError)
+				Assert.Fail(_errorMessage);
+			switch (mode)
+			{
+				case CheckModes.session:
+					if (!_isOpenSession)
+						Assert.Fail("Could not open session.");
+					break;
+				case CheckModes.fin:
+					if (!_isClose)
+						Assert.Fail("Could not close stream.");
+					if (!_isReceived)
+						Assert.Fail("Could not recieve data.");
+					break;
+				case CheckModes.stream:
+					if (!_isOpenStream)
+						Assert.Fail("Could not open stream.");
+					break;
+			}
+		}
+		/// <summary>
+		/// Reset flags and EventRaised.
+		/// </summary>
+		private static void Reset()
+		{
+			_errorMessage = String.Empty;
+			_isOpenSession = false;
+			_isOpenStream = false;
+			_isError = false;
+			_isReceived = false;
+			_isClose = false;
+
+			_eventRaisedStream.Reset();
+			_eventRaisedSession.Reset();
+			_eventRaisedSmProtocol.Reset();
+		}
+		#endregion
+		
+		#region Test methods
+		/// <summary>
+		/// Successful test for get file without compress.
+		/// </summary>
 		[STAThread]
 		[Test]
-		public void ConnectionOpenAndTextDataReceivedSuccessfull()
+		public void CompressOffSuccessful()
 		{
-			ManualResetEvent eventRaised = new ManualResetEvent(false);
+			Reset();
+			Uri uri;
+			Uri.TryCreate(Host + Port, UriKind.Absolute, out uri);
+
+			_options.UseCompression = false;
+			CreateSession(uri);
+			AttachSessionEvents(_session);
+
+			_eventRaisedSession.WaitOne();
+			_eventRaisedSession.Reset();
+			Check(CheckModes.session);
+
+			bool isFin = true;
+			SMStream stream = DownloadPath(FileName, isFin);
+			AttachStreamEvents(stream);
+
+			_eventRaisedStream.WaitOne();
+			_eventRaisedStream.Reset();
+			Check(CheckModes.stream);
+			if ((stream.State == SMStreamState.HalfClosed) ^ isFin)
+				Assert.Fail("Incorrect SMStreamState.");
+
+			_eventRaisedStream.WaitOne();
+			_eventRaisedStream.Reset();
+			Check(CheckModes.fin);
+			if ((stream.State == SMStreamState.Closed) ^ isFin)
+				Assert.Fail("Incorrect SMStreamState.");
+		}
+
+		/// <summary>
+		/// Successful test for use dictionary without adaptation.
+		/// </summary>
+		[STAThread]
+		[Test]
+		public void AdaptiveDictionaryOffSuccessful()
+		{
+			Reset();
+			Uri uri;
+			Uri.TryCreate(Host + Port, UriKind.Absolute, out uri);
+
+			_options.CoompressionIsStateful = false;
+			CreateSession(uri);
+			AttachSessionEvents(_session);
+
+			_eventRaisedSession.WaitOne();
+			_eventRaisedSession.Reset();
+			Check(CheckModes.session);
+
+			bool isFin = true;
+			SMStream stream = DownloadPath(FileName, isFin);
+			AttachStreamEvents(stream);
+
+			_eventRaisedStream.WaitOne();
+			_eventRaisedStream.Reset();
+			Check(CheckModes.stream);
+			if ((stream.State == SMStreamState.HalfClosed) ^ isFin)
+				Assert.Fail("Incorrect SMStreamState.");
+
+			_eventRaisedStream.WaitOne();
+			_eventRaisedStream.Reset();
+			Check(CheckModes.fin);
+			if ((stream.State == SMStreamState.Closed) ^ isFin)
+				Assert.Fail("Incorrect SMStreamState.");
+		}
+		/// <summary>
+		/// Successful test for use dictionary with adaptation.
+		/// </summary>
+		[STAThread]
+		[Test]
+		public void AdaptiveDictionaryOnSuccessful()
+		{
+			Reset();
+			Uri uri;
+			Uri.TryCreate(Host + Port, UriKind.Absolute, out uri);
+
+			CreateSession(uri);
+			AttachSessionEvents(_session);
+
+			_eventRaisedSession.WaitOne(); 
+			_eventRaisedSession.Reset();
+			Check(CheckModes.session);
+
+			bool isFin = true;
+			SMStream stream = DownloadPath(FileName, isFin);
+			AttachStreamEvents(stream);
+
+			_eventRaisedStream.WaitOne();
+			_eventRaisedStream.Reset();
+			Check(CheckModes.stream);
+			if ((stream.State == SMStreamState.HalfClosed) ^ isFin)
+				Assert.Fail("Incorrect SMStreamState.");
+
+			_eventRaisedStream.WaitOne();
+			_eventRaisedStream.Reset();
+			Check(CheckModes.fin);
+			if ((stream.State == SMStreamState.Closed) ^ isFin)
+				Assert.Fail("Incorrect SMStreamState.");
+		}
+
+		/// <summary>
+		/// Successful test for sent header without compression.
+		/// </summary>
+		[STAThread]
+		[Test]
+		public void SendHeaderWithoutCompressSuccessful()
+		{
+			Reset();
+			Uri uri;
+			Uri.TryCreate(Host + Port, UriKind.Absolute, out uri);
+			_options.CoompressionIsStateful = false;
+			CreateSession(uri);
+			AttachSessionEvents(_session);
+			_eventRaisedSession.WaitOne();
+			_eventRaisedSession.Reset();
+			Check(CheckModes.session);
+
+			_eventRaisedStream.Reset();
+
+			string fileName = FileName;
+			bool isFin = true;
+			SMStream stream = DownloadPath(fileName, isFin);
+			AttachStreamEvents(stream);
+
+			_eventRaisedStream.WaitOne();
+			_eventRaisedStream.Reset();
+			Check(CheckModes.stream);
+
+			_eventRaisedStream.Reset();
+			_eventRaisedStream.WaitOne();
+			Check(CheckModes.fin);
+			if ((stream.State == SMStreamState.Closed) ^ isFin)
+				Assert.Fail("Incorrect SMStreamState.");
+		}
+
+		/// <summary>
+		/// Successful test for open stream with odd id.
+		/// </summary>
+		[STAThread]
+		[Test]
+		public void ConnectionOpenOddStreamSuccessful()
+		{
+			Reset();
 			Uri uri;
 			Uri.TryCreate(Host + Port, UriKind.Absolute, out uri);
 			CreateSession(uri);
-			string errorMessage = String.Empty;
-			bool isOpenSession = false;
-			bool isError = false;
+			AttachSessionEvents(_session);
 
-			_session.OnOpen += (s, e) =>
-								{
-									isOpenSession = true;
-									eventRaised.Set();
-								};
-			_session.OnError += (s, e) =>
-			{
-				isError = true;
-				errorMessage = "Internal session error.";
-				eventRaised.Set();
-			};
-			_session.OnStreamOpened += (s, e) =>
-			{
-				eventRaised.Set();
-			};
-			eventRaised.WaitOne();
-
-			if (isError)
-				Assert.Fail(errorMessage);
-			if (!isOpenSession)
-				Assert.Fail("Could not open stream.");
-
-			eventRaised.Reset();
+			_eventRaisedSession.WaitOne();
+			_eventRaisedSession.Reset();
+			Check(CheckModes.session);
 
 			string fileName = FileName;
-			bool isReceived = false;
 			bool isFin = true;
-			bool isClose = false;
 			SMStream stream = DownloadPath(fileName, isFin);
-
-			eventRaised.WaitOne();
+			_eventRaisedStream.WaitOne();
+			_eventRaisedStream.Reset();
+			
+			Check(CheckModes.stream);
 			if ((stream.State == SMStreamState.HalfClosed) ^ isFin)
 				Assert.Fail("Incorrect SMStreamState.");
-
-			stream.OnRSTReceived += (s, e) => eventRaised.Set();
-			stream.OnDataReceived += (s, e) =>
-											{
-												string file = Path.GetFileName(e.Stream.Headers[SMHeaders.Path]);
-
-												using (var fs = new FileStream(file, FileMode.Create))
-												{
-													fs.Write(e.Data.Data, 0, e.Data.Data.Length);
-												}
-
-												string text = e.Data.AsUtf8Text();
-												isReceived = !string.IsNullOrEmpty(text);
-												eventRaised.Set();
-											};
-			stream.OnClose += (s, e) =>
-								{
-									isClose = true;
-									eventRaised.Set();
-								};
-
-			eventRaised.WaitOne();
-
-			if ((stream.State == SMStreamState.HalfClosed) ^ isFin)
+			AttachStreamEvents(stream);
+			
+			_eventRaisedStream.WaitOne();
+			_eventRaisedStream.Reset();
+			Check(CheckModes.fin);
+			if ((stream.State == SMStreamState.Closed) ^ isFin)
 				Assert.Fail("Incorrect SMStreamState.");
-			if (isClose)
-				Assert.Fail("Could not close stream.");
-			if (isReceived)
-				Assert.Fail("Could not recieve data.");
 		}
 
+		/// <summary>
+		/// Successful test for open connection and recieved data text.
+		/// </summary>
+		[STAThread]
+		[Test]
+		public void ConnectionOpenAndTextDataReceivedSuccessful()
+		{
+			Reset();
+			Uri uri;
+			Uri.TryCreate(Host + Port, UriKind.Absolute, out uri);
+			CreateSession(uri);
+			AttachSessionEvents(_session);
+
+			_eventRaisedSession.WaitOne();
+			_eventRaisedSession.Reset();
+			Check(CheckModes.session);
+
+			string fileName = FileName;
+			bool isFin = true;
+			SMStream stream = DownloadPath(fileName, isFin);
+
+			_eventRaisedStream.WaitOne();
+			_eventRaisedStream.Reset();
+			Check(CheckModes.stream);
+			if ((stream.State == SMStreamState.HalfClosed) ^ isFin)
+				Assert.Fail("Incorrect SMStreamState.");
+			AttachStreamEvents(stream);
+			
+			_eventRaisedStream.WaitOne();
+			_eventRaisedStream.Reset();
+			Check(CheckModes.fin);
+			if ((stream.State == SMStreamState.Closed) ^ isFin)
+				Assert.Fail("Incorrect SMStreamState.");
+		}
+
+		/// <summary>
+		/// Successful test for open many connections and recieved data text.
+		/// </summary>
 		[STAThread]
 		[Test]
 		public void ManyConnectionOpenAndTextDataReceivedSuccessfully()
 		{
+			Reset();
 			int numberSessions = Convert.ToInt32(CountSession);
 			int numberStreams = Convert.ToInt32(CountStream);
 
-			ManualResetEvent eventRaised = new ManualResetEvent(false);
 			Uri uri;
 			Uri.TryCreate(Host + Port, UriKind.Absolute, out uri);
 
 			_sessions = new List<SMSession>(numberSessions);
 			string fileName = FileName;
-			bool isClose = false;
-			bool isError = false;
-			string errorMessage = String.Empty;
 
 			for (int i = 0; i < numberSessions; i++)
 			{
-				eventRaised.Reset();
+				Reset();
 				SMSession newSession = CreateSession(uri);
-				bool isOpenSession = false;
-				newSession.OnStreamOpened += (s, e) => eventRaised.Set();
-				newSession.OnOpen += (s, e) =>
-				{
-					isOpenSession = true;
-					eventRaised.Set();
-				};
+				AttachSessionEvents(newSession);
 
-				newSession.OnError += (s, e) =>
-										{
-											isError = true;
-											errorMessage = "Internal session error.";
-											eventRaised.Set();
-										};
-				eventRaised.WaitOne();
-
-				if (!isOpenSession)
-					Assert.Fail("Could not open session.");
-				if (isError)
-					Assert.Fail(errorMessage);
-
-				eventRaised.Reset();
+				_eventRaisedSession.WaitOne();
+				_eventRaisedSession.Reset();
+				Check(CheckModes.session);
 
 				for (int j = 0; j < numberStreams; j++)
 				{
-					eventRaised.Reset();
-					bool isReceived = false;
+					Reset();
 					bool isFin = true;
 					SMStream stream = DownloadPathForList(fileName, ref newSession, isFin);
 
-					eventRaised.WaitOne();
+					_eventRaisedStream.WaitOne();
+					_eventRaisedStream.Reset();
+					Check(CheckModes.stream);
 					if ((stream.State == SMStreamState.HalfClosed) ^ isFin)
 						Assert.Fail("Incorrect SMStreamState.");
+					AttachStreamEvents(stream);
 
-					stream.OnRSTReceived += (s, e) => eventRaised.Set();
-					stream.OnDataReceived += (s, e) =>
-					{
-						string file = Path.GetFileName(e.Stream.Headers[SMHeaders.Path]);
+					_eventRaisedStream.WaitOne();
+					_eventRaisedStream.Reset();
 
-						using (var fs = new FileStream(file, FileMode.Create))
-						{
-							fs.Write(e.Data.Data, 0, e.Data.Data.Length);
-						}
-
-						string text = e.Data.AsUtf8Text();
-						isReceived = true;
-					};
-
-					stream.OnClose += (s, e) =>
-					{
-						isClose = true;
-						eventRaised.Set();
-					};
-					eventRaised.Reset();
-					eventRaised.WaitOne();
-
-					if (isError)
-						Assert.Fail("Session error");
+					Check(CheckModes.fin);
 					if ((stream.State == SMStreamState.Closed) ^ isFin)
 						Assert.Fail("Incorrect SMStreamState.");
-					if (!isReceived)
-						Assert.Fail("Could not recieve data.");
 				}
 				_sessions.Add(newSession);
 			}
 
-			if (!isClose)
-				Assert.Fail("Could not close stream.");
-
 			Assert.Pass();
 		}
 
+		/// <summary>
+		/// Sccessful test for open connection and recieved large data text.
+		/// </summary>
 		[STAThread]
 		[Test]
-		public void ConnectionOpenAndLargeTextDataReceivedSuccessfull()
+		public void ConnectionOpenAndLargeTextDataReceivedSuccessful()
 		{
-			ManualResetEvent eventRaised = new ManualResetEvent(false);
+			Reset();
 			Uri uri;
 			Uri.TryCreate(Host + Port, UriKind.Absolute, out uri);
 			CreateSession(uri);
-
-			bool isOpenSession = false;
-			bool isError = false;
-			bool isOpenStream = false;
-			string errorMessage = String.Empty;
-			_session.OnOpen += (s, e) =>
-			{
-				isOpenSession = true;
-				eventRaised.Set();
-			};
-			_session.OnError += (s, e) =>
-			{
-				isError = true;
-				errorMessage = "Internal session error.";
-				eventRaised.Set();
-			};
-			_session.OnStreamOpened += (s, e) =>
-										{
-											isOpenStream = true;
-											eventRaised.Set();
-										};
-			eventRaised.WaitOne();
-
-			if (isError)
-				Assert.Fail(errorMessage);
-			if (!isOpenSession)
-				Assert.Fail("Could not open session.");
-
-			eventRaised.Reset();
+			AttachSessionEvents(_session);
+		
+			_eventRaisedSession.WaitOne();
+			_eventRaisedSession.Reset();
+			Check(CheckModes.session);
+			
 
 			string fileName = LargeFileName;
-			bool isReceived = false;
 			bool isFin = true;
-			bool isClose = false;
 			SMStream stream = DownloadPath(fileName, isFin);
 
-			eventRaised.WaitOne();
+			_eventRaisedStream.WaitOne();
+			_eventRaisedStream.Reset();
+			Check(CheckModes.stream);
 			if ((stream.State == SMStreamState.HalfClosed) ^ isFin)
 				Assert.Fail("Incorrect SMStreamState.");
+			AttachStreamEvents(stream);
+			
+			_eventRaisedStream.Reset();
+			_eventRaisedStream.WaitOne();
 
-			stream.OnRSTReceived += (s, e) => eventRaised.Set();
-			stream.OnDataReceived += (s, e) =>
-			{
-				string file = Path.GetFileName(e.Stream.Headers[SMHeaders.Path]);
-
-				using (var fs = new FileStream(file, FileMode.Create))
-				{
-					fs.Write(e.Data.Data, 0, e.Data.Data.Length);
-				}
-
-				string text = e.Data.AsUtf8Text();
-				isReceived = !string.IsNullOrEmpty(text);
-			};
-			stream.OnClose += (s, e) =>
-			{
-				isClose = true;
-				eventRaised.Set();
-			};
-			eventRaised.Reset();
-			eventRaised.WaitOne();
-
-			if (isError)
-				Assert.Fail(errorMessage);
-			if (!isOpenStream)
-				Assert.Fail("Could not open stream.");
+			Check(CheckModes.fin);
 			if ((stream.State == SMStreamState.Closed) ^ isFin)
 				Assert.Fail("Incorrect SMStreamState.");
-			if (!isReceived)
-				Assert.Fail("Could not recieve data.");
-			if (!isClose)
-				Assert.Fail("Could not close stream.");
+			
 
 		}
 
 		[STAThread]
 		[Test]
-		public void ManyConnectionOpenAndLargeTextDataReceivedSuccessfull()
+		public void ManyConnectionOpenAndLargeTextDataReceivedSuccessful()
 		{
+			Reset();
 			int numberSessions = Convert.ToInt32(CountSession);
 			int numberStreams = Convert.ToInt32(CountStream);
 
-			ManualResetEvent eventRaised = new ManualResetEvent(false);
 			Uri uri;
 			Uri.TryCreate(Host + Port, UriKind.Absolute, out uri);
 
 			_sessions = new List<SMSession>(numberSessions);
 			string fileName = LargeFileName;
-			bool isClose = false;
 			for (int i = 0; i < numberSessions; i++)
 			{
-				eventRaised.Reset();
+				Reset();
 				SMSession newSession = CreateSession(uri);
-				bool isOpenSession = false;
-				newSession.OnOpen += (s, e) =>
-										{
-											isOpenSession = true;
-											eventRaised.Set();
-										};
+				AttachSessionEvents(newSession);
 
-				bool isError = false;
-				newSession.OnError += (s, e) =>
-										{
-											isError = true;
-											eventRaised.Set();
-										};
-				newSession.OnStreamOpened += (s, e) => eventRaised.Set();
-				eventRaised.WaitOne();
-
-				if (isError)
-					Assert.Fail("Session error.");
-
-				if (!isOpenSession)
-					Assert.Fail("Could not open session.");
-
-				eventRaised.Reset();
-
+				_eventRaisedSession.WaitOne();
+				_eventRaisedSession.Reset();
+				Check(CheckModes.session);
+				
 				for (int j = 0; j < numberStreams; j++)
 				{
-					eventRaised.Reset();
-					bool isReceived = false;
+					Reset();
 					bool isFin = true;
 					SMStream stream = DownloadPathForList(fileName, ref newSession, isFin);
 
-					eventRaised.WaitOne();
+					_eventRaisedStream.WaitOne();
+					_eventRaisedStream.Reset();
+					Check(CheckModes.stream);
 					if ((stream.State == SMStreamState.HalfClosed) ^ isFin)
 						Assert.Fail("Incorrect SMStreamState.");
+					AttachStreamEvents(stream);
 
-					stream.OnRSTReceived += (s, e) => eventRaised.Set();
-					stream.OnDataReceived += (s, e) =>
-												{
-													string file = Path.GetFileName(e.Stream.Headers[SMHeaders.Path]);
-
-													using (var fs = new FileStream(file, FileMode.Create))
-													{
-														fs.Write(e.Data.Data, 0, e.Data.Data.Length);
-													}
-
-													string text = e.Data.AsUtf8Text();
-													isReceived = !string.IsNullOrEmpty(text);
-												};
-					stream.OnClose += (s, e) =>
-										{
-											isClose = true;
-											eventRaised.Set();
-										};
-					eventRaised.Reset();
-					eventRaised.WaitOne();
-
+					_eventRaisedStream.WaitOne();
+					_eventRaisedStream.Reset();
+					Check(CheckModes.fin);
 					if ((stream.State == SMStreamState.Closed) ^ isFin)
 						Assert.Fail("Incorrect SMStreamState.");
-					if (!isReceived)
-						Assert.Fail("Could not recieve data.");
-					if (!isClose)
-						Assert.Fail("Could not close session.");
 				}
 				_sessions.Add(newSession);
 			}
 			
 		}
 
+		/// <summary>
+		/// Successful test for open connection and check control frames.
+		/// </summary>
 		[STAThread]
 		[Test]
-		public void ConnectionOpenAndCheckControlFrameSuccessfull()
+		public void ConnectionOpenAndCheckControlFrameSuccessful()
 		{
-			ManualResetEvent eventRaised = new ManualResetEvent(false);
-			ManualResetEvent eventRaisedSmProtocol = new ManualResetEvent(false);
+			Reset();
 			Uri uri;
 			Uri.TryCreate(Host + Port, UriKind.Absolute, out uri);
 
 			CreateSession(uri);
-			bool isOpenSession = false;
-			bool isError = false;
+			AttachSessionEvents(_session);
 
-			string errorMessage = String.Empty;
-			_session.OnOpen += (s, e) =>
-								{
-									isOpenSession = true;
-									eventRaised.Set();
-								};
-			_session.OnError += (s, e) =>
-									{
-										isError = true;
-										errorMessage = "Internal session error.";
-										eventRaised.Set();
-									};
-			_session.OnStreamOpened += (s, e) => eventRaised.Set();
-
+			_eventRaisedSession.WaitOne();
+			_eventRaisedSession.Reset();
+			Check(CheckModes.session);
+		
 			SMProtocol smProtocol = _session.Protocol;
-
-			#region Protocol events
-
-			smProtocol.OnError += (s, e) =>
-									{
-										eventRaisedSmProtocol.Reset();
-										isError = true;
-										eventRaisedSmProtocol.Set();
-										eventRaised.Set();
-									};
-		/*	smProtocol.OnSessionFrame += (Object s, ControlFrameEventArgs e) =>
-											{
-												eventRaisedSMProtocol.Reset();
-												ControlFrame frame = e.Frame;
-												// isFinal and (State == HalfClose) MUST take the same values
-												if (frame.IsFinal ^
-													(_session.GetStreamById(frame.StreamId).State == SMStreamState.HalfClosed))
-												{
-													isError = true;
-													errorMessage = "Incorrect value Stream.State.";
-
-													eventRaised.Set();
-												}
-												eventRaisedSMProtocol.Set();
-											};*/
-			smProtocol.OnStreamError += (s, e) =>
-											{
-												eventRaisedSmProtocol.Reset();
-												isError = true;
-												errorMessage = "Internal stream error.";
-												eventRaisedSmProtocol.Set();
-												eventRaised.Set();
-											};
-			smProtocol.OnStreamFrame += (s, e) =>
-											{
-												eventRaisedSmProtocol.Reset();
-
-												if (e is HeadersEventArgs)
-												{
-													HeadersEventArgs headersEventArgs = e as HeadersEventArgs;
-
-													if (headersEventArgs.Headers.Count == 0)
-													{
-														isError = true;
-														errorMessage = "Incorrect value Frame.Headers.Count.";
-														eventRaised.Set();
-													}
-												}
-												else if (e is StreamDataEventArgs)
-												{
-													StreamDataEventArgs streamDataEventArgs = e as StreamDataEventArgs;
-
-													if (streamDataEventArgs.Data.Data.Length == 0)
-													{
-														isError = true;
-														errorMessage = "Incorrect Data.Length.";
-														eventRaised.Set();
-													}
-												}
-												else if (e is RSTEventArgs)
-												{
-													RSTEventArgs rstEventArgs = e as RSTEventArgs;
-
-													if (rstEventArgs.Reason != StatusCode.Cancel)
-													{
-														isError = true;
-														errorMessage = "Incorrect reason in RST frame.";
-														eventRaised.Set();
-													}
-												}
-
-												eventRaisedSmProtocol.Set();
-											};
-			#endregion
-
-			eventRaised.WaitOne();
-			if (!isOpenSession)
-				Assert.Fail("Could not open session.");
-
+			AttachProtocolEvents(smProtocol);
+			
 			string fileName = FileName;
-			eventRaised.Reset();
 			bool isFin = true;
-			bool isRecieveData = false;
 			SMStream stream = DownloadPath(fileName, isFin);
 
-			eventRaised.WaitOne();
+			_eventRaisedStream.WaitOne();
+			_eventRaisedStream.Reset();
+			Check(CheckModes.stream);
 			if ((stream.State == SMStreamState.HalfClosed) ^ isFin)
 				Assert.Fail("Incorrect SMStreamState.");
-			if (isError)
-				Assert.Fail(errorMessage);
-
-			stream.OnRSTReceived += (s, e) =>
-			                        	{
-			                        		isError = true;
-			                        		errorMessage = e.Reason.ToString();
-											eventRaised.Set();
-										};
-			stream.OnDataReceived += (s, e) =>
-				{
-					string file = Path.GetFileName(e.Stream.Headers[SMHeaders.Path]);
-
-					using (var fs = new FileStream(file, FileMode.Create))
-					{
-						fs.Write(e.Data.Data, 0, e.Data.Data.Length);
-					}
-					string text = e.Data.AsUtf8Text();
-					isRecieveData = !string.IsNullOrEmpty(text);
-				};
-
-			bool isClose = false;
-			stream.OnClose += (s, e) =>
-								{
-									isClose = true;
-									eventRaised.Set();
-								};
-			eventRaised.Reset();
-			eventRaised.WaitOne();
-
-			if (isError)
-				Assert.Fail(errorMessage);
+			AttachStreamEvents(stream);
+			
+			_eventRaisedStream.WaitOne();
+			_eventRaisedStream.Reset();
+			Check(CheckModes.fin);
 			if ((stream.State == SMStreamState.Closed) ^ isFin)
 				Assert.Fail("Incorrect value Stream.State.");
-			if (!isRecieveData)
-				Assert.Fail("Could not recieve data.");
-			if (!isClose)
-				Assert.Fail("Could not close stream.");
 
-			eventRaisedSmProtocol.WaitOne();
+			_eventRaisedSmProtocol.WaitOne();
 
 			Assert.Pass();
 		}
 
+		/// <summary>
+		/// Failure test for sent frame via closed stream.
+		/// </summary>
 		[STAThread]
 		[Test]
 		public void SendFrameOnCloseStreamFailure()
 		{
-			ManualResetEvent eventRaised = new ManualResetEvent(false);
+			Reset();
 			Uri uri;
 			Uri.TryCreate(Host + Port, UriKind.Absolute, out uri);
 			CreateSession(uri);
+			AttachSessionEvents(_session);
 
-			bool isError = false;
-			string errorMessage = String.Empty;
-
-			bool isOpenSession = false;
-			_session.OnOpen += (s, e) =>
-								{
-									isOpenSession = true;
-									eventRaised.Set();
-								};
-			_session.OnError += (s, e) =>
-									{
-										isError = true;
-										errorMessage = "Internal session error.";
-										eventRaised.Set();
-									};
-			_session.OnStreamOpened += (s, e) => eventRaised.Set();
-
-			eventRaised.WaitOne();
-
-			if (isError)
-				Assert.Fail(errorMessage);
-			if (!isOpenSession)
-				Assert.Fail("Could not open session.");
-
-			eventRaised.Reset();
+			_eventRaisedSession.WaitOne();
+			_eventRaisedSession.Reset();
+			Check(CheckModes.session);
 
 			string fileName = FileName;
-			bool isReceived = false;
 			bool isFin = true;
 
 			SMStream stream = DownloadPath(fileName, isFin);
 
-			eventRaised.WaitOne();
-			eventRaised.Reset();
+			_eventRaisedStream.WaitOne();
+			_eventRaisedStream.Reset();
+			Check(CheckModes.stream);
 			if ((stream.State == SMStreamState.HalfClosed) ^ isFin)
 				Assert.Fail("Incorrect SMStreamState.");
-
-			stream.OnRSTReceived += (s, e) => eventRaised.Set();
-			stream.OnDataReceived += (s, e) =>
-										{
-											string file = Path.GetFileName(e.Stream.Headers[SMHeaders.Path]);
-
-											using (var fs = new FileStream(file, FileMode.Create))
-											{
-												fs.Write(e.Data.Data, 0, e.Data.Data.Length);
-											}
-
-											string text = e.Data.AsUtf8Text();
-											isReceived = !string.IsNullOrEmpty(text);
-										};
-
-			bool isClose = false;
-			stream.OnClose += (s, e) =>
-								{
-									isClose = true;
-									eventRaised.Set();
-								};
-
-			_session.OnError += (s, e) =>
-									{
-										isError = true;
-										eventRaised.Set();
-									};
-			eventRaised.Reset();
-			eventRaised.WaitOne();
-
-			if (isError)
-				Assert.Fail(errorMessage);
+			AttachStreamEvents(stream);
+			
+			_eventRaisedStream.Reset();
+			_eventRaisedStream.WaitOne();
+			Check(CheckModes.fin);
 			if ((stream.State == SMStreamState.Closed) ^ isFin)
 				Assert.Fail("Incorrect value Stream.State.");
-			if (!isClose)
-				Assert.Fail("Could not close stream.");
 
-			isError = false;
+			_isError = false;
 			SMData data = new SMData(new byte[] { 12, 3, 23, 35, 3, 11 });
-			eventRaised.Reset();
 
 			stream.SendData(data, isFin);
-			eventRaised.WaitOne();
+			_eventRaisedSession.WaitOne();
+			_eventRaisedSession.Reset();
 
-			Assert.IsTrue(isError);
+			Assert.IsTrue(_isError);
 		}
 
+		/// <summary>
+		/// Failure test for try receive file with incorrect name.
+		/// </summary>
 		[STAThread]
 		[Test]
 		public void IncorrectFileNameFailure()
 		{
-			ManualResetEvent eventRaised = new ManualResetEvent(false);
+			Reset();
 			Uri uri;
 			Uri.TryCreate(Host + Port, UriKind.Absolute, out uri);
 			CreateSession(uri);
+			AttachSessionEvents(_session);
+		
+			_eventRaisedSession.WaitOne();
+			_eventRaisedSession.Reset();
+			Check(CheckModes.session);
 
-			bool isOpenSession = false;
-			bool isError = false;
-			string errorMessage = String.Empty;
-
-			_session.OnOpen += (s, e) =>
-								{
-									isOpenSession = true;
-									eventRaised.Set();
-								};
-			_session.OnError += (s, e) =>
-									{
-										isError = true;
-										errorMessage = "Internal session error.";
-										eventRaised.Set();
-									};
-			_session.OnStreamOpened += (s, e) => eventRaised.Set();
-
-			eventRaised.WaitOne();
-
-			if (isError)
-				Assert.Fail(errorMessage);
-			if (!isOpenSession)
-				Assert.Fail("Could not open session.");
-
-			eventRaised.Reset();
 			Guid guid = Guid.NewGuid();
 			string fileName = guid +  FileName;
-			bool isReceived = false;
 			bool isFin = false;
 			SMStream stream = DownloadPath(fileName, isFin);
 
-			eventRaised.WaitOne();
+			_eventRaisedStream.WaitOne();
+			_eventRaisedStream.Reset();
+			Check(CheckModes.stream);
 			if ((stream.State == SMStreamState.HalfClosed) ^ isFin)
 				Assert.Fail("Incorrect SMStreamState.");
-			StatusCode reason = StatusCode.Success;
-			stream.OnRSTReceived += (s, e) =>
-			                        	{
-			                        		isError = true;
-			                        		reason = e.Reason;
-			                        		errorMessage = "Recieve RST frame. Reason: " +  e.Reason;
-			                        		eventRaised.Set();
-			                        	};
-			stream.OnDataReceived += (s, e) =>
-			{
-				string file = Path.GetFileName(e.Stream.Headers[SMHeaders.Path]);
-
-				using (var fs = new FileStream(file, FileMode.Create))
-				{
-					fs.Write(e.Data.Data, 0, e.Data.Data.Length);
-				}
-
-				string text = e.Data.AsUtf8Text();
-				isReceived = !string.IsNullOrEmpty(text);
-				eventRaised.Set();
-			};
-
-			bool isClose = false;
-			stream.OnClose += (s, e) =>
-			{
-				isClose = true;
-				eventRaised.Set();
-			};
-
-			eventRaised.WaitOne();
-
-			if (isError)
-				Assert.Fail(errorMessage);
-			if ((stream.State == SMStreamState.HalfClosed) ^ isFin)
-				Assert.Fail("Incorrect value Stream.State.");
-
-			eventRaised.Reset();
-			eventRaised.WaitOne();
-
-			if (isError)
-			{
-				if (reason == StatusCode.InternalError)
-					Assert.Pass();
-				Assert.Fail(errorMessage);
-			}
-			if ((stream.State == SMStreamState.HalfClosed) ^ isFin)
-				Assert.Fail("Incorrect value Stream.State.");
-			if (!isClose)
-				Assert.Fail("Could not close session.");
+			AttachStreamEvents(stream);
+			
+			_eventRaisedStream.WaitOne();
+			_eventRaisedStream.Reset();
+			Assert.True(_errorMessage == "InternalError");
 		}
 
+		/// <summary>
+		/// Failure test for opening session with incorrect address.
+		/// </summary>
 		[STAThread]
 		[Test]
 		public void IncorrectAddressFailure()
 		{
-			ManualResetEvent eventRaised = new ManualResetEvent(false);
+			Reset();
 			Random rand = new Random(DateTime.Now.Millisecond);
 			int random = rand.Next() % 1000;
 			Uri uri;
 			Uri.TryCreate(String.Format("ws://{0}:{1}", random, Port), UriKind.Absolute, out uri);
 
-			if (_session != null && _session.State == SMSessionState.Opened)
-				_session.End();
-
-
-			bool isError = false;
-			_session = new SMSession(uri, false);
-
-			_session.OnError += (s, e) =>
-									{
-										isError = true;
-										eventRaised.Set();
-									};
-
+			_session = new SMSession(uri, false, _options);
+			AttachSessionEvents(_session);
+			
 			SMProtocol smProtocol = _session.Protocol;
 			smProtocol.OnError += (s, e) =>
 									{
-										isError = true;
-										eventRaised.Set();
+										_isError = true;
+										_eventRaisedStream.Set();
 									};
 
 			_session.Open();
-			eventRaised.WaitOne();
-			Assert.IsTrue(isError);
+			_eventRaisedSession.WaitOne();
+			_eventRaisedSession.Reset();
+			Assert.IsTrue(_isError);
 		}
 
+		/// <summary>
+		/// failure test for opening session with incorrect port.
+		/// </summary>
 		[STAThread]
 		[Test]
 		public void IncorrectPortFailure()
 		{
-			ManualResetEvent eventRaised = new ManualResetEvent(false);
+			Reset();
 			Random rand = new Random(DateTime.Now.Millisecond);
 			int random = rand.Next() % 1000;
 			Uri uri;
 			Uri.TryCreate(Host + random, UriKind.Absolute, out uri);
-
-			if (_session != null && _session.State == SMSessionState.Opened)
-				_session.End();
-
-			_session = new SMSession(uri, false);
-			bool isError = false;
-			_session.OnError += (s, e) =>
-									{
-										isError = true;
-									};
+			
+			_session = new SMSession(uri, false, _options);
+			AttachSessionEvents(_session);
 
 			SMProtocol smProtocol = _session.Protocol;
 			smProtocol.OnError += (s, e) =>
 			{
-				isError = true;
-				eventRaised.Set();
+				_isError = true;
+				_eventRaisedStream.Set();
 			};
 
 			_session.Open();
-			eventRaised.WaitOne();
+			_eventRaisedSession.WaitOne();
 
-			Assert.IsTrue(isError);
+			Assert.IsTrue(_isError);
 		}
 
 		#endregion

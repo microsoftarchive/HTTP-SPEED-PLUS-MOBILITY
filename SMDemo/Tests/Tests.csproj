@@ -44,6 +44,10 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="zlib.net, Version=1.0.3.0, Culture=neutral, PublicKeyToken=47d7877cb3620160">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Programs\zlib.NET_104\source\bin\Debug\zlib.net.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
@@ -87,6 +91,27 @@
     <Compile Include="..\Client\ClientProtocol\ServiceModel\SMProtocol\IStreamStore.cs">
       <Link>Protocol\IStreamStore.cs</Link>
     </Compile>
+    <Compile Include="..\Client\ClientProtocol\ServiceModel\SMProtocol\MessageProcessing\CompressionDictionary.cs">
+      <Link>Protocol\CompressionDictionary.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\ClientProtocol\ServiceModel\SMProtocol\MessageProcessing\CompressionProcessor.cs">
+      <Link>Protocol\CompressionProcessor.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\ClientProtocol\ServiceModel\SMProtocol\MessageProcessing\DirectionProcessType.cs">
+      <Link>Protocol\DirectionProcessType.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\ClientProtocol\ServiceModel\SMProtocol\MessageProcessing\IMessageProcessor.cs">
+      <Link>Protocol\IMessageProcessor.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\ClientProtocol\ServiceModel\SMProtocol\MessageProcessing\MessageProcessType.cs">
+      <Link>Protocol\MessageProcessType.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\ClientProtocol\ServiceModel\SMProtocol\MessageProcessing\ProcessType.cs">
+      <Link>Protocol\ProcessType.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\ClientProtocol\ServiceModel\SMProtocol\MessageProcessing\ZOutputStreamExt.cs">
+      <Link>Protocol\ZOutputStreamExt.cs</Link>
+    </Compile>
     <Compile Include="..\Client\ClientProtocol\ServiceModel\SMProtocol\Serialization\BinaryHelper.cs">
       <Link>Protocol\BinaryHelper.cs</Link>
     </Compile>
@@ -114,6 +139,9 @@
     <Compile Include="..\Client\ClientProtocol\ServiceModel\SMProtocol\SMFrames\FrameBuilder.cs">
       <Link>Protocol\FrameBuilder.cs</Link>
     </Compile>
+    <Compile Include="..\Client\ClientProtocol\ServiceModel\SMProtocol\SMFrames\FrameFlags.cs">
+      <Link>Protocol\FrameFlags.cs</Link>
+    </Compile>
     <Compile Include="..\Client\ClientProtocol\ServiceModel\SMProtocol\SMFrames\FrameType.cs">
       <Link>Protocol\FrameType.cs</Link>
     </Compile>
@@ -122,6 +150,9 @@
     </Compile>
     <Compile Include="..\Client\ClientProtocol\ServiceModel\SMProtocol\SMProtocol.cs">
       <Link>Protocol\SMProtocol.cs</Link>
+    </Compile>
+    <Compile Include="..\Client\ClientProtocol\ServiceModel\SMProtocol\SMProtocolOptions.cs">
+      <Link>Protocol\SMProtocolOptions.cs</Link>
     </Compile>
     <Compile Include="..\Client\ClientProtocol\ServiceModel\SMProtocol\SMSession.cs">
       <Link>Protocol\SMSession.cs</Link>

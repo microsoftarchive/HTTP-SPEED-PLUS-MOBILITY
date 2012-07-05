@@ -2,10 +2,10 @@
 //
 // Copyright 2012 Microsoft Open Technologies, Inc.
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
+// Licensed under the Apache License, Version 2.0 (the "License"); 
+// you may not use this file except in compliance with the License.  
+// You may obtain a copy of the License at 
+//                                    
 //       http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
@@ -18,6 +18,7 @@
 
 namespace System.ServiceModel.WebSockets
 {
+	using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Diagnostics;
     using System.Net;
@@ -36,10 +37,11 @@ namespace System.ServiceModel.WebSockets
         // Establishing of the TCP connection and handling of buffered read/writes are encapsulated int this class
         private Collection<ArraySegment<byte>> outputQueue = new Collection<ArraySegment<byte>>();
         private bool isSending;
-        private Socket socket;
-        private SocketAsyncEventArgs sendArgs;
-        private SocketAsyncEventArgs receiveArgs;
+		private SecureSocketProxy socket;
+		private SocketAsyncEventArgsExt sendArgs;
+		private SocketAsyncEventArgsExt receiveArgs;
         private bool noDelay;
+    	private Dictionary<string, string> _customHeaders = new Dictionary<string, string>();
 
         public WebSocketProtocol(string url, string origin, string protocol, bool noDelay)
         {
@@ -50,15 +52,12 @@ namespace System.ServiceModel.WebSockets
             }
 
             this.Uri = uri;
-            if ("wss".Equals(uri.Scheme, StringComparison.OrdinalIgnoreCase))
-            {
-                throw new NotSupportedException("Secure web sockets are not supported. Specify 'ws' scheme instead of 'wss'.");
-            }
 
-            if (!"ws".Equals(uri.Scheme, StringComparison.OrdinalIgnoreCase))
-            {
-                throw new InvalidOperationException("Unrecognized URL scheme. Specify 'ws' URL scheme.");
-            }
+			if (!"ws".Equals(uri.Scheme, StringComparison.OrdinalIgnoreCase)
+			    && !"wss".Equals(uri.Scheme, StringComparison.OrdinalIgnoreCase))
+			{
+			    throw new InvalidOperationException("Unrecognized URL scheme. Specify 'ws/wss' URL scheme.");
+			}
 
 #if !SILVERLIGHT
 #else
@@ -68,7 +67,6 @@ namespace System.ServiceModel.WebSockets
                 throw new InvalidOperationException("Unsupported port number. Specify port number in the range 4502-4534.");
             }
 #endif
-
             this.Origin = origin;
             this.Protocol = protocol;
             this.InputBuffer = new byte[1024];
@@ -102,7 +100,12 @@ namespace System.ServiceModel.WebSockets
 
         protected bool IsClosed { get; private set; }
 
-        public abstract void StartWebSocketHandshake();
+    	public Dictionary<string, string> CustomHeaders
+    	{
+    		get { return _customHeaders; }
+    	}
+
+    	public abstract void StartWebSocketHandshake(Dictionary<string, string> customHeaders);
 
         public abstract void SendMessage(string data);
 
@@ -117,21 +120,29 @@ namespace System.ServiceModel.WebSockets
         // initiates WS close handshake
         public abstract void Close(byte[] data);
 
-        public void Start()
-        {
-            this.sendArgs = new SocketAsyncEventArgs();
+		public void Start()
+		{
+			Start(null);
+		}
+
+		public void Start(Dictionary<string, string> customHeaders)
+		{
+			if (customHeaders != null)
+				this._customHeaders = customHeaders;
+
+			this.sendArgs = new SocketAsyncEventArgsExt();
             this.sendArgs.RemoteEndPoint = new DnsEndPoint(this.Uri.DnsSafeHost, this.Uri.Port);
 #if !SILVERLIGHT
 #else
             this.sendArgs.SocketClientAccessPolicyProtocol = SocketClientAccessPolicyProtocol.Http;
 #endif
             this.sendArgs.Completed += this.OnTcpConnectCompleted;
-            this.socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+			this.socket = new SecureSocketProxy("wss".Equals(Uri.Scheme, StringComparison.OrdinalIgnoreCase));
             this.socket.NoDelay = this.noDelay;
 
             if (!this.socket.ConnectAsync(this.sendArgs))
             {
-                this.ProcessConnectCompleted(true);
+				this.ProcessConnectCompleted(true);
             }
         }
 
@@ -283,11 +294,11 @@ namespace System.ServiceModel.WebSockets
             this.sendArgs.Completed -= this.OnTcpConnectCompleted;
             if (this.sendArgs.SocketError == SocketError.Success)
             {
-                this.receiveArgs = new SocketAsyncEventArgs();
+				this.receiveArgs = new SocketAsyncEventArgsExt();
                 this.receiveArgs.Completed += this.OnReceiveCompleted;
                 this.sendArgs.Completed -= this.OnTcpConnectCompleted;
                 this.sendArgs.Completed += this.OnSendCompleted;
-                this.StartWebSocketHandshake(); // this is the entry point to a version specific derived class 
+				this.StartWebSocketHandshake(_customHeaders); // this is the entry point to a version specific derived class 
             }
             else
             {
@@ -305,6 +316,7 @@ namespace System.ServiceModel.WebSockets
             lock (this.outputQueue)
             {
                 ArraySegment<byte> segment = this.outputQueue[0];
+
                 this.sendArgs.SetBuffer(segment.Array, segment.Offset, segment.Count);
                 this.outputQueue.RemoveAt(0);
                 this.isSending = true;

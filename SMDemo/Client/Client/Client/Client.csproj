@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Http\HttpReportLines.cs" />
+    <Compile Include="Http\RequestPackage.cs" />
     <Compile Include="ProtocolLog\FrameLogItem.cs" />
     <Compile Include="ProtocolLog\ProtocolMonitor.cs" />
     <Compile Include="ProtocolLog\ProtocolMonitorLog.cs" />
@@ -68,6 +69,11 @@
     <Compile Include="Utils\ArgPair.cs" />
     <Compile Include="ProtocolLog\MonitorState.cs" />
     <Compile Include="Utils\NativeMethods.cs" />
+    <Compile Include="PriorityList\PriorityComparer.cs" />
+    <Compile Include="PriorityList\PriorityLevel.cs" />
+    <Compile Include="PriorityList\PriorityList.cs" />
+    <Compile Include="PriorityList\PriorityRecord.cs" />
+    <Compile Include="PriorityList\PrioritySortField.cs" />
     <Compile Include="Utils\SMLogger.cs" />
     <Compile Include="Utils\SMLoggerState.cs" />
     <Compile Include="XHtmlDocument.cs" />
@@ -78,7 +84,11 @@
       <Name>ClientProtocol</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="certificate.pfx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy /y "$(TargetPath)" "$(SolutionDir)Drop\$(TargetFileName)"</PostBuildEvent>

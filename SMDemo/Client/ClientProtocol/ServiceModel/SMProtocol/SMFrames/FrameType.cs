@@ -3,10 +3,10 @@
 //
 // Copyright 2012 Microsoft Open Technologies, Inc.
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
+// Licensed under the Apache License, Version 2.0 (the "License"); 
+// you may not use this file except in compliance with the License.  
+// You may obtain a copy of the License at 
+//                                    
 //       http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
@@ -47,6 +47,11 @@ namespace System.ServiceModel.SMProtocol.SMFrames
         /// <summary>
         /// The HEADERS frame augments a stream with additional headers.
         /// </summary>
-        Headers = 4
+        Headers = 5,
+
+        /// <summary>
+        /// The CREDIT_UPDATE control frame.
+        /// </summary>
+        CreditUpdate = 4
     }
 }

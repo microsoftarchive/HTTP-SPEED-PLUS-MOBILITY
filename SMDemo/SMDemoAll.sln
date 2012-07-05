@@ -9,11 +9,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientProtocol", "Client\Cl
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "HttpPrototypeSetup", "HttpPrototypeSetup\HttpPrototypeSetup.vdproj", "{D99D51E6-6D95-45F9-82DE-E4AEB7430EC4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomActions", "CustomAction\CustomActions.csproj", "{E3A4D49C-1600-47AE-BAD7-A730C2A2754E}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 4
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://tfs1.interop.msftlabs.com/tfs/interop%20team%20projects
+		SccTeamFoundationServer = http://tfs1:8085/tfs/interop%20team%20projects
 		SccLocalPath0 = .
 		SccProjectUniqueName1 = Client\\Client\\Client\\Client.csproj
 		SccProjectTopLevelParentUniqueName1 = SMDemoAll.sln
@@ -65,6 +67,16 @@ Global
 		{D99D51E6-6D95-45F9-82DE-E4AEB7430EC4}.Release|Any CPU.ActiveCfg = Release
 		{D99D51E6-6D95-45F9-82DE-E4AEB7430EC4}.Release|Mixed Platforms.ActiveCfg = Release
 		{D99D51E6-6D95-45F9-82DE-E4AEB7430EC4}.Release|x86.ActiveCfg = Release
+		{E3A4D49C-1600-47AE-BAD7-A730C2A2754E}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{E3A4D49C-1600-47AE-BAD7-A730C2A2754E}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{E3A4D49C-1600-47AE-BAD7-A730C2A2754E}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{E3A4D49C-1600-47AE-BAD7-A730C2A2754E}.Debug|x86.ActiveCfg = Debug|x86
+		{E3A4D49C-1600-47AE-BAD7-A730C2A2754E}.Debug|x86.Build.0 = Debug|x86
+		{E3A4D49C-1600-47AE-BAD7-A730C2A2754E}.Release|Any CPU.ActiveCfg = Release|x86
+		{E3A4D49C-1600-47AE-BAD7-A730C2A2754E}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{E3A4D49C-1600-47AE-BAD7-A730C2A2754E}.Release|Mixed Platforms.Build.0 = Release|x86
+		{E3A4D49C-1600-47AE-BAD7-A730C2A2754E}.Release|x86.ActiveCfg = Release|x86
+		{E3A4D49C-1600-47AE-BAD7-A730C2A2754E}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

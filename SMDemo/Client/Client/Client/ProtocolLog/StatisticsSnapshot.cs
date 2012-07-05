@@ -20,6 +20,7 @@
 
 namespace Client.Benchmark
 {
+    using System;
     using Client.HttpBenchmark;
 
     /// <summary>
@@ -39,6 +40,11 @@ namespace Client.Benchmark
         /// </summary>   
         private HttpTrafficLog httpLog;
 
+        /// <summary>
+        /// Duration of this snapshot
+        /// </summary>
+        private TimeSpan duration;
+
         #endregion
 
         #region Constructor
@@ -47,8 +53,10 @@ namespace Client.Benchmark
         /// Initializes a new instance of the <see cref="StatisticsSnapshot"/> struct.
         /// </summary>
         /// <param name="totals">The SM statistics.</param>
-        public StatisticsSnapshot(ProtocolMonitorLog totals)
+        /// <param name="dur">The time span.</param>
+        public StatisticsSnapshot(ProtocolMonitorLog totals, TimeSpan dur)
         {
+            this.duration = dur;
             this.splusmLog = new ProtocolMonitorLog(totals);
             this.httpLog = null;
         }
@@ -57,8 +65,10 @@ namespace Client.Benchmark
         /// Initializes a new instance of the <see cref="StatisticsSnapshot"/> struct.
         /// </summary>
         /// <param name="http">The HTTP statistics.</param>
-        public StatisticsSnapshot(HttpTrafficLog http)
+        /// <param name="dur">The time  span.</param>
+        public StatisticsSnapshot(HttpTrafficLog http, TimeSpan dur)
         {
+            this.duration = dur;
             this.splusmLog = null;
             this.httpLog = new HttpTrafficLog(http);
         }
@@ -127,17 +137,18 @@ namespace Client.Benchmark
         /// </returns>
         public string GetLogTitle()
         {
+            string title = string.Format("{0}:{1}:{2,3} ", this.duration.Minutes, this.duration.Seconds, this.duration.Milliseconds);
             if (this.splusmLog != null)
             {
-                return this.splusmLog.LogTitle;
+                title += this.splusmLog.LogTitle;
             }
 
             if (this.httpLog != null)
             {
-                return this.httpLog.LogTitle;
+                title += this.httpLog.LogTitle;
             }
 
-            return string.Empty;
+            return title;
         }
 
         #endregion

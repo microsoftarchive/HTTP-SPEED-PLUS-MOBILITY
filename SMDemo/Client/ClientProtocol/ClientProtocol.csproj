@@ -12,10 +12,10 @@
     <AssemblyName>ClientProtocol</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
+    <SccProjectName>%24/HTTP2/SMDemo/Client/ClientProtocol</SccProjectName>
+    <SccLocalPath>.</SccLocalPath>
+    <SccAuxPath>http://tfs1:8085/tfs/interop%2520team%2520projects</SccAuxPath>
+    <SccProvider>{4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,25 +39,39 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="zlib.net">
+      <HintPath>.\zlib.net.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceModel\SMProtocol\MessageProcessing\ZOutputStreamExt.cs" />
+    <Compile Include="ServiceModel\SMProtocol\SMFrames\CreditUpdateFrame.cs" />
+    <Compile Include="ServiceModel\SMProtocol\SMProtocolOptions.cs" />
     <Compile Include="ServiceModel\SMProtocol\EventArguments\FrameEventArgs.cs" />
     <Compile Include="ServiceModel\SMProtocol\EventArguments\CloseFrameEventArgs.cs" />
     <Compile Include="ServiceModel\SMProtocol\EventArguments\SMProtocolErrorEventArgs.cs" />
     <Compile Include="ServiceModel\SMProtocol\IStreamStore.cs" />
+    <Compile Include="ServiceModel\SMProtocol\MessageProcessing\DirectionProcessType.cs" />
+    <Compile Include="ServiceModel\SMProtocol\MessageProcessing\CompressionDictionary.cs" />
+    <Compile Include="ServiceModel\SMProtocol\MessageProcessing\MessageProcessType.cs" />
+    <Compile Include="ServiceModel\SMProtocol\MessageProcessing\ProcessType.cs" />
     <Compile Include="ServiceModel\SMProtocol\Serialization\BinaryHelper.cs" />
     <Compile Include="ServiceModel\SMProtocol\EventArguments\ControlFrameEventArgs.cs" />
     <Compile Include="ServiceModel\SMProtocol\Serialization\FrameSerializer.cs" />
     <Compile Include="ServiceModel\SMProtocol\EventArguments\HeadersEventArgs.cs" />
     <Compile Include="ServiceModel\SMProtocol\EventArguments\RSTEventArgs.cs" />
+    <Compile Include="ServiceModel\SMProtocol\MessageProcessing\IMessageProcessor.cs" />
+    <Compile Include="ServiceModel\SMProtocol\MessageProcessing\CompressionProcessor.cs" />
+    <Compile Include="ServiceModel\SMProtocol\SMFrames\FrameFlags.cs" />
     <Compile Include="ServiceModel\SMProtocol\StatusCode.cs" />
     <Compile Include="ServiceModel\SMProtocol\SMData.cs" />
     <Compile Include="ServiceModel\SMProtocol\SMFramesMonitor.cs" />
@@ -78,6 +92,8 @@
     <Compile Include="ServiceModel\SMProtocol\EventArguments\StreamEventArgs.cs" />
     <Compile Include="ServiceModel\SMProtocol\SMSessionState.cs" />
     <Compile Include="ServiceModel\WebSockets\IETFHyBiWebSocketPotocol.cs" />
+    <Compile Include="ServiceModel\WebSockets\SecureSocketProxy.cs" />
+    <Compile Include="ServiceModel\WebSockets\SocketAsyncEventArgsExt.cs" />
     <Compile Include="ServiceModel\WebSockets\WebSocket.cs" />
     <Compile Include="ServiceModel\WebSockets\WebSocketEventArgs.cs" />
     <Compile Include="ServiceModel\WebSockets\WebSocketProtocol.cs" />

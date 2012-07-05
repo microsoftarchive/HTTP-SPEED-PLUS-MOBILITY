@@ -3,10 +3,10 @@
 //
 // Copyright 2012 Microsoft Open Technologies, Inc.
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
+// Licensed under the Apache License, Version 2.0 (the "License"); 
+// you may not use this file except in compliance with the License.  
+// You may obtain a copy of the License at 
+//                                    
 //       http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
@@ -17,503 +17,576 @@
 //
 // </copyright>
 //-----------------------------------------------------------------------
+
 namespace System.ServiceModel.SMProtocol
 {
-    using System.Collections.Generic;
-    using System.ServiceModel.SMProtocol.SMFrames;
-    using System.ServiceModel.WebSockets;
+	using System.Collections.Generic;
+	using System.ServiceModel.SMProtocol.SMFrames;
+	using System.ServiceModel.WebSockets;
+	using ClientProtocol.ServiceModel.SMProtocol.MessageProcessing;
 
-    /// <summary>
-    /// SM protocol.
-    /// </summary>
-    public sealed class SMProtocol : IDisposable    
-    {
-        /// <summary>
-        /// Protocol version.
-        /// </summary>
-        public const int Version = 1;
+	/// <summary>
+	/// SM protocol.
+	/// </summary>
+	internal sealed class SMProtocol : IDisposable
+	{
+		/// <summary>
+		/// Protocol version.
+		/// </summary>
+		public const int Version = 1;
 
-        #region Fields
+		#region Fields
 
-        /// <summary>
-        /// Internal WebSocket.
-        /// </summary>
-        private readonly WebSocket webSocket;
+		/// <summary>
+		/// Internal WebSocket.
+		/// </summary>
+		private readonly WebSocket webSocket;
 
-        /// <summary>
-        /// Internal Frame serializer.
-        /// </summary>
-        private readonly FrameSerializer serializer;
+		/// <summary>
+		/// Internal Frame serializer.
+		/// </summary>
+		private readonly FrameSerializer serializer;
 
-        /// <summary>
-        /// Internal Frame builder.
-        /// </summary>
-        private readonly FrameBuilder builder;
+		/// <summary>
+		/// Internal Frame builder.
+		/// </summary>
+		private readonly FrameBuilder builder;
 
-        /// <summary>
-        /// Internal Stream store.
-        /// </summary>
-        private readonly IStreamStore streamsStore;
+		/// <summary>
+		/// Internal Stream store.
+		/// </summary>
+		private readonly IStreamStore streamsStore;
 
-        /// <summary>
-        /// SM Protocol opened flag.
-        /// </summary>
-        private bool opened;
+		/// <summary>
+		/// Protocol options.
+		/// </summary>
+		private SMProtocolOptions options = new SMProtocolOptions();
 
-        #endregion
+		/// <summary>
+		/// SM Protocol opened flag.
+		/// </summary>
+		private bool opened;
 
-        #region Constructors
+		#endregion
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SMProtocol"/> class.
-        /// </summary>
-        /// <param name="uri">The URI.</param>
-        /// <param name="streamsStore">The streams store.</param>
-        internal SMProtocol(Uri uri, IStreamStore streamsStore)
-        {
-            this.streamsStore = streamsStore;
-            this.webSocket = new WebSocket(uri.ToString());
-            this.webSocket.OnOpen += this.OnSocketOpen;
-            this.webSocket.OnPing += this.OnSocketPing;
-            this.webSocket.OnClose += this.OnSocketClose;
+		#region Constructors
 
-            this.serializer = new FrameSerializer();
-            this.builder = new FrameBuilder();
-        }
+		/// <summary>
+		/// Initializes a new instance of the <see cref="SMProtocol"/> class.
+		/// </summary>
+		/// <param name="uri">The URI.</param>
+		/// <param name="streamsStore">The streams store.</param>
+		internal SMProtocol(Uri uri, IStreamStore streamsStore) :
+			this(uri, streamsStore, null)
+		{
+		}
 
-        #endregion
+		/// <summary>
+		/// Initializes a new instance of the <see cref="SMProtocol"/> class.
+		/// </summary>
+		/// <param name="uri">The URI.</param>
+		/// <param name="streamsStore">The streams store.</param>
+		/// <param name="options">Protocol options</param>
+		internal SMProtocol(Uri uri, IStreamStore streamsStore, SMProtocolOptions options)
+		{
+			this.streamsStore = streamsStore;
+			this.webSocket = new WebSocket(uri.ToString());
+			this.webSocket.OnOpen += this.OnSocketOpen;
+			this.webSocket.OnPing += this.OnSocketPing;
+			this.webSocket.OnClose += this.OnSocketClose;
+			
+			if (options != null)
+				this.options = options;
 
-        #region Events
+			this.serializer = new FrameSerializer(this.options);
+			this.builder = new FrameBuilder();
+		}
 
-        /// <summary>
-        /// Occurs when frame is sent.
-        /// </summary>
-        public event EventHandler<FrameEventArgs> OnFrameSent;
+		#endregion
 
-        /// <summary>
-        /// Occurs when frame is sent.
-        /// </summary>
-        public event EventHandler<FrameEventArgs> OnFrameReceived;
+		#region Events
 
-        /// <summary>
-        /// Occurs when ping is received.
-        /// </summary>
-        public event EventHandler<EventArgs> OnPing;
+		/// <summary>
+		/// Occurs when frame is sent.
+		/// </summary>
+		public event EventHandler<FrameEventArgs> OnFrameSent;
 
-        /// <summary>
-        /// Occurs when protocol is opened.
-        /// </summary>
-        public event EventHandler<EventArgs> OnOpen;
+		/// <summary>
+		/// Occurs when frame is sent.
+		/// </summary>
+		public event EventHandler<FrameEventArgs> OnFrameReceived;
 
-        /// <summary>
-        /// Occurs when protocol is closed.
-        /// </summary>
-        public event EventHandler<CloseFrameEventArgs> OnClose;
+		/// <summary>
+		/// Occurs when ping is received.
+		/// </summary>
+		public event EventHandler<EventArgs> OnPing;
 
-        /// <summary>
-        /// Occurs when session errors.
-        /// </summary>
-        public event EventHandler<SMProtocolErrorEventArgs> OnError;
+		/// <summary>
+		/// Occurs when protocol is opened.
+		/// </summary>
+		public event EventHandler<EventArgs> OnOpen;
 
-        /// <summary>
-        /// Occurs when stream errors.
-        /// </summary>
-        public event EventHandler<StreamErrorEventArgs> OnStreamError;
+		/// <summary>
+		/// Occurs when protocol is closed.
+		/// </summary>
+		public event EventHandler<CloseFrameEventArgs> OnClose;
 
-        /// <summary>
-        /// Occurs when frame arrives for the stream.
-        /// </summary>
-        public event EventHandler<StreamEventArgs> OnStreamFrame;
+		/// <summary>
+		/// Occurs when session errors.
+		/// </summary>
+		public event EventHandler<SMProtocolErrorEventArgs> OnError;
 
-        /// <summary>
-        /// Occurs when frame arrives for the session.
-        /// </summary>
-        public event EventHandler<ControlFrameEventArgs> OnSessionFrame;
+		/// <summary>
+		/// Occurs when stream errors.
+		/// </summary>
+		public event EventHandler<StreamErrorEventArgs> OnStreamError;
 
-        #endregion
+		/// <summary>
+		/// Occurs when frame arrives for the stream.
+		/// </summary>
+		public event EventHandler<StreamEventArgs> OnStreamFrame;
 
-        #region Public Properties
+		/// <summary>
+		/// Occurs when frame arrives for the session.
+		/// </summary>
+		public event EventHandler<ControlFrameEventArgs> OnSessionFrame;
 
-        /// <summary>
-        /// Gets the URI for the session.
-        /// </summary>
-        public Uri Uri 
-        { 
-            get 
-            { 
-                return new Uri(this.webSocket.Url); 
-            } 
-        }
+		#endregion
 
-        #endregion
+		#region Public Properties
+		/// <summary>
+		/// Gets Protocol options.
+		/// </summary>
+		public SMProtocolOptions Options
+		{
+			get { return this.options; }
+		}
 
-        #region Methods
+		/// <summary>
+		/// Gets the URI for the session.
+		/// </summary>
+		public Uri Uri
+		{
+			get { return new Uri(this.webSocket.Url); }
+		}
 
-        /// <summary>
-        /// Initializes connection to the remote host.
-        /// </summary>
-        public void Connect()
-        {
-            this.webSocket.Open();
-            this.opened = true;
-        }
+		#endregion
 
-        /// <summary>
-        /// Initiates the WS close handshake.
-        /// </summary>
-        /// <param name="reason">the status code.</param>
-        /// <param name="lastSeenStreamId">the last stream id.</param>
-        public void Close(StatusCode reason, int lastSeenStreamId)
-        {
-            if (this.opened)
+		#region Methods
+
+		/// <summary>
+		/// Sets the frames processors.
+		/// </summary>
+		/// <param name="processors">The processors.</param>
+		public void SetProcessors(List<IMessageProcessor> processors)
+		{
+			this.serializer.SetProcessors(processors);
+		}
+
+		/// <summary>
+		/// Initializes connection to the remote host.
+		/// </summary>
+		public void Connect()
+		{
+			var customHeaders = new Dictionary<string, string>();
+
+			if (this.options.UseCompression)
+			{
+				customHeaders.Add("X-SM-zlib", this.options.CompressionIsStateful ? "FULL_FLUSH" : "SYNC_FLUSH");
+				customHeaders.Add("X-SM-version", "2");
+			}
+            if (options.IsFlowControl)
             {
-                List<byte> byteList = new List<byte>();
-                byteList.AddRange(BinaryHelper.Int16ToBytes((Int16)reason));
-                byteList.AddRange(BinaryHelper.Int32ToBytes(lastSeenStreamId));
-                this.webSocket.Close(byteList.ToArray());
+                customHeaders.Add("http2-icb", options.CreditAddition.ToString());
             }
-        }
+
+			this.webSocket.Open(customHeaders);
+			this.opened = true;
+		}
+
+		/// <summary>
+		/// Initiates the WS close handshake.
+		/// </summary>
+		/// <param name="reason">the status code.</param>
+		/// <param name="lastSeenStreamId">the last stream id.</param>
+		public void Close(StatusCode reason, int lastSeenStreamId)
+		{
+			if (this.opened)
+			{
+				List<byte> byteList = new List<byte>();
+				byteList.AddRange(BinaryHelper.Int16ToBytes((Int16)reason));
+				byteList.AddRange(BinaryHelper.Int32ToBytes(lastSeenStreamId));
+				this.webSocket.Close(byteList.ToArray());
+			}
+		}
+
+		/// <summary>
+		/// Disposes the instance.
+		/// </summary>
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2213:DisposableFieldsShouldBeDisposed", MessageId = "0#",
+			Justification = "CloseInternal() calls webSocket.Dispose()")]
+		public void Dispose()
+		{
+			this.CloseInternal();
+		}
+
+		/// <summary>
+		/// Sends the ping.
+		/// </summary>
+		public void SendPing()
+		{
+			this.webSocket.SendPing();
+		}
+
+		/// <summary>
+		/// Sends the syn stream request.
+		/// </summary>
+		/// <param name="stream">The stream.</param>
+		/// <param name="headers">The headers.</param>
+		/// <param name="isFin">FIN flag.</param>
+		public void SendSynStream(SMStream stream, SMHeaders headers, bool isFin)
+		{
+			this.SendFrame(this.builder.BuildSynStreamFrame(stream, headers, isFin));
+		}
+
+		/// <summary>
+		/// Sends the headers.
+		/// </summary>
+		/// <param name="stream">The stream.</param>
+		/// <param name="headers">The headers.</param>
+		/// <param name="isFin">FIN flag.</param>
+		public void SendHeaders(SMStream stream, SMHeaders headers, bool isFin)
+		{
+			this.SendFrame(stream, this.builder.BuildHeadersFrame(stream, headers, isFin));
+		}
+
+		/// <summary>
+		/// Sends the RST.
+		/// </summary>
+		/// <param name="stream">The stream.</param>
+		/// <param name="reason">The reason for RST.</param>
+		public void SendRST(SMStream stream, StatusCode reason)
+		{
+			this.SendFrame(stream, this.builder.BuildRSTFrame(stream, reason));
+		}
+
+		/// <summary>
+		/// Sends the RST.
+		/// </summary>
+		/// <param name="streamId">The stream id.</param>
+		/// <param name="reason">The reason for RST.</param>
+		public void SendRST(int streamId, StatusCode reason)
+		{
+			this.SendFrame(this.builder.BuildRSTFrame(streamId, reason));
+		}
 
         /// <summary>
-        /// Disposes the instance.
-        /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2213:DisposableFieldsShouldBeDisposed", MessageId = "0#",
-            Justification = "CloseInternal() calls webSocket.Dispose()")]
-        public void Dispose()
-        {
-            this.CloseInternal();
-        }
-
-        /// <summary>
-        /// Sends the ping.
-        /// </summary>
-        public void SendPing()
-        {
-            this.webSocket.SendPing();
-        }
-
-        /// <summary>
-        /// Sends the syn stream request.
-        /// </summary>
-        /// <param name="stream">The stream.</param>
-        /// <param name="headers">The headers.</param>
-        /// <param name="isFin">FIN flag.</param>
-        public void SendSynStream(SMStream stream, SMHeaders headers, bool isFin)
-        {
-            this.SendFrame(this.builder.BuildSynStreamFrame(stream, headers, isFin));
-        }
-
-        /// <summary>
-        /// Sends the headers.
-        /// </summary>
-        /// <param name="stream">The stream.</param>
-        /// <param name="headers">The headers.</param>
-        /// <param name="isFin">FIN flag.</param>
-        public void SendHeaders(SMStream stream, SMHeaders headers, bool isFin)
-        {
-            this.SendFrame(stream, this.builder.BuildHeadersFrame(stream, headers, isFin));
-        }
-
-        /// <summary>
-        /// Sends the RST.
-        /// </summary>
-        /// <param name="stream">The stream.</param>
-        /// <param name="reason">The reason for RST.</param>
-        public void SendRST(SMStream stream, StatusCode reason)
-        {
-            this.SendFrame(stream, this.builder.BuildRSTFrame(stream, reason));
-        }
-
-        /// <summary>
-        /// Sends the RST.
+        /// Sends the credit update request.
         /// </summary>
         /// <param name="streamId">The stream id.</param>
-        /// <param name="reason">The reason for RST.</param>
-        public void SendRST(int streamId, StatusCode reason)
+        /// <param name="creditAddition">The credit addition.</param>
+        public void SendCreditUpdate(int streamId, Int64 creditAddition)
         {
-            this.SendFrame(this.builder.BuildRSTFrame(streamId, reason));
+            this.SendFrame(this.builder.BuildCreditUpdateFrame(streamId, creditAddition));
         }
 
         /// <summary>
-        /// Sends the data.
+        /// Sends the credit update request.
         /// </summary>
         /// <param name="stream">The stream.</param>
-        /// <param name="data">The data.</param>
-        /// <param name="isFin">FIN flag.</param>
-        public void SendData(SMStream stream, SMData data, bool isFin)
+        /// <param name="creditAddition">The credit addition.</param>
+        public void SendCreditUpdate(SMStream stream, Int64 creditAddition)
         {
-            this.SendFrame(stream, this.builder.BuildDataFrame(stream, data, isFin));
+            this.SendFrame(this.builder.BuildCreditUpdateFrame(stream, creditAddition));
         }
 
-        /// <summary>
-        /// Closes connection to the remote host.
-        /// </summary>
-        private void CloseInternal()
-        {
-            if (this.opened)
-            {
-                this.opened = false;
-                if (this.webSocket.ReadyState != WebSocketState.Closed)
-                {
-                    this.webSocket.CloseInternal();
-                }
+		/// <summary>
+		/// Sends the data.
+		/// </summary>
+		/// <param name="stream">The stream.</param>
+		/// <param name="data">The data.</param>
+		/// <param name="isFin">FIN flag.</param>
+		public void SendData(SMStream stream, SMData data, bool isFin)
+		{
+			this.SendFrame(stream, this.builder.BuildDataFrame(stream, data, isFin));
+		}
 
-                if (this.OnClose != null)
-                {
-                    this.OnClose(this, null);
-                }
+		/// <summary>
+		/// Closes connection to the remote host.
+		/// </summary>
+		private void CloseInternal()
+		{
+			if (this.opened)
+			{
+				this.opened = false;
+				if (this.webSocket.ReadyState != WebSocketState.Closed)
+				{
+					this.webSocket.CloseInternal();
+				}
 
-                this.webSocket.Dispose();
-            }
-        }
-        
-        /// <summary>
-        /// Sends the data.
-        /// </summary>
-        /// <param name="stream">The stream.</param>
-        /// <param name="frame">The base frame.</param>
-        private void SendFrame(SMStream stream, BaseFrame frame)
-        {
-            try
-            {
-                byte[] frameBinary = this.serializer.Serialize(frame);
-                frame.Length = frameBinary.Length;
+				if (this.OnClose != null)
+				{
+					this.OnClose(this, null);
+				}
 
-                this.webSocket.SendMessage(frameBinary);
+				this.webSocket.Dispose();
+				this.serializer.Dispose();
+			}
+		}
 
-                if (frame.IsFinal)
-                {
-                    stream.State = SMStreamState.HalfClosed;
-                }
+		/// <summary>
+		/// Sends the data.
+		/// </summary>
+		/// <param name="stream">The stream.</param>
+		/// <param name="frame">The base frame.</param>
+		private void SendFrame(SMStream stream, BaseFrame frame)
+		{
+			try
+			{
+				byte[] frameBinary = this.serializer.Serialize(frame);
+				frame.Length = frameBinary.Length;
 
-                if (this.OnFrameSent != null)
-                {
-                    this.OnFrameSent(this, new FrameEventArgs(frame));
-                }
-            }
-            catch (Exception e)
-            {
-                if (this.OnStreamError != null)
-                {
-                    this.OnStreamError(this, new StreamErrorEventArgs(stream, e));
-                }
-                else
-                {
-                    throw;
-                }
-            }
-        }
+				this.webSocket.SendMessage(frameBinary);
 
-        /// <summary>
-        /// Sends the frame.
-        /// </summary>
-        /// <param name="frame">The control frame.</param>
-        private void SendFrame(ControlFrame frame)
-        {
-            byte[] frameBinary = this.serializer.Serialize(frame);
-            frame.Length = frameBinary.Length;
+				if (frame.IsFinal)
+				{
+					stream.State = SMStreamState.HalfClosed;
+				}
 
-            this.webSocket.SendMessage(frameBinary);
+				if (this.OnFrameSent != null)
+				{
+					this.OnFrameSent(this, new FrameEventArgs(frame));
+				}
+			}
+			catch (Exception e)
+			{
+				if (this.OnStreamError != null)
+				{
+					this.OnStreamError(this, new StreamErrorEventArgs(stream, e));
+				}
+				else
+				{
+					throw;
+				}
+			}
+		}
 
-            if (this.OnFrameSent != null)
-            {
-                this.OnFrameSent(this, new FrameEventArgs(frame));
-            }
-        }
+		/// <summary>
+		/// Sends the frame.
+		/// </summary>
+		/// <param name="frame">The control frame.</param>
+		private void SendFrame(ControlFrame frame)
+		{
+			byte[] frameBinary = this.serializer.Serialize(frame);
+			frame.Length = frameBinary.Length;
 
-        /// <summary>
-        /// Event handler for WebSocket open.
-        /// </summary>
-        /// <param name="sender">The sender object.</param>
-        /// <param name="e">Event arguments.</param>
-        private void OnSocketOpen(object sender, EventArgs e)
-        {
-            this.webSocket.OnData += this.OnSocketData;
-            if (this.OnOpen != null)
-            {
-                this.OnOpen(this, e);
-            }
-        }
+			this.webSocket.SendMessage(frameBinary);
 
-        /// <summary>
-        /// callback from WebSocket after socket is closed
-        /// clean up and error reporting
-        /// </summary>
-        /// <param name="sender">The sender object.</param>
-        /// <param name="e">Event arguments.</param>
-        private void OnSocketClose(object sender, WebSocketProtocolEventArgs e)
-        {
-            // if WebSocket initiated close by itself, SMProtocol is not aware yet
-            // In this case this.opened will be true and SMProtocol is forced to close
-            if (this.webSocket.LastError != null)
-            {
-                if (this.OnError != null)
-                {
-                    // General error state, do not attempt to communicate
-                    this.OnError(this, new SMProtocolErrorEventArgs(this.webSocket.LastError));
-                }
-                else
-                {
-                    // fallback to notify user anyhow
-                    Console.WriteLine("ERROR: WebSocket error {0}", this.webSocket.LastError);
-                }
-            }
-            else
-            {
-                try
-                {
-                    if (e.BinaryData != null)
-                    {
-                        // We received WS close frame from server with extension data. 
-                        // Attempt to unpack the data
-                        CloseFrameExt closeData = this.serializer.DeserializeCloseFrameExt(e.BinaryData);
+			if (this.OnFrameSent != null)
+			{
+				this.OnFrameSent(this, new FrameEventArgs(frame));
+			}
+		}
 
-                        if (this.OnClose != null)
-                        {
-                            // Send unpacked extension data to event listener
-                            this.OnClose(this, new CloseFrameEventArgs(closeData));
-                        }
-                    }
-                    else
-                    {
-                        // We received WS close frame without extension data. If may be 
-                        // response to our frame. Or it may be server initiated by server.
-                        if (this.OnClose != null)
-                        {
-                            this.OnClose(this, null);
-                        }
-                    }
+		/// <summary>
+		/// Event handler for WebSocket open.
+		/// </summary>
+		/// <param name="sender">The sender object.</param>
+		/// <param name="e">Event arguments.</param>
+		private void OnSocketOpen(object sender, EventArgs e)
+		{
+			this.webSocket.OnData += this.OnSocketData;
+			if (this.OnOpen != null)
+			{
+				this.OnOpen(this, e);
+			}
+		}
 
-                    // this object is now closed
-                    this.opened = false;
-                }
-                catch (Exception protocolError)
-                {
-                    if (this.OnError != null)
-                    {
-                        this.OnError(this, new SMProtocolErrorEventArgs(protocolError));
-                    }
-                }
-            }
-        }
+		/// <summary>
+		/// callback from WebSocket after socket is closed
+		/// clean up and error reporting
+		/// </summary>
+		/// <param name="sender">The sender object.</param>
+		/// <param name="e">Event arguments.</param>
+		private void OnSocketClose(object sender, WebSocketProtocolEventArgs e)
+		{
+			// if WebSocket initiated close by itself, SMProtocol is not aware yet
+			// In this case this.opened will be true and SMProtocol is forced to close
+			if (this.webSocket.LastError != null)
+			{
+				if (this.OnError != null)
+				{
+					// General error state, do not attempt to communicate
+					this.OnError(this, new SMProtocolErrorEventArgs(this.webSocket.LastError));
+				}
+				else
+				{
+					// fallback to notify user anyhow
+					Console.WriteLine("ERROR: WebSocket error {0}", this.webSocket.LastError);
+				}
+			}
+			else
+			{
+				try
+				{
+					if (e.BinaryData != null)
+					{
+						// We received WS close frame from server with extension data. 
+						// Attempt to unpack the data
+						CloseFrameExt closeData = this.serializer.DeserializeCloseFrameExt(e.BinaryData);
 
-        /// <summary>
-        /// Event handler for SM Ping.
-        /// </summary>
-        /// <param name="sender">The sender object.</param>
-        /// <param name="e">Event arguments.</param>
-        private void OnSocketPing(object sender, EventArgs e)
-        {
-            if (this.OnPing != null)
-            {
-                this.OnPing(this, e);
-            }
-        }
+						if (this.OnClose != null)
+						{
+							// Send unpacked extension data to event listener
+							this.OnClose(this, new CloseFrameEventArgs(closeData));
+						}
+					}
+					else
+					{
+						// We received WS close frame without extension data. If may be 
+						// response to our frame. Or it may be server initiated by server.
+						if (this.OnClose != null)
+						{
+							this.OnClose(this, null);
+						}
+					}
 
-        /// <summary>
-        /// Event handler for WebSocket data.
-        /// </summary>
-        /// <param name="sender">The sender object.</param>
-        /// <param name="e">Event arguments.</param>
-        private void OnSocketData(object sender, WebSocketEventArgs e)
-        {
-            try
-            {
-                BaseFrame frame = this.serializer.Deserialize(e.BinaryData);
-                if (this.OnFrameReceived != null)
-                {
-                    this.OnFrameReceived(this, new FrameEventArgs(frame));
-                }
+					// this object is now closed
+					this.opened = false;
+				}
+				catch (Exception protocolError)
+				{
+					if (this.OnError != null)
+					{
+						this.OnError(this, new SMProtocolErrorEventArgs(protocolError));
+					}
+				}
+				finally
+				{
+					// in any case, close WS socket 
+					this.CloseInternal();
+				}
+			}
+		}
 
-                try
-                {
-                    if (frame is DataFrame)
-                    {
-                        this.ProcessDataFrame((DataFrame)frame);
-                    }
-                    else if (frame is ControlFrame)
-                    {
-                        this.ProcessControlFrame((ControlFrame)frame);
-                    }
-                    else
-                    {
-                        throw new InvalidOperationException("Unsupported frame type");
-                    }
-                }
-                catch (Exception streamError)
-                {
-                    if (streamError is SMProtocolExeption || this.OnStreamError == null)
-                    {
-                        throw;
-                    }
+		/// <summary>
+		/// Event handler for SM Ping.
+		/// </summary>
+		/// <param name="sender">The sender object.</param>
+		/// <param name="e">Event arguments.</param>
+		private void OnSocketPing(object sender, EventArgs e)
+		{
+			if (this.OnPing != null)
+			{
+				this.OnPing(this, e);
+			}
+		}
 
-                    this.OnStreamError(this, new StreamErrorEventArgs(this.streamsStore.GetStreamById(frame.StreamId), streamError));
-                }
-            }
-            catch (Exception protocolError)
-            {
-                if (this.OnError != null)
-                {
-                    this.OnError(this, new SMProtocolErrorEventArgs(protocolError));
-                }
-            }
-        }
+		/// <summary>
+		/// Event handler for WebSocket data.
+		/// </summary>
+		/// <param name="sender">The sender object.</param>
+		/// <param name="e">Event arguments.</param>
+		private void OnSocketData(object sender, WebSocketEventArgs e)
+		{
+			try
+			{
+				BaseFrame frame = this.serializer.Deserialize(e.BinaryData);
+				if (this.OnFrameReceived != null)
+				{
+					this.OnFrameReceived(this, new FrameEventArgs(frame));
+				}
 
-        /// <summary>
-        /// Process SM Data frame.
-        /// </summary>
-        /// <param name="frame">The data frame.</param>
-        private void ProcessDataFrame(DataFrame frame)
-        {
-            if (this.OnStreamFrame != null)
-            {
-                SMStream stream = this.streamsStore.GetStreamById(frame.StreamId);
-                if (stream == null)
-                {
-                    this.SendRST(frame.StreamId, StatusCode.InvalidStream);
-                }
-                else
-                {
-                    this.OnStreamFrame(this, new StreamDataEventArgs(stream, new SMData(frame.Data), frame.IsFinal));
-                }
-            }
-        }
+				try
+				{
+					if (frame is DataFrame)
+					{
+						this.ProcessDataFrame((DataFrame)frame);
+					}
+					else if (frame is ControlFrame)
+					{
+						this.ProcessControlFrame((ControlFrame)frame);
+					}
+					else
+					{
+						throw new InvalidOperationException("Unsupported frame type");
+					}
+				}
+				catch (Exception streamError)
+				{
+					if (streamError is SMProtocolExeption || this.OnStreamError == null)
+					{
+						throw;
+					}
 
-        /// <summary>
-        /// Process SM control frame.
-        /// </summary>
-        /// <param name="frame">The control frame.</param>
-        private void ProcessControlFrame(ControlFrame frame)
-        {
-            if (frame.Version != Version)
-            {
-                throw new SMProtocolExeption(StatusCode.UnsupportedVersion);
-            }
+					this.OnStreamError(this, new StreamErrorEventArgs(this.streamsStore.GetStreamById(frame.StreamId), streamError));
+				}
+			}
+			catch (Exception protocolError)
+			{
+				if (this.OnError != null)
+				{
+					this.OnError(this, new SMProtocolErrorEventArgs(protocolError));
+				}
+			}
+		}
 
-            SMStream stream = this.streamsStore.GetStreamById(frame.StreamId);
+		/// <summary>
+		/// Process SM Data frame.
+		/// </summary>
+		/// <param name="frame">The data frame.</param>
+		private void ProcessDataFrame(DataFrame frame)
+		{
+			if (this.OnStreamFrame != null)
+			{
+				SMStream stream = this.streamsStore.GetStreamById(frame.StreamId);
+				if (stream == null)
+				{
+					this.SendRST(frame.StreamId, StatusCode.InvalidStream);
+				}
+				else
+				{
+					this.OnStreamFrame(this, new StreamDataEventArgs(stream, new SMData(frame.Data), frame.IsFinal));
+				}
+			}
+		}
 
-            // if this is rst frame - don't send error or it will go in rst loop
-            if (stream == null && frame.Type != FrameType.RTS)
-            {
-                this.SendRST(frame.StreamId, StatusCode.InvalidStream);
-                return;
-            }
+		/// <summary>
+		/// Process SM control frame.
+		/// </summary>
+		/// <param name="frame">The control frame.</param>
+		private void ProcessControlFrame(ControlFrame frame)
+		{
+			if (frame.Version != Version)
+			{
+				throw new SMProtocolExeption(StatusCode.UnsupportedVersion);
+			}
 
-            switch (frame.Type)
-            {
-                case FrameType.SynStream:
-                case FrameType.SynReply:
-                    this.OnSessionFrame(this, new ControlFrameEventArgs(frame));
-                    break;
-                case FrameType.Headers:
-                    this.OnStreamFrame(this, new HeadersEventArgs(this.streamsStore.GetStreamById(frame.StreamId), frame.Headers));
-                    break;
-                case FrameType.RTS:
-                    this.OnStreamFrame(this, new RSTEventArgs(this.streamsStore.GetStreamById(frame.StreamId), frame.StatusCode));
-                    break;
-            }
-        }
+			SMStream stream = this.streamsStore.GetStreamById(frame.StreamId);
 
-        #endregion
-    }
+			// if this is rst frame - don't send error or it will go in rst loop
+			if (stream == null && frame.Type != FrameType.RTS)
+			{
+				this.SendRST(frame.StreamId, StatusCode.InvalidStream);
+				return;
+			}
+
+			switch (frame.Type)
+			{
+                case FrameType.CreditUpdate:
+				case FrameType.SynStream:
+				case FrameType.SynReply:
+					this.OnSessionFrame(this, new ControlFrameEventArgs(frame));
+					break;
+				case FrameType.Headers:
+					this.OnStreamFrame(this, new HeadersEventArgs(this.streamsStore.GetStreamById(frame.StreamId), frame.Headers));
+					break;
+				case FrameType.RTS:
+					this.OnStreamFrame(this, new RSTEventArgs(this.streamsStore.GetStreamById(frame.StreamId), frame.StatusCode));
+					break;
+			}
+		}
+
+		#endregion
+	}
 }

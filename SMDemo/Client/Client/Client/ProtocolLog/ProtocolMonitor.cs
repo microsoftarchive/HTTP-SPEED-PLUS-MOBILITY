@@ -103,6 +103,8 @@ namespace Client.Benchmark
             this.statsByStream = new StreamStats();
             this.State = MonitorState.MonitorOff;
             this.savedStats = new Dictionary<int, StatisticsSnapshot>();
+            this.LastStartDate = DateTime.Now;
+            this.LastEndDate = this.LastStartDate;
         }
 
         #endregion
@@ -127,6 +129,16 @@ namespace Client.Benchmark
         /// Gets or sets last HTTP log.
         /// </summary>
         public HttpTrafficLog LastHTTPLog { get; set; }
+
+        /// <summary>
+        /// Gets or sets date/time of start of operation
+        /// </summary>
+        public DateTime LastStartDate { get; set; }
+
+        /// <summary>
+        /// Gets or sets date/time of end of operation
+        /// </summary>
+        public DateTime LastEndDate { get; set; }
 
         #endregion
 
@@ -220,13 +232,19 @@ namespace Client.Benchmark
         }
 
         /// <summary>
-        ///  Reset statistics.
+        ///  Reset statistics for current session.
         /// </summary>
         public void Reset()
         {
+            lock (this.exclusiveLock)
+            {
             this.totals.Reset();
             this.statsByStream.Reset();
             this.LastHTTPLog = null;
+                this.LastStartDate = DateTime.Now;
+                this.LastEndDate = this.LastStartDate;
+                this.savedStats.Clear();
+            }
         }
 
         /// <summary>
@@ -242,17 +260,23 @@ namespace Client.Benchmark
                 StatisticsSnapshot ss;
                 if (!this.savedStats.TryGetValue(slotId, out ss))
                 {
+                    TimeSpan currentDuration = this.LastEndDate - this.LastStartDate;
                     if (this.LastHTTPLog != null)
                     {
-                        ss = new StatisticsSnapshot(this.LastHTTPLog);
+                        ss = new StatisticsSnapshot(this.LastHTTPLog, currentDuration);
                         this.LastHTTPLog = null;
                     }
                     else
                     {
-                        ss = new StatisticsSnapshot(this.totals);
+                        ss = new StatisticsSnapshot(this.totals, currentDuration);
                     }
 
                     this.savedStats.Add(slotId, ss);
+                    this.totals.Reset();
+                    this.statsByStream.Reset();
+                    this.LastHTTPLog = null;
+                    this.LastStartDate = DateTime.Now;
+                    this.LastEndDate = this.LastStartDate;
                     result = true;
                 }
             }

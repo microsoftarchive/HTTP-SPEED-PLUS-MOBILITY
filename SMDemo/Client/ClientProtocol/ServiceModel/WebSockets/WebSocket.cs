@@ -2,10 +2,10 @@
 //
 // Copyright 2012 Microsoft Open Technologies, Inc.
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
+// Licensed under the Apache License, Version 2.0 (the "License"); 
+// you may not use this file except in compliance with the License.  
+// You may obtain a copy of the License at 
+//                                    
 //       http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
@@ -19,7 +19,8 @@
 namespace System.ServiceModel.WebSockets
 {
     using System.IO;
-    using System.Text;
+	using System.Text;
+	using System.Collections.Generic;
     using System.Threading;
 #if !SILVERLIGHT
 #else
@@ -49,26 +50,23 @@ namespace System.ServiceModel.WebSockets
             // empty
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="WebSocket"/> class using the specified remote url, origin url and protocol.
-        /// </summary>
-        /// <param name="url">The remote url to connect to.</param>
-        public WebSocket(string url)
-            : this(url, "http://tempuri", null)
-        {
-            // empty
-        }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="WebSocket"/> class using the specified remote url, origin url, protocol and websocket version.
-        /// </summary>
-        /// <param name="url">The remote url to connect to.</param>
-        /// <param name="origin">The origin url.</param>
-        /// <param name="protocol">The name of the protocol version to use.</param>        
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "0#",
+		public WebSocket(string url)
+			: this(url, "http://tempuri", null)
+		{
+			// empty
+		}
+
+    	/// <summary>
+    	/// Initializes a new instance of the <see cref="WebSocket"/> class using the specified remote url, origin url, protocol and websocket version.
+    	/// </summary>
+    	/// <param name="url">The remote url to connect to.</param>
+    	/// <param name="origin">The origin url.</param>
+    	/// <param name="protocol">The name of the protocol version to use.</param>       
+    	[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", MessageId = "0#",
             Justification = "This is destined as an interface with a web browser's javascript engine that does not understand Uri.")]
-        public WebSocket(string url, string origin, string protocol)
-            : this(url, origin, protocol, false)
+		public WebSocket(string url, string origin, string protocol)
+			: this(url, origin, protocol, false)
         {
         }
 
@@ -170,7 +168,7 @@ namespace System.ServiceModel.WebSockets
         /// <summary>
         /// Establishes a websocket connection to the remote host.
         /// </summary>
-        public void Open()
+		public void Open(Dictionary<string, string> customHeaders)
         {
             if (this.ReadyState == WebSocketState.Open)
             {
@@ -187,12 +185,12 @@ namespace System.ServiceModel.WebSockets
                 throw new InvalidOperationException("The Url parameter must be set before the WebSocket can be opened.");
             }
 
-            this.protocol = new IETFHyBiWebSocketPotocol(this.Url, this.origin, this.protocolName, this.NoDelay);
+			this.protocol = new IETFHyBiWebSocketPotocol(this.Url, this.origin, this.protocolName, this.NoDelay);
             this.protocol.OnClose += this.OnProtocolClose;
             this.protocol.OnData += this.OnProtocolData;
             this.protocol.OnConnected += this.OnProtocolConnected;
             this.protocol.OnPing += this.OnProtocolPing;
-            this.protocol.Start();
+			this.protocol.Start(customHeaders);
         }
 
         /// <summary>

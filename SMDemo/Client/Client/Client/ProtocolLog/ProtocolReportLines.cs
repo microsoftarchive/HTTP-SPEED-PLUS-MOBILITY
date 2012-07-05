@@ -6,7 +6,6 @@
 
 namespace Client.Benchmark
 {
-
     /// <summary>
     /// S+M protocol report lines
     /// </summary>

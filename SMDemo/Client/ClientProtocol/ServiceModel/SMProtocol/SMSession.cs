@@ -3,10 +3,10 @@
 //
 // Copyright 2012 Microsoft Open Technologies, Inc.
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
+// Licensed under the Apache License, Version 2.0 (the "License"); 
+// you may not use this file except in compliance with the License.  
+// You may obtain a copy of the License at 
+//                                    
 //       http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
@@ -17,6 +17,9 @@
 //
 // </copyright>
 //-----------------------------------------------------------------------
+
+using ClientProtocol.ServiceModel.SMProtocol.MessageProcessing;
+
 namespace System.ServiceModel.SMProtocol
 {
     using System.Collections.Generic;
@@ -28,6 +31,11 @@ namespace System.ServiceModel.SMProtocol
     /// </summary>
     public sealed class SMSession : IDisposable, IStreamStore
     {
+        /// <summary>
+        /// Is a special value that designates "infinite".
+        /// </summary>
+        public readonly UInt32 MaxCreditBalance = 0xffffffff;
+
         #region Fields
 
         /// <summary>
@@ -54,6 +62,11 @@ namespace System.ServiceModel.SMProtocol
         /// Last good stream id.
         /// </summary>
         private int lastSeenStreamId;
+        
+        /// <summary>
+        /// Indicates is flow control enabled.
+        /// </summary>
+        private readonly bool isFlowControlEnabled;
 
         #endregion
 
@@ -64,29 +77,36 @@ namespace System.ServiceModel.SMProtocol
         /// </summary>
         /// <param name="uri">the URI.</param>
         public SMSession(Uri uri)
-            : this(uri, false)
+            : this(uri, false, null)
         {
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SMSession"/> class.
-        /// </summary>
-        /// <param name="uri">the URI.</param>
-        /// <param name="isServer">the Server flag.</param>
-        public SMSession(Uri uri, bool isServer)
+    	/// <summary>
+    	/// Initializes a new instance of the <see cref="SMSession"/> class.
+    	/// </summary>
+    	/// <param name="uri">the URI.</param>
+    	/// <param name="isServer">the Server flag.</param>
+    	/// <param name="options">Session options.</param>
+    	public SMSession(Uri uri, bool isServer, SMProtocolOptions options)
         {
-            this.streams = new List<SMStream>();
-            this.closedStreams = new List<SMStream>();
-            this.isServer = isServer;
-
-            this.protocol = new SMProtocol(uri, this);
+            this.isFlowControlEnabled = options.IsFlowControl;
+            this.CreditAddition = options.CreditAddition;
+            this.CurrentCreditBalanceFromServer = Convert.ToInt64(CreditAddition);
+            this.CurrentCreditBalanceToServer = Convert.ToInt64(CreditAddition);
+    	    this.streams = new List<SMStream>();
+			this.closedStreams = new List<SMStream>();
+			this.isServer = isServer;
+			this.protocol = new SMProtocol(uri, this, options);
             this.protocol.OnSessionFrame += this.OnSessionFrame;
             this.protocol.OnClose += this.OnProtocolClose;
             this.protocol.OnOpen += this.OnProtocolOpen;
             this.protocol.OnError += this.OnProtocolError;
             this.protocol.OnPing += this.OnProtocolPing;
+			if (options.UseCompression)
+			{
+				this.Protocol.SetProcessors(new List<IMessageProcessor> { new CompressionProcessor() });				
+			}
         }
-
         #endregion
 
         #region Events
@@ -119,16 +139,21 @@ namespace System.ServiceModel.SMProtocol
         /// <summary>
         /// Occurs when stream is closed.
         /// </summary>
-        public event EventHandler<EventArgs> OnStreamClosed;
+        public event EventHandler<RSTEventArgs> OnStreamClosed;
 
         #endregion
 
         #region Properties
 
         /// <summary>
+        /// Credit addition.
+        /// </summary>
+        public UInt32 CreditAddition { set; get; }
+
+        /// <summary>
         /// Gets the protocol.
         /// </summary>
-        public SMProtocol Protocol 
+		internal SMProtocol Protocol 
         { 
             get 
             { 
@@ -166,13 +191,29 @@ namespace System.ServiceModel.SMProtocol
         /// <summary>
         /// Gets the URI.
         /// </summary>
-        public Uri Uri 
-        { 
-            get 
-            { 
-                return this.protocol.Uri; 
-            } 
-        }
+		public Uri Uri
+		{
+			get
+			{
+				return this.protocol.Uri;
+			}
+		}
+
+        /// <summary>
+        /// Flag flow control.
+        /// </summary>
+        public bool IsFlowControlEnabled { get { return isFlowControlEnabled; } }
+
+        /// <summary>
+        /// Current credit balance.
+        /// </summary>
+        public Int64 CurrentCreditBalanceToServer { get; set; }
+
+        /// <summary>
+        /// Return current credit balance.
+        /// </summary>
+        public Int64 CurrentCreditBalanceFromServer { get; set; }
+        
 
         #endregion
 
@@ -203,6 +244,7 @@ namespace System.ServiceModel.SMProtocol
             {
                 this.protocol.Close(reason, this.lastSeenStreamId);
             }
+            this.State = SMSessionState.Closed;
         }
 
         /// <summary>
@@ -332,17 +374,21 @@ namespace System.ServiceModel.SMProtocol
         /// <param name="e">The event args.</param>
         private void OnSessionFrame(object sender, ControlFrameEventArgs e)
         {
-            if (e.Frame.Type == FrameType.SynStream)
+            switch (e.Frame.Type)
             {
-                OpenStream(e.Frame.StreamId, e.Frame.Headers, false);
-            }
-            else if (e.Frame.Type == FrameType.SynReply)
-            {
-                SMStream stream = this.GetStreamById(e.Frame.StreamId);
-                if (stream != null && stream.State != SMStreamState.Closed && stream.State != SMStreamState.HalfClosed)
-                {
-                    stream.State = SMStreamState.Accepted;
-                }
+                case FrameType.SynStream:
+                    OpenStream(e.Frame.StreamId, e.Frame.Headers, false);                    
+                    break;
+                case FrameType.SynReply:
+                    SMStream stream = this.GetStreamById(e.Frame.StreamId);
+                    if (stream != null && stream.State != SMStreamState.Closed && stream.State != SMStreamState.HalfClosed)
+                    {
+                        stream.State = SMStreamState.Accepted;
+                    }
+                    break;
+                case FrameType.CreditUpdate:
+                    CurrentCreditBalanceToServer += Convert.ToInt32(e.Frame.Headers["credit-addition"]);
+                    break;
             }
         }
 
@@ -354,7 +400,6 @@ namespace System.ServiceModel.SMProtocol
         private void OnProtocolClose(object sender, CloseFrameEventArgs e)
         {
             this.State = SMSessionState.Closed;
-
             if (this.OnClose != null)
             {
                 this.OnClose(this, e);

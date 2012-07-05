@@ -3,10 +3,10 @@
 //
 // Copyright 2012 Microsoft Open Technologies, Inc.
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
+// Licensed under the Apache License, Version 2.0 (the "License"); 
+// you may not use this file except in compliance with the License.  
+// You may obtain a copy of the License at 
+//                                    
 //       http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
@@ -151,7 +151,18 @@ namespace System.ServiceModel.SMProtocol
         /// <param name="isFin">if set to <c>true</c> than this stream will be half-closed.</param>
         public void SendData(SMData data, bool isFin)
         {
-            this.protocol.SendData(this, data, isFin);
+            SMData dataFrame;
+            if (Session.IsFlowControlEnabled)
+            {
+                Session.CurrentCreditBalanceToServer -=  data.Data.Length;
+                dataFrame = new SMData(data.Data);
+            }
+            else
+            {
+                dataFrame = new SMData(data.Data);
+            }
+
+            this.protocol.SendData(this, dataFrame, isFin);
         }
 
         /// <summary>
@@ -172,6 +183,16 @@ namespace System.ServiceModel.SMProtocol
         public void SendRST(StatusCode reason)
         {
             this.protocol.SendRST(this, reason);
+        }
+
+        /// <summary>
+        /// Send the CREDIT_UPDATE frame to the stream.
+        /// </summary>
+        /// <param name="creditAddition"></param>
+        public void SendCreditUpdate(Int64 creditAddition)
+        {
+            Session.CurrentCreditBalanceFromServer += creditAddition;
+            this.protocol.SendCreditUpdate(this, creditAddition);
         }
 
         /// <summary>
@@ -260,7 +281,21 @@ namespace System.ServiceModel.SMProtocol
 
                     if (this.OnDataReceived != null)
                     {
+                        StreamDataEventArgs args = (StreamDataEventArgs)e;
                         this.OnDataReceived(this, e as StreamDataEventArgs);
+
+                        if (Session.IsFlowControlEnabled)
+                        {
+                            Session.CurrentCreditBalanceFromServer -= args.Data.Data.Length;
+                            if (Session.CurrentCreditBalanceFromServer + Session.CreditAddition < Session.MaxCreditBalance)
+                            {
+                                if (Session.CurrentCreditBalanceFromServer < 0)
+                                    SendCreditUpdate(Convert.ToInt32((-1*Session.CurrentCreditBalanceFromServer/Session.CreditAddition +
+                                                      1)*Session.CreditAddition));
+                                else
+                                    SendCreditUpdate(Convert.ToInt32(Session.CreditAddition));
+                            }
+                        }
                     }
                 }
                 else if (e is RSTEventArgs)

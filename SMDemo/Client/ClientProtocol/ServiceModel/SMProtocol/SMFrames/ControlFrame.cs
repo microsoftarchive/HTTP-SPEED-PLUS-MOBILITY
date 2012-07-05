@@ -3,10 +3,10 @@
 //
 // Copyright 2012 Microsoft Open Technologies, Inc.
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
+// Licensed under the Apache License, Version 2.0 (the "License"); 
+// you may not use this file except in compliance with the License.  
+// You may obtain a copy of the License at 
+//                                    
 //       http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
@@ -89,11 +89,20 @@ namespace System.ServiceModel.SMProtocol.SMFrames
         public short Version { get; set; }
 
         /// <summary>
+        /// Gets or sets the credit addition
+        /// </summary>
+        /// <value>
+        /// In bytes, that the recipient must add to the stream's credit balance.
+        /// </value>
+      //  public Int32 CreditAddition { get; set; }
+        /*
+        /// <summary>
         /// Gets or sets the associated to stream id.
         /// </summary>
         /// <value>
         /// The associated to stream id.
         /// </value>
-        public Int32 AssociatedToStreamId { get; set; }
+       // public Int32 AssociatedToStreamId { get; set; }
+         */
     }
 }

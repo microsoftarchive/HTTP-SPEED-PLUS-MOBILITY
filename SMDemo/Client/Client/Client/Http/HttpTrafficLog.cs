@@ -45,6 +45,12 @@ namespace Client.HttpBenchmark
         /// </summary>
         private HttpReportLines sideBySideLine = HttpReportLines.InvalidLine;
 
+        /// <summary>
+        /// Lock for multithreaded access to results
+        /// </summary>
+        [NonSerialized]
+        private object exclusiveLock;
+
         #endregion
 
         #region Constructor
@@ -54,6 +60,7 @@ namespace Client.HttpBenchmark
         /// </summary>
         public HttpTrafficLog()
         {
+            this.exclusiveLock = new object();
             this.httpLogs = new List<HttpHeaderLogItem>();
         }
 
@@ -63,6 +70,7 @@ namespace Client.HttpBenchmark
         /// <param name="theOther">The other log.</param>
         public HttpTrafficLog(HttpTrafficLog theOther)
         {
+            this.exclusiveLock = new object();
             this.httpLogs = new List<HttpHeaderLogItem>(theOther.httpLogs);
             this.TotalSizeDataReceived = theOther.TotalSizeDataReceived;
             this.TotalSizeHeadersReceived = theOther.TotalSizeHeadersReceived;
@@ -135,10 +143,13 @@ namespace Client.HttpBenchmark
         /// <param name="header">the headers byte array.</param>
         public void LogRequest(byte[] header)
         {
+            lock (this.exclusiveLock)
+            {
             this.HttpLogs.Add(new HttpHeaderLogItem(header));
 
             this.TotalCountRequestSent++;
             this.TotalSizeHeadersSent += header.Length;
+        }
         }
 
         /// <summary>
@@ -148,11 +159,14 @@ namespace Client.HttpBenchmark
         /// <param name="totalLength">the length of header.</param>
         public void LogResponse(byte[] header, int totalLength)
         {
+            lock (this.exclusiveLock)
+            {
             this.HttpLogs.Add(new HttpHeaderLogItem(header));
 
             this.TotalCountResponseReceived++;
             this.TotalSizeHeadersReceived += header.Length;
             this.TotalSizeDataReceived += totalLength - header.Length;
+        }
         }
 
         /// <summary>

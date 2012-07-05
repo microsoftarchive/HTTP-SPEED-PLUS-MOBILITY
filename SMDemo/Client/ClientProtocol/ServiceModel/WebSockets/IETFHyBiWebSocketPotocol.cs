@@ -2,10 +2,10 @@
 //
 // Copyright 2012 Microsoft Open Technologies, Inc.
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
+// Licensed under the Apache License, Version 2.0 (the "License"); 
+// you may not use this file except in compliance with the License.  
+// You may obtain a copy of the License at 
+//                                    
 //       http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
@@ -57,38 +57,42 @@ namespace System.ServiceModel.WebSockets
 
         private Dictionary<string, string> handshakeResponseHeaders;
 
-        public IETFHyBiWebSocketPotocol(string url, string origin, string protocol, bool noDelay)
-            : base(url, origin, protocol, noDelay)
-        {
-            // empty
-        }
+		public IETFHyBiWebSocketPotocol(string url, string origin, string protocol, bool noDelay)
+			: base(url, origin, protocol, noDelay)
+		{
+			// empty
+		}
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase",
             Justification = "Request headers are usually lowercase.")]
-        public override void StartWebSocketHandshake() // main entry point to the protocol
+        public override void StartWebSocketHandshake(Dictionary<string, string> customHeaders) // main entry point to the protocol
         {
             // Generate the client nonce
-            this.GenerateClientNonce(); 
+            this.GenerateClientNonce();
 
             string request = string.Format(
                 CultureInfo.InvariantCulture,
                 "GET {0} HTTP/1.1\r\n" +
                 "Upgrade: WebSocket\r\n" +
-                "Connection: Upgrade\r\n" +
+                "Connection: Upgrade, http2-icb\r\n" +
                 "Host: {1}{2}\r\n" +
                 "Sec-WebSocket-Origin: {3}\r\n" +
                 "Sec-WebSocket-Version: 8\r\n" +
                 "{4}" + // web socket protocol, if specified by the user
                 "Sec-WebSocket-Key: {5}\r\n" +
-                "\r\n",
+                "Sec-WebSocket-Extensions: http2\r\n",
                 this.Uri.AbsolutePath + this.Uri.Query,
                 this.Uri.DnsSafeHost.ToLowerInvariant(),
-                this.Uri.Port == 80 ?
-                    string.Empty : string.Format(CultureInfo.InvariantCulture, ":{0}", this.Uri.Port),
+                this.Uri.Port == 80
+                    ? string.Empty
+                    : string.Format(CultureInfo.InvariantCulture, ":{0}", this.Uri.Port),
                 this.Origin.ToLowerInvariant(),
-                string.IsNullOrEmpty(this.Protocol) ?
-                    string.Empty : string.Format(CultureInfo.InvariantCulture, "Sec-WebSocket-Protocol: {0}\r\n", this.Protocol),
+                string.IsNullOrEmpty(this.Protocol)
+                    ? string.Empty
+                    : string.Format(CultureInfo.InvariantCulture, "Sec-WebSocket-Protocol: {0}\r\n", this.Protocol),
                 this.clientNonce);
+        	request = customHeaders.Aggregate(request, (current, header) => current + string.Format("{0}: {1}\r\n", header.Key, header.Value));
+        	request += "\r\n";
 
             this.ReceiveMoreBytes(this.ProcessHandshakeResponseHeader);
             this.EnqueueForSending(new ArraySegment<byte>(Encoding.UTF8.GetBytes(request)));
@@ -368,7 +372,7 @@ namespace System.ServiceModel.WebSockets
                     new ProtocolViolationException("Server protocol violation. Server did not respond with an Upgrade header with 'WebSocket' value.")),
                 () => this.ValidateHandshakeResponseHeader(
                     "connection",
-                    v => v.Equals("upgrade", StringComparison.OrdinalIgnoreCase),
+                    v => v.Equals("upgrade, http2-icb", StringComparison.OrdinalIgnoreCase),
                     new ProtocolViolationException("Server protocol violation. Server did not respond with an Connection header with 'Upgrade' value.")),
                 () => this.ValidateHandshakeResponseHeader(
                     "sec-websocket-accept",
@@ -378,6 +382,10 @@ namespace System.ServiceModel.WebSockets
                     "sec-websocket-protocol",
                     v => v.Equals(this.Protocol, StringComparison.Ordinal),
                     new ProtocolViolationException("Server protocol violation. Server did not respond with sec-websocket-protocol header that matches the protocol sent on request.")),
+                () => this.ValidateHandshakeResponseHeader(
+                        "sec-websocket-extensions",
+                        v => v.Equals("http2", StringComparison.OrdinalIgnoreCase),
+                        new ProtocolViolationException("Server protocol violation. Server did not respond with sec-websocket-extensions header that matches the protocol sent on request.")),
                 () => 
                 {
                     if (this.handshakeResponseHeaders.ContainsKey("set-cookie") || this.handshakeResponseHeaders.ContainsKey("set-cookie2"))

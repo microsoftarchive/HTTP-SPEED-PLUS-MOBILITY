@@ -3,10 +3,10 @@
 //
 // Copyright 2012 Microsoft Open Technologies, Inc.
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
+// Licensed under the Apache License, Version 2.0 (the "License"); 
+// you may not use this file except in compliance with the License.  
+// You may obtain a copy of the License at 
+//                                    
 //       http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
@@ -19,6 +19,7 @@
 //-----------------------------------------------------------------------
 namespace System.ServiceModel.SMProtocol.SMFrames
 {
+    using ClientProtocol.ServiceModel.SMProtocol.SMFrames;
     /// <summary>
     /// Class that incapsulates frame building logic.
     /// </summary>
@@ -187,6 +188,20 @@ namespace System.ServiceModel.SMProtocol.SMFrames
         {
             ControlFrame frame = BuildControlFrame(FrameType.Headers, streamId, headers);
             frame.IsFinal = final;
+            return frame;
+        }
+
+        public CreditUpdateFrame BuildCreditUpdateFrame(int streamId, Int64 creditAddition)
+        {
+            CreditUpdateFrame frame = new CreditUpdateFrame(streamId, creditAddition);
+            frame.IsFinal = true;
+            return frame;
+        }
+
+        public CreditUpdateFrame BuildCreditUpdateFrame(SMStream stream, Int64 creditAddition)
+        {
+            CreditUpdateFrame frame = new CreditUpdateFrame(stream.StreamId,creditAddition);
+            frame.IsFinal = true;
             return frame;
         }
 

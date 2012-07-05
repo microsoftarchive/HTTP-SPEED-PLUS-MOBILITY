@@ -3,10 +3,10 @@
 //
 // Copyright 2012 Microsoft Open Technologies, Inc.
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
+// Licensed under the Apache License, Version 2.0 (the "License"); 
+// you may not use this file except in compliance with the License.  
+// You may obtain a copy of the License at 
+//                                    
 //       http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
@@ -104,6 +104,31 @@ namespace System.ServiceModel.SMProtocol
             return bytes;
         }
 
+        /// <summary>
+        /// Creates array of bytes, then converts int32 to the array
+        /// </summary>
+        /// <param name="value">Int32 value</param>
+        /// <param name="bytesNum">Number of bytes </param>
+        /// <returns>Array of bytes of size bytesNum.</returns>
+        public static byte[] Int32ToBytes(Int64 value, int bytesNum)
+        {
+            var bytes = new byte[bytesNum];
+            for (int i = 0; i < bytesNum; ++i)
+            {
+                bytes[bytesNum - 1 - i] = (byte)((value & (0xFF << (i << 3))) >> (i * 8));
+            }
+
+            return bytes;
+        }
+        /// <summary>
+        /// Converts int64 to the array of bytes size 4
+        /// </summary>
+        /// <param name="value">Int64 value</param>
+        /// <returns>Array of bytes of size 4.</returns>
+        public static byte[] Int64ToBytes(Int64 value)
+        {
+            return Int32ToBytes(value, 4);
+        }
         /// <summary>
         /// Converts int32 to the array of bytes size 4
         /// </summary>

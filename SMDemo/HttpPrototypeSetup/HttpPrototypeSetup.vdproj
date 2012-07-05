@@ -21,14 +21,44 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_359347F11972DAF8D3D6D32F8DADB8A2"
+        "OwnerKey" = "8:_908943D59373AAD21F2A5DD8D1137B9B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_359347F11972DAF8D3D6D32F8DADB8A2"
+        "OwnerKey" = "8:_2BEEA958DDCF468F9ED0094B5520446C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_51D36AF9058A4F75AF0EF9E1CE1165FB"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_6E810C09B82C44EDAA6D97FA8EEFC708"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_A96C5D05D9BD1FD743ECEA7FA73C4A9F"
+        "MsmKey" = "8:_7C87005E2A744684944B26C57E8A8956"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_908943D59373AAD21F2A5DD8D1137B9B"
         "OwnerKey" = "8:_2BEEA958DDCF468F9ED0094B5520446C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_923E310AB7CBC41BE5422EC778A1F179"
+        "OwnerKey" = "8:_7C87005E2A744684944B26C57E8A8956"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -40,7 +70,25 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_A96C5D05D9BD1FD743ECEA7FA73C4A9F"
+        "OwnerKey" = "8:_7C87005E2A744684944B26C57E8A8956"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_923E310AB7CBC41BE5422EC778A1F179"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_908943D59373AAD21F2A5DD8D1137B9B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_359347F11972DAF8D3D6D32F8DADB8A2"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -105,6 +153,19 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.0,Profile=Client"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4 Client Profile (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.0,Profile=Client"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    {
+                    "Name" = "8:Windows Installer 3.1"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                }
             }
         }
     }
@@ -112,6 +173,20 @@
     {
         "CustomAction"
         {
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_AA7D38EA350C4C4CAC4EF4B29FDCDF8A"
+            {
+            "Name" = "8:CustomActions.dll"
+            "Condition" = "8:"
+            "Object" = "8:_7C87005E2A744684944B26C57E8A8956"
+            "FileType" = "3:1"
+            "InstallAction" = "3:1"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_3A396396_C8E7_4F38_ADCA_7BC4F7CCF0FF"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
         }
         "DefaultFeature"
         {
@@ -135,6 +210,57 @@
         }
         "File"
         {
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_359347F11972DAF8D3D6D32F8DADB8A2"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:zlib.net, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_359347F11972DAF8D3D6D32F8DADB8A2"
+                    {
+                    "Name" = "8:zlib.net.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:zlib.net.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_F066ADEAFFAA435C9F5B55FB6263927D"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_51D36AF9058A4F75AF0EF9E1CE1165FB"
+            {
+            "SourcePath" = "8:..\\Client\\Client\\Client\\certificate.pfx"
+            "TargetName" = "8:certificate.pfx"
+            "Tag" = "8:"
+            "Folder" = "8:_F066ADEAFFAA435C9F5B55FB6263927D"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6E810C09B82C44EDAA6D97FA8EEFC708"
             {
             "SourcePath" = "8:..\\LICENSE.rtf"
@@ -155,20 +281,82 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A96C5D05D9BD1FD743ECEA7FA73C4A9F"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_7C87005E2A744684944B26C57E8A8956"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:CustomActions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_7C87005E2A744684944B26C57E8A8956"
+                    {
+                    "Name" = "8:CustomActions.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:..\\CustomAction\\bin\\Release\\CustomActions.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_F066ADEAFFAA435C9F5B55FB6263927D"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_908943D59373AAD21F2A5DD8D1137B9B"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:ClientProtocol, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_A96C5D05D9BD1FD743ECEA7FA73C4A9F"
+                    "_908943D59373AAD21F2A5DD8D1137B9B"
                     {
                     "Name" = "8:ClientProtocol.dll"
                     "Attributes" = "3:512"
                     }
                 }
             "SourcePath" = "8:ClientProtocol.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_F066ADEAFFAA435C9F5B55FB6263927D"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_923E310AB7CBC41BE5422EC778A1F179"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Microsoft.Deployment.WindowsInstaller, Version=3.0.0.0, Culture=neutral, PublicKeyToken=ce35f76fcda82bad, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_923E310AB7CBC41BE5422EC778A1F179"
+                    {
+                    "Name" = "8:Microsoft.Deployment.WindowsInstaller.DLL"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Microsoft.Deployment.WindowsInstaller.DLL"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_F066ADEAFFAA435C9F5B55FB6263927D"
@@ -243,7 +431,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:HTTP Speed+Mobility Prototype Client"
         "ProductCode" = "8:{34953453-A0CD-4450-8751-EB33319FC106}"
-        "PackageCode" = "8:{8305E0BA-282E-4486-A2DE-D921A3046183}"
+        "PackageCode" = "8:{E5A1420A-89BE-47D7-9F65-72E892E765C1}"
         "UpgradeCode" = "8:{09273EAA-8F51-4D91-8CAA-6C27913C6F36}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -872,7 +1060,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_2BEEA958DDCF468F9ED0094B5520446C"
             {
-            "SourcePath" = "8:..\\Client\\Client\\Client\\obj\\x86\\Debug\\Client.exe"
+            "SourcePath" = "8:..\\Client\\Client\\Client\\obj\\x86\\Release\\Client.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_F066ADEAFFAA435C9F5B55FB6263927D"
