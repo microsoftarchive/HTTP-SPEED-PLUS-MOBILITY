@@ -35,30 +35,94 @@ function SimpleHttpServer(port, root, options) {
     self.server.listen(port);
   }
 
+  self.server.on('upgrade', function(req, socket, upgradeHead) {
+    handleUpgrade(req, socket, upgradeHead, function(client) {
+      self.emit('connection', client);
+    });
+  });
+
+  function handleUpgrade(req, socket, upgradeHead, cb) {
+	  console.log('upgrade request to: ' + req.headers.upgrade);
+	  
+	  if (typeof req.headers.upgrade != 'undefined' && req.headers.upgrade.toLowerCase() == 'websocket') {
+		return;
+	  }	  
+	  
+	  if (typeof req.headers.upgrade === 'undefined' || req.headers.upgrade.toLowerCase() !== 'http/2.0') {
+		abortConnection(socket, 400, 'Bad Request');
+		return;
+	  }
+
+	  var u = url.parse(req.url);
+      var str = u.path.replace(/\/+/g, '\\');
+      path = __dirname + '\\' + root + str;
+      console.log('request http2: ' + path);
+
+      fs.readFile(path,
+			function (err, data) {
+			    if (err) {
+			      console.log('error: %s', err);
+			      abortConnection(socket, 404, 'Not Found');
+			    } else {
+				
+				  console.log('Switching Protocols');
+				  // Respond that we understand http 2.0
+				  var response = [
+					'HTTP/1.1 101 Switching Protocols',
+					'Connection: Upgrade',
+					'Upgrade: HTTP/2.0'
+				  ];
+				  socket.write(response.concat('', '').join('\r\n'));
+				  socket.write('\r\n');
+				  
+				  // emulate http2 frame
+				  socket.write('http2frame_start\r\n');	  
+				  socket.write(data);
+				  socket.write('http2frame_end');
+				  
+				  socket.end();	
+			    }
+			}
+      );  
+  }
+  
+  function abortConnection(socket, code, name) {
+	try {
+	  var response = [
+		'HTTP/1.1 ' + code + ' ' + name,
+		'Content-type: text/html'
+	  ];
+	  socket.write(response.concat('', '').join('\r\n'));
+      socket.end();
+	  console.log('Connection aborted! Code: ' + code);
+	}
+	catch (e) {}
+  }  
 
   self.server.on('request', function (req, res) {
-		var u = url.parse(req.url);
-        path = __dirname + '/' + root + '/' + u.pathname; 
-        console.log('request: ' + path);
-        
-		fs.readFile(path,
+      var u = url.parse(req.url);
+      var str = decodeURIComponent(u.path.replace(/\++/g, ' '));
+      path = __dirname + '/' + root + '/' + str;
+      console.log('request: ' + path);
+
+      fs.readFile(path,
 			function (err, data) {
-			  if (err) {
-				console.log('error: %s', err);
-				res.writeHead(404, {'Content-Type': 'text/plain'});
-				res.end('Not found');
-			  } else {
-				console.log('Sent ' + path);
-				res.writeHead(200, {
-					'Server': 'SM Server'
+			    if (err) {
+			        console.log('error: %s', err);
+			        res.writeHead(404, { 'Content-Type': 'text/plain' });
+			        res.end('Not found');
+			    } else {
+			        console.log('Sent ' + path);
+			        res.writeHead(200, {
+			            'Server': 'SM Server'
 					, 'Date': new Date().toUTCString()
 					, 'Cache-Control': 'private, max-age=0, no-cache'
 					, 'Pragma': 'no-cache'
 					, 'X-Powered-By': 'node.js'
 					, 'Content-Length': data.length
-				});
-				res.end(data);
-			  }
+			        });
+			        res.end(data);
+			    }
 			}
       );
   });

@@ -350,8 +350,11 @@ namespace Client
 					CloseSession();
 					break;
 				case "HTTPGET":
-					HttpGetFile(val);
+					HttpGetFile(val, false);
 					break;
+                case "HTTP2GET":
+                    HttpGetFile(val, true);
+                    break;
 				case "RUN":
 					RunScriptFile(val);
 					break;
@@ -360,7 +363,7 @@ namespace Client
 					break;
 			}
 
-			return 0;
+			return res;
 		}
 
 		/// <summary>
@@ -504,7 +507,7 @@ namespace Client
 			{
 				if (session == null || session.State != SMSessionState.Opened)
 				{
-					SMLogger.LogError("Session was closed due to error or not opened. Use CONNECT <Uri> to open a new session.");
+					SMLogger.LogInfo("Stats will not be saved since session is not opened.");
 				}
 				else
 				{
@@ -540,6 +543,7 @@ namespace Client
             Console.WriteLine("CAPTURE-STATS [On|Off|Reset]  Start/stop/reset protocol monitoring.");
             Console.WriteLine("DUMP-STATS                    Display statistics captured using CAPTURE-STATS.");
             Console.WriteLine("HTTPGET \"filename\"            Download file using HTTP 1.1.");
+            Console.WriteLine("HTTP2GET \"filename\"           Download file using HTTP 2.0.");
             Console.WriteLine("CLOSE                         Close session");
             Console.WriteLine("RUN  \"filename\"               Run command script");
             Console.WriteLine("EXIT                          Exit application");
@@ -648,7 +652,8 @@ namespace Client
                     break;
 
                 case "HTTPGET":
-                    Console.WriteLine("HTTPGET <latency> <filename>       Download web page using HTTP 1.1\n");
+                case "HTTP2GET":
+                    Console.WriteLine("HTTPGET <latency> <filename>       Download web page using HTTP\n");
                     Console.WriteLine("  Latency is server latency in ms. Default value is zero.");
                     Console.WriteLine("  This command can take full URL path or relative to web root path.");
                     Console.WriteLine("  If there exists open session, relative path is assumed to refer to");
@@ -873,10 +878,15 @@ namespace Client
                 {
                     url = url + ":" + WSSPORT.ToString();
                 }
-                else if (url.Substring(0, 5) == "ws://")
-                {
-                    url = url + ":" + WSPORT.ToString();
-                }
+				else if (url.Substring(0, 5) == "ws://")
+				{
+					url = url + ":" + WSPORT.ToString();
+				}
+				else
+				{
+					SMLogger.LogError("Unrecognized URL scheme. Specify 'ws/wss' URL scheme.");
+					return 1;
+				}
 
                 if (!Uri.TryCreate(url, UriKind.Absolute, out uri))
                 {
@@ -1347,7 +1357,7 @@ namespace Client
 		/// Download file using http. May have server latency as first argument.
 		/// </summary> 
         /// <param name="arguments">The arguments.</param>
-		private static void HttpGetFile(string arguments)
+		private static void HttpGetFile(string arguments, bool http2)
 		{
 			string[] args = arguments.Split(' ');
 			string uri = string.Empty;
@@ -1395,7 +1405,18 @@ namespace Client
 						portString = ":" + session.Uri.Port.ToString();
 					}
 
-					uri = "https://" + session.Uri.Host + portString + uri;
+					if ("wss".Equals(session.Uri.Scheme, StringComparison.OrdinalIgnoreCase))
+					{
+						uri = "https://" + session.Uri.Host + portString + uri;
+					}
+					else if ("ws".Equals(session.Uri.Scheme, StringComparison.OrdinalIgnoreCase))
+					{
+						uri = "http://" + session.Uri.Host + portString + uri;
+					}
+					else
+					{
+						SMLogger.LogError("Unrecognized URL scheme. Specify ws/http or wss/https URL scheme.");
+					}
 				}
 				else
 				{
@@ -1415,7 +1436,7 @@ namespace Client
 				serverLatency = latency;
 			}
 
-			HttpRequest request = new HttpRequest(serverLatency);
+            HttpRequest request = new HttpRequest(serverLatency, http2);
 			try
 			{
 				if (protocolMonitor != null)

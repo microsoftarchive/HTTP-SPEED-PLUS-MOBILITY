@@ -99,11 +99,17 @@ namespace Client.Http
         /// </summary>
         private int serverLatency = 0;
 
+
+        /// <summary>
+        /// Use Http2.0 Handshake
+        /// </summary>
+        private bool useHttp2Handshake = false;
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="HttpRequest"/> class.
 		/// </summary>
         /// <param name="serverLatency">Server latency.</param>
-		public HttpRequest(int serverLatency)
+		public HttpRequest(int serverLatency, bool useHttp2Handshake)
 		{
 			this.exclusiveLock = new object();
 			this.namesToDownload = new List<string>();
@@ -112,6 +118,7 @@ namespace Client.Http
 			this.nameMonitorEvent = new ManualResetEvent(false);
 			this.getFilesPackages = new RequestPackage[MaxLoaderThreads];
 			this.inbuffers = new byte[MaxLoaderThreads][];
+            this.useHttp2Handshake = useHttp2Handshake;
 
 			for (int i = 0; i < MaxLoaderThreads; i++)
 			{
@@ -221,7 +228,7 @@ namespace Client.Http
 
 			SMLogger.LogInfo(string.Format("HTTP response: {0}, length: {1}  name:{2}", status, content.LongLength, uri));
 
-			if (status == 200)
+			if (status == 200 || status == 101)
 			{
 				string url = requestUri.Scheme + "://" + requestUri.Authority;
 				string directory = string.Empty;
@@ -254,7 +261,11 @@ namespace Client.Http
 
 				if (type == ContentTypes.TextHtml)
 				{
-					XHtmlDocument document = XHtmlDocument.Parse(Encoding.UTF8.GetString(content, contentOffset, content.Length - contentOffset));
+                    string strContent = Encoding.UTF8.GetString(content, contentOffset, content.Length - contentOffset)
+                        .Replace("http2frame_start\r\n", "")
+                        .Replace("http2frame_end", "");
+
+                    XHtmlDocument document = XHtmlDocument.Parse(strContent);
 
 					string path = url + directory;
 					foreach (var image in document.Images)
@@ -302,16 +313,34 @@ namespace Client.Http
 					}
 				}
 
-				string headers = string.Format(
-					"GET {2} HTTP/1.1\r\n"
-					+ "Host: {0}:{1}\r\n"
-					+ "Connection: Keep-Alive\r\n"
-					+ "User-Agent: SMClient\r\n"
-					+ "Accept: {3},application/xml;q=0.9,*/*;q=0.8\r\n",
-					uri.Host,
-					uri.Port,
-					uri,
-					ContentTypes.GetTypeFromFileName(uri.ToString()));
+				string headers;
+
+
+                if (useHttp2Handshake)
+                {
+                    headers = string.Format(
+                        "GET {2} HTTP/1.1\r\n"
+                        + "Host: {0}:{1}\r\n"
+                        + "Connection: Upgrade\r\n"
+                        + "User-Agent: SMClient\r\n"
+                        + "Upgrade: HTTP/2.0\r\n",
+                        uri.Host,
+                        uri.Port,
+                        uri);
+                }
+                else
+                {
+                    headers = string.Format(
+                        "GET {2} HTTP/1.1\r\n"
+                        + "Host: {0}:{1}\r\n"
+                        + "Connection: Keep-Alive\r\n"
+                        + "User-Agent: SMClient\r\n"
+                        + "Accept: {3},application/xml;q=0.9,*/*;q=0.8\r\n",
+                        uri.Host,
+                        uri.Port,
+                        uri,
+                        ContentTypes.GetTypeFromFileName(uri.ToString()));
+                }
 
 				byte[] headersBytes = Encoding.UTF8.GetBytes(headers + "\r\n");
 				this.httpMonitor.LogRequest(headersBytes);
