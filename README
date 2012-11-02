@@ -1,6 +1,6 @@
 Microsoft Open Technologies, Inc.
-7/5/2012
-Rev 1.2
+11/2/2012
+Rev 1.3
 
 HTTP Speed+Mobility (“S+M”) Prototype
 Getting Started Guide
@@ -21,7 +21,8 @@ Table of Content:
 	6.6) HTTPGET
 	6.7) CLOSE
 	6.8) EXIT
-    6.9) RUN
+        6.9) RUN
+        6.10) HTTP2GET
 7) Installing and configuring the server
 8) References
 
@@ -276,6 +277,12 @@ HTTPGET /files/test.txt
 #
 DUMP-STATS
 #--------------------------------------
+
+
+6.10) HTTP2GET
+
+This command operates exactly like HTTPGET excepts that it starts the communication over HTTP/1.1, while requesting an upgrade to HTTP/2.0 as described in the proposal http://datatracker.ietf.org/doc/draft-montenegro-httpbis-http2-negotiation/
+
 
 
 7) Installing and configuring the server
