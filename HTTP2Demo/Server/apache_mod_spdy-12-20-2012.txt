@@ -1,0 +1,153 @@
+Index: mod_spdy/common/spdy_session.cc
+===================================================================
+--- mod_spdy/common/spdy_session.cc     (revision 387)
++++ mod_spdy/common/spdy_session.cc     (working copy)
+@@ -70,6 +70,9 @@
+   // client of our MAX_CONCURRENT_STREAMS limit.
+   SendSettingsFrame();
+
++  // set initial window size max uint32 - 'infinite'
++  SetInitialWindowSize(0x7FFFFFFFu);
++
+   // Initial amount time to block when waiting for output -- we start with
+   // this, and as long as we fail to perform any input OR output, we increase
+   // exponentially to the max, resetting when we succeed again.
+@@ -637,6 +640,8 @@
+     return;
+   }
+
++  LOG(INFO) << "SetInitialWindowSize called with value " << new_init_window_size;
++
+   // Validate the new window size; it must be positive, but at most int32max.
+   if (new_init_window_size == 0 ||
+       new_init_window_size >
+Index: mod_spdy/apache/filters/server_push_filter.cc
+===================================================================
+--- mod_spdy/apache/filters/server_push_filter.cc       (revision 387)
++++ mod_spdy/apache/filters/server_push_filter.cc       (working copy)
+@@ -88,7 +88,7 @@
+     LOG(INFO) << "Invalid priority value in X-Associated-Content: '"
+               << number << "'";
+     return lowest_priority;
+-  }
++    }
+   *source = source->substr(end);
+   AbsorbWhiteSpace(source);
+   // Clamp the priority to a legal value (larger numbers represent lower
+@@ -144,6 +144,9 @@
+ }
+
+ void ServerPushFilter::ParseXAssociatedContentHeader(base::StringPiece value) {
++
++  LOG(INFO) << "Parse got " << value;
++
+   AbsorbWhiteSpace(&value);
+   bool first_url = true;
+
+Index: mod_spdy/mod_spdy.cc
+===================================================================
+--- mod_spdy/mod_spdy.cc        (revision 387)
++++ mod_spdy/mod_spdy.cc        (working copy)
+@@ -73,6 +73,12 @@
+
+ namespace {
+
++#define HTTP2_SWITCH_STATUS "HTTP/1.1 101 Switching Protocols"
++#define HTTP2_UPGRADE_HEADER "Upgrade: HTTP/2.0"
++#define HTTP2_CONNECTION_HEADER "Connection: Upgrade"
++
++const apr_off_t kReadBytes = 4096;
++
+ const char kFakeModSpdyProtocolName[] =
+     "x-mod-spdy/" MOD_SPDY_VERSION_STRING "-" LASTCHANGE_STRING;
+ COMPILE_ASSERT(arraysize(kFakeModSpdyProtocolName) <= 255,
+@@ -160,6 +166,9 @@
+                               apr_bucket_brigade* input_brigade) {
+   mod_spdy::ServerPushFilter* server_push_filter =
+       static_cast<mod_spdy::ServerPushFilter*>(filter->ctx);
++
++  LOG(INFO) << "------Server Push filter";
++
+   return server_push_filter->Write(filter, input_brigade);
+ }
+
+@@ -372,6 +381,7 @@
+       master_context->set_assume_spdy(true);
+       master_context->set_spdy_version(assume_spdy_version);
+     }
++
+     return OK;
+   }
+   // If the context has already been created, this is a slave connection.
+@@ -509,6 +519,71 @@
+   const int spdy_version = master_context->spdy_version();
+   LOG(INFO) << "Starting SPDY/" << spdy_version << " session";
+
++  // block on read until we get HTTP 1.1 GET with "Connection: Upgrade"
++  bool upgrade_notfound = true;
++  while(upgrade_notfound == true)
++    {
++
++    apr_bucket_brigade* tb = apr_brigade_create(connection->pool, connection->bucket_alloc);
++    const apr_status_t status = ap_get_brigade(
++          connection->input_filters, tb, AP_MODE_READBYTES,
++          APR_BLOCK_READ, kReadBytes);
++    if (status != APR_SUCCESS)
++      {
++       return DECLINED;
++      }
++
++    apr_bucket * bucket = APR_BRIGADE_FIRST(tb);
++    while(bucket != APR_BRIGADE_SENTINEL(tb))
++      {
++       if (!APR_BUCKET_IS_METADATA(bucket))
++         {
++         const char* data = NULL;
++         apr_size_t data_length = 0;
++         const apr_status_t status = apr_bucket_read(bucket, &data, &data_length,
++                                                     APR_BLOCK_READ);
++         if (status == APR_SUCCESS)
++           {
++           if (strstr(data, HTTP2_CONNECTION_HEADER) != NULL)
++             {
++               LOG(INFO) << "we found " << HTTP2_CONNECTION_HEADER;
++               upgrade_notfound = false;
++           }
++
++         } // data is read
++
++       } // not METADATA
++
++       bucket = APR_BUCKET_NEXT(bucket);
++
++      } // while reading buckets
++
++    apr_brigade_destroy(tb);
++
++    if (upgrade_notfound == true)
++      {
++       LOG(INFO) << "Did not find " << HTTP2_CONNECTION_HEADER << " returning DECLINED";
++       return DECLINED;
++      }
++
++  } // block on reading until Connection: Upgrade
++
++  // send out HTTP 101
++  {
++      apr_bucket_brigade* brig = apr_brigade_create(connection->pool, connection->bucket_alloc);
++      ap_fputstrs(connection->input_filters, brig, HTTP2_SWITCH_STATUS, CRLF,
++             HTTP2_UPGRADE_HEADER, CRLF, HTTP2_CONNECTION_HEADER, CRLF, CRLF, NULL);
++      // Append a flush bucket to the end of the brigade, to make sure that this
++      // frame makes it all the way out to the client.
++      APR_BRIGADE_INSERT_TAIL(brig, apr_bucket_flush_create(brig->bucket_alloc));
++      const apr_status_t st = ap_pass_brigade(connection->output_filters, brig);
++      if (st) {
++       LOG(INFO) << "-------------------could not send interim 101 Upgrade response";
++       return DECLINED;
++      }
++      apr_brigade_destroy(brig);
++  }
++
+   // At this point, we and the client have agreed to use SPDY (either that, or
+   // we've been configured to use SPDY regardless of what the client says), so
+   // process this as a SPDY master connection.

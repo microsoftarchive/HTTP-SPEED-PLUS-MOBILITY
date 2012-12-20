@@ -1,0 +1,275 @@
+Microsoft Open Technologies, Inc.
+12/20/2012
+Rev 1.0
+
+HTTP/2.0 Prototype
+Getting Started Guide
+  
+Table of Content:
+
+1) License
+2) About this Document
+3) Target Audience
+4) Requirements
+5) Installing the HTTP/2.0 Prototype Client
+6) How to use the Client
+    6.1) DIR
+    6.2) GET
+    6.3) VERBOSE
+    6.4) CAPTURE-STATS
+    6.5) DUMP-STATS
+    6.6) HTTP11GET
+    6.7) RUN
+    6.8) EXIT
+7) Installing and configuring the server
+8) References
+
+ 
+
+1) License
+   
+
+The copyright in this software is being made available under the BSD License, included below. 
+This software may be subject to other third party and contributor rights, including patent rights, 
+and no such rights are granted under this license.
+
+Copyright (c) 2012, Microsoft Open Technologies, Inc. 
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted provided that the following conditions are met:
+
+- Redistributions of source code must retain the above copyright notice, 
+  this list of conditions and the following disclaimer.
+- Redistributions in binary form must reproduce the above copyright notice, 
+  this list of conditions and the following disclaimer in the documentation 
+  and/or other materials provided with the distribution.
+- Neither the name of Microsoft Open Technologies, Inc. nor the names of its contributors 
+  may be used to endorse or promote products derived from this software 
+  without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS 
+OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY 
+AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER 
+OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, 
+OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
+WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY 
+OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+ 
+ 2) About this Document
+
+The document covers what you need to know to download, install and use the HTTP/2.0 Prototype Client, 
+and configure your own Server if you are so inclined.
+
+
+ 3) Target Audience
+
+The target audience is developers interested in the standardization of HTTP/2.0 who want to evaluate 
+a working implementation of the HTTP/2.0 draft (http://www.ietf.org/id/draft-ietf-httpbis-http2-00.txt) 
+that includes some proposed changes by Microsoft.
+
+
+ 4) Requirements
+
+To build the source code, the following is required:
+ - Microsoft Visual Studio 2010
+
+In order to install and use the HTTP Speed+Mobility Prototype Client, the following are required:
+ - Windows 7 Client
+ - Microsoft .NET Framework 4.0
+
+In order set up and run your own server, you will need a Linux machine
+ 
+
+
+ 5) Installing the HTTP/2.0 Prototype Client
+
+Download the MSI file from this location: http://html5labs.com/prototypes/http20/http20/download and run it.
+Note that you can access the source code of this open source project from the Microsoft Open Technologies 
+section of GitHub.
+  
+Follow the prompts and once complete files will be installed to the selected location. By default, 
+it will be the Temp folder of the current user, i.e. something like 
+"C:\Users\<user>\AppData\Local\Temp\Microsoft Open Technologies Inc\HTTP2 Prototype Client\"
+
+A shortcut will be added to the desktop.
+
+
+6) How to use the Client
+
+- Double click on the "HTTP2 Client" icon installed on the desktop of your machine, or alternatively 
+  run "client.exe" from the installation folder.
+
+- The client will start by displaying the following message:
+
+    HTTP2 Prototype Client help
+
+    HELP                          Display this help information
+    HELP command                  Display detailed help for command
+                                  Ex. HELP GET
+    DIR <host url>                List files on server.
+    GET <resource url>            Download web page and associated resources.
+                                  E.g.: http://http2test.cloudapp.net/index.html
+    VERBOSE   [1|2|3]             Display verbose output.
+    CAPTURE-STATS [On|Off|Reset]  Start/stop/reset protocol monitoring.
+    DUMP-STATS                    Display statistics captured using CAPTURE-STATS.
+    HTTP11GET <filename>          Download file using HTTP 1.1.
+    RUN  <filename>               Run command script
+    EXIT                          Exit application
+
+    [4:35:08 PM] Please type a command:
+
+
+6.1) DIR
+
+Once you are connected to the server, use DIR to see a list of the documents 
+available for download from the server (this is accomplished by downloading 
+and then displaying the content of a special "index" file):
+
+    >DIR http://http2test.cloudapp.net/
+    Executing dir
+    [2:59:24 PM] INFO:Stream is opened: id=1
+    [2:59:24 PM] INFO:File downloaded: index
+
+    /Files/test.txt
+    /Files/test3Mb.txt
+    /IETF/IETF.html
+    /Microsoft/default.htm
+    /WebSite/test.html
+    /WWWC/WWWC(W3C).html
+
+    [2:59:24 PM] INFO:Bytes transferred:134 upstream, 128 downstream, 262 Total
+
+
+6.2) GET
+
+In order to download a file, issue a GET statement followed by the path of the file. 
+The client will download the file. Then it will parse its content and download 
+any associated resources similarly to what a web browser does:
+
+    >GET http://http2test.cloudapp.net/website/test.html
+    [3:08:39 PM] Executing get /website/test.html
+    [3:08:39 PM] INFO:Stream is opened: id=3
+    [3:08:39 PM] INFO:File downloaded: test.html
+    [3:08:39 PM] INFO:Stream is opened: id=5
+    [3:08:39 PM] INFO:Stream is opened: id=7
+    ...
+    [3:08:39 PM] INFO:Bytes transferred:146 upstream, 14069 downstream, 14215 Total
+    [3:08:39 PM] INFO:File downloaded: testImage1.jpg
+    [3:08:39 PM] INFO:Bytes transferred:153 upstream, 3002 downstream, 3155 Total
+    [3:08:39 PM] INFO:File downloaded: testImage14.jpg
+    [3:08:39 PM] INFO:Bytes transferred:154 upstream, 3002 downstream, 3156 Total
+    ...
+
+    [3:08:40 PM] INFO:File downloaded: test3.css
+    [3:08:40 PM] INFO:Bytes transferred:146 upstream, 391 downstream, 537 Total
+
+The client displays a message whenever a new stream is opened within the session. 
+It also prints the amount of data that moved over the wire whenever a file transfer completes.
+
+
+NOTE: in order to trigger the "server push" behavior from the server, issue the command:
+    >get http://http2test.cloudapp.net/cgi-bin/push.pl
+
+
+6.3) VERBOSE
+
+VERBOSE controls the amount of information that is displayed in response to the various 
+commands, where 1 is the least amount, and 3 is the fullest amount:
+
+    >VERBOSE 2
+    [1:06:39 AM] Executing verbose 2
+    [1:06:39 AM] INFO:VERBOSE output VerboseLogging
+
+
+6.4) CAPTURE-STATS
+
+The client keeps track by default of all the frames (data and control) it exchanges with the server. 
+The CAPTURE-STATS command allows to either stop the capture, reset it if it is in progress, 
+or start it again if it was stopped:
+
+    >CAPTURE-STATS on
+    [3:18:40 PM] Executing capture-stats on
+
+    >CAPTURE-STATS reset
+    [3:18:50 PM] Executing capture-stats reset
+
+    >CAPTURE-STATS off
+    [3:18:55 PM] Executing capture-stats off
+
+
+6.5) DUMP-STATS
+
+The DUMP-STATS command will display the aggregate information on the files collected since the last RESET,
+provided that CAPTURE-STATS was ON.
+
+
+6.6) HTTP11GET
+
+This command operates like GET, except that it does not request an upgrade to HTTP/2.0 to the server.
+The same statistics on bytes exchanged and header information are displayed on the console 
+according to the value of the VERBOSE setting:
+
+
+     HTTP11GET http://http2test.cloudapp.net/microsoft.com/
+     Executing http11get http://http2test.cloudapp.net/microsoft.com/
+     [1:08:19 AM] INFO:HTTP response: 301, length: 484
+     [1:08:19 AM] INFO:
+     --------------------
+     Headers: GET http://http2test.cloudapp.net/microsoft.com/ HTTP/1.1
+     Host: microsoft.com:80
+     Connection: Keep-Alive
+     User-Agent: SMClient
+     Accept: text/plain,application/xml;q=0.9,*/*;q=0.8
+     Length: 160
+     --------------------
+     ...
+
+    ______________________________________
+                     TOTAL
+     Total size of data received(bytes):       23
+     Total size of headers received(bytes):    461
+     Total size received(bytes):               484
+     Total size of headers sent(bytes):        160
+     Total size of data exchanged(bytes):      644
+     Total count of requests sent:             1
+     Total count of responses received:        1
+     Total count of connections opened:        1
+     ______________________________________
+
+ 
+
+6.7) RUN
+
+
+This command is provided to execute scripts for perf testing (more about this in upcoming blogs)
+
+
+
+6.8) EXIT
+
+Issuing EXIT from the command line will close the session and shut down the client
+
+
+
+7) Installing and configuring the server
+
+- Download and install the Apache HTTP Server
+  http://httpd.apache.org/docs/2.0/install.html
+
+- Download the source code for the mod_spdy Apache module
+  https://developers.google.com/speed/spdy/mod_spdy/
+
+- Apply the patch downloaded from http://html5labs.com to the module's source code and build
+
+- Install the module according to the instructions at
+  https://developers.google.com/speed/spdy/mod_spdy/install
+
+
+
+8) References
+
+HTTP/2.0 Proposal draft
+http://www.ietf.org/id/draft-ietf-httpbis-http2-00.txt
