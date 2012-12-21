@@ -76,19 +76,22 @@ that includes some proposed changes by Microsoft.
 To build the source code, the following is required:
  - Microsoft Visual Studio 2010
 
-In order to install and use the HTTP Speed+Mobility Prototype Client, the following are required:
- - Windows 7 Client
- - Microsoft .NET Framework 4.0
+The solution has a dependency on zlib (not included, you can download it from the internet).
 
-In order set up and run your own server, you will need a Linux machine
+You will also need to create your own local certificate as certificate.pfx is missing from the solution.
+
+
+In order to install and use the HTTP/2.0 Client, the following are required:
+ - Windows 7 Client or newer
+ - Microsoft .NET Framework 4.0 
+
+In order set up and run your own server, you will need a Linux box to run Apache (we tested on Ubuntu).
  
 
 
  5) Installing the HTTP/2.0 Prototype Client
 
-Download the MSI file from this location: http://html5labs.com/prototypes/http20/http20/download and run it.
-Note that you can access the source code of this open source project from the Microsoft Open Technologies 
-section of GitHub.
+Download the MSI file from this location: http://html5labs.interoperabilitybridges.com/prototypes/http-20/http-20/download and run it.
   
 Follow the prompts and once complete files will be installed to the selected location. By default, 
 it will be the Temp folder of the current user, i.e. something like 
