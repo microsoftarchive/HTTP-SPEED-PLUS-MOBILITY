@@ -33,13 +33,14 @@
 //-----------------------------------------------------------------------
 
 using ClientProtocol.ServiceModel.Http2Protocol.MessageProcessing;
+using System.Collections.Generic;
+using System.Linq;
+using System.ServiceModel.Http2Protocol.ProtocolFrames;
+using Org.Mentalis;
+using Org.Mentalis.Security.Ssl;
 
 namespace System.ServiceModel.Http2Protocol
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.ServiceModel.Http2Protocol.ProtocolFrames;
-
     /// <summary>
     /// Speed+Mobility Session
     /// </summary>
@@ -123,6 +124,36 @@ namespace System.ServiceModel.Http2Protocol
 				this.Protocol.SetProcessors(new List<IMessageProcessor> { new CompressionProcessor() });				
 			}
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProtocolSession"/> class.
+        /// </summary>
+        /// <param name="uri">the URI.</param>
+        /// <param name="isServer">the Server flag.</param>
+        /// <param name="options">Session options.</param>
+        public ProtocolSession(VirtualSocket socket, ProtocolOptions options)
+        {
+            this.isFlowControlEnabled = options.IsFlowControl;
+            this.streams = new List<Http2Stream>();
+            this.closedStreams = new List<Http2Stream>();
+            this.isServer = true;
+
+            this.CurrentWindowBalanceToServer = 512;
+            this.CurrentWindowBalanceFromServer = 256;
+
+            this.protocol = new Http2Protocol(socket, this, options);
+            this.protocol.OnSessionFrame += this.OnSessionFrame;
+            this.protocol.OnClose += this.OnProtocolClose;
+            this.protocol.OnOpen += this.OnProtocolOpen;
+            this.protocol.OnError += this.OnProtocolError;
+            this.protocol.OnPing += this.OnProtocolPing;
+
+            if (options.UseCompression)
+            {
+                this.Protocol.SetProcessors(new List<IMessageProcessor> { new CompressionProcessor() });
+            }
+        }
+
         #endregion
 
         #region Events
@@ -243,7 +274,10 @@ namespace System.ServiceModel.Http2Protocol
         {
             if (this.State == ProtocolSessionState.Created)
             {
-                this.protocol.Connect();
+                if (!this.protocol.Connect())
+                {
+                    throw new InterruptedConnectionException("Connection was not established!");
+                }
             }
             else
             {
@@ -298,7 +332,10 @@ namespace System.ServiceModel.Http2Protocol
         public Http2Stream OpenStream(ProtocolHeaders headers, bool isFinal)
         {
             int newId = this.GenerateNewStreamId();
-            return this.OpenStream(newId, headers, isFinal);
+            if (this.State == ProtocolSessionState.Opened)
+                return this.OpenStream(newId, headers, isFinal);
+ 
+            throw new InvalidOperationException("Session is not opened.");
         }
 
         /// <summary>
@@ -334,7 +371,20 @@ namespace System.ServiceModel.Http2Protocol
             this.streams.Add(stream);
 
             stream.OnClose += this.OnCloseStream;
-            stream.Open(headers, isFinal);
+            if (IsServer)
+            {
+                stream.OpenServer(headers, isFinal);
+
+                // Settings must be sent for session once for session
+                if (stream.StreamId <= 2)
+                    this.protocol.SendSettings(stream);
+
+                this.protocol.SendSynReply(stream);
+            }
+            else
+            {
+                stream.OpenClient(headers, isFinal);
+            }
 
             if (this.OnStreamOpened != null)
             {

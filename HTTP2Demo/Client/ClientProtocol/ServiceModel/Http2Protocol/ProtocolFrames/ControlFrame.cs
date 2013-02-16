@@ -72,6 +72,8 @@ namespace System.ServiceModel.Http2Protocol.ProtocolFrames
         /// </value>
         public FrameType Type { get; set; }
 
+        public Int32 NumberOfEntries { get; set; }
+
         /// <summary>
         /// Gets the headers.
         /// </summary>

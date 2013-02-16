@@ -38,12 +38,17 @@ namespace System.ServiceModel.Http2Protocol
     using System.Net.Sockets;
     using System.ServiceModel.Http2Protocol.ProtocolFrames;
     using System.Threading;
+
     using ClientProtocol.ServiceModel.Http2Protocol.MessageProcessing;
+
+    using Org.Mentalis.Security.Ssl.Shared.Extensions;
+    using Org.Mentalis.Security.Ssl;
+    using Org.Mentalis;
 
     /// <summary>
     /// HTTP2 protocol.
     /// </summary>
-    internal sealed class Http2Protocol : IDisposable
+    public sealed class Http2Protocol : IDisposable
     {
         /// <summary>
         /// Protocol version.
@@ -51,6 +56,7 @@ namespace System.ServiceModel.Http2Protocol
         public const int Version = 3;
 
         #region Fields
+
         /// <summary>
         /// Internal Frame serializer.
         /// </summary>
@@ -84,12 +90,17 @@ namespace System.ServiceModel.Http2Protocol
         /// <summary>
         /// Socket.
         /// </summary>
-        private SecureSocketProxy _socket;
+        private VirtualSocket socket;
 
         /// <summary>
         /// Receive buffer.
         /// </summary>
         private List<byte> receivedDataBuffer = new List<byte>(4096 * 3);
+
+        /// <summary>
+        /// Indicates whenever this instance is working in server mode.
+        /// </summary>
+        private bool isServer;
 
         #endregion
 
@@ -119,6 +130,18 @@ namespace System.ServiceModel.Http2Protocol
             this.builder = new FrameBuilder();
 
             this.uri = uri;
+            this.isServer = false;
+        }
+
+        internal Http2Protocol(VirtualSocket socket, IStreamStore streamsStore, ProtocolOptions options)
+        {
+            this.options = options;
+            this.streamsStore = streamsStore;
+            this.serializer = new FrameSerializer(this.options);
+            this.builder = new FrameBuilder();
+
+            this.socket = socket;
+            this.isServer = true;
         }
 
         #endregion
@@ -193,21 +216,39 @@ namespace System.ServiceModel.Http2Protocol
 
         #region Methods
 
-        private SecureSocketProxy CreateSocketByUri(Uri uri)
+        private SecureSocket CreateSocketByUri(Uri uri)
         {
             if (!String.Equals(uri.Scheme, "http", StringComparison.OrdinalIgnoreCase) &&
                 !String.Equals(uri.Scheme, "https", StringComparison.OrdinalIgnoreCase))
                 throw new InvalidOperationException("Unrecognized scheme: " + uri.Scheme);
 
-            SecureSocketProxy s = new SecureSocketProxy(String.Equals(uri.Scheme, "https", StringComparison.OrdinalIgnoreCase));
+            SecurityOptions options;
+            var extensions = new ExtensionType[] { ExtensionType.Renegotiation, ExtensionType.ALPN };
+            if (!String.Equals(uri.Scheme, "https", StringComparison.OrdinalIgnoreCase))
+            {
+                options = new SecurityOptions(SecureProtocol.None, null, ConnectionEnd.Client);
+            }
+            else
+            {
+                options = new SecurityOptions(SecureProtocol.Tls1, extensions, ConnectionEnd.Client);
+            }
+
+            options.Entity = ConnectionEnd.Client;
+            options.CommonName = uri.Host;
+            options.VerificationType = CredentialVerification.None;
+            options.Certificate = Org.Mentalis.Security.Certificates.Certificate.CreateFromCerFile(@"certificate.pfx");
+            options.Flags = SecurityFlags.Default;
+            options.AllowedAlgorithms = SslAlgorithms.RSA_AES_128_SHA | SslAlgorithms.NULL_COMPRESSION;
+
+            SecureSocket s = new SecureSocket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp, options);
+            
             try
             {
-                s.Connect(uri.Host, uri.Port);
+                s.Connect(new Net.DnsEndPoint(uri.Host, uri.Port));
             }
             catch(Exception ex)
             {
-                s.Dispose();
-
+                s.Close();
                 // Emitting protocol error. It will emit session OnError
                 if (OnError != null)
                     this.OnError(this, new ProtocolErrorEventArgs(ex));
@@ -220,12 +261,12 @@ namespace System.ServiceModel.Http2Protocol
 
         internal void SendMessage(byte[] message)
         {
-            _socket.Send(message);
+            socket.Send(message);
         }
 
         internal int Receive(byte[] message)
         {
-            return _socket.Receive(message);
+            return socket.Receive(message);
         }
 
         /// <summary>
@@ -240,39 +281,22 @@ namespace System.ServiceModel.Http2Protocol
         /// <summary>
         /// Initializes connection to the remote host.
         /// </summary>
-        public HandshakeHeadersBlock Connect()
+        public bool Connect()
         {
-            _socket = CreateSocketByUri(uri);
+            if (this.socket == null)
+                this.socket = CreateSocketByUri(uri);
 
-            this.opened = true;
+            this.opened = true;            
 
-            var handshakeBlock = new HandshakeHeadersBlock(this, uri);
-
-            bool isHandShakeOk = false;
-
-            try
-            {
-                isHandShakeOk = handshakeBlock.StartHandshake();
-            }
-            catch(Exception)
-            {
-                isHandShakeOk = false;
-            }
-
-            if (isHandShakeOk)
+            if (!this.socket.IsClosed)
             {
                 if (OnOpen != null)
                     OnOpen(this, null);
 
                 ThreadPool.QueueUserWorkItem(ProcessMessages);
             }
-            else
-            {
-                CloseInternal(StatusCode.Cancel, 0, false);
-                throw new HandshakeException("Handshake failed");
-            }
-            
-            return handshakeBlock;
+
+            return !this.socket.IsClosed;
         }
 
         /// <summary>
@@ -280,16 +304,22 @@ namespace System.ServiceModel.Http2Protocol
         /// </summary>
         /// <param name="buffer">The buffer.</param>
         /// <param name="filledBytesCount">Already filled bytes count in buffer.</param>
-        private void FillBuffer(byte[] buffer, int filledBytesCount)
+        private bool FillBuffer(byte[] buffer, int filledBytesCount)
         {
             int bytesFilledTotal = filledBytesCount;
             while (bytesFilledTotal < buffer.Length)
             {
                 byte[] bf = new byte[buffer.Length - bytesFilledTotal];
-                int bytesFilledAtOneStep = _socket.Receive(bf);
+                int bytesFilledAtOneStep = socket.Receive(bf);
+
+                if (bytesFilledAtOneStep == -1)
+                    return false; 
+
                 Buffer.BlockCopy(bf, 0, buffer, bytesFilledTotal, bf.Length);
                 bytesFilledTotal += bytesFilledAtOneStep;
             }
+
+            return true;
         }
 
         /// <summary>
@@ -300,13 +330,28 @@ namespace System.ServiceModel.Http2Protocol
         {
             byte[] frameHeader = new byte[8];
 
-            FillBuffer(frameHeader, 0);
+            if (!FillBuffer(frameHeader, 0))
+            {
+                if (this.OnError != null)
+                {
+                    var connWasLostEx = new Exception("Connection was lost!");
+                    this.OnError(this, new ProtocolErrorEventArgs(connWasLostEx));
+                }
+            }
             byte[] frameBytes = new byte[0];
 
             int frameLenInBytes = 8 + BinaryHelper.Int32FromBytes(new ArraySegment<byte>(frameHeader, 5, 3));
             frameBytes = new byte[frameLenInBytes];
             Buffer.BlockCopy(frameHeader, 0, frameBytes, 0, frameHeader.Length);
-            FillBuffer(frameBytes, 8);
+
+            if (!FillBuffer(frameBytes, 8))
+            {
+                if (this.OnError != null)
+                {
+                    var connWasLostEx = new Exception("Connection was lost!");
+                    this.OnError(this, new ProtocolErrorEventArgs(connWasLostEx));
+                }
+            }
             return frameBytes;
         }
 
@@ -335,7 +380,8 @@ namespace System.ServiceModel.Http2Protocol
         {
             if (this.opened)
             {
-                CloseInternal(reason, lastSeenStreamId, true);
+                //Server must not send goAway to already closed from client side socket
+                CloseInternal(reason, lastSeenStreamId, !isServer);
             }
         }
 
@@ -374,6 +420,22 @@ namespace System.ServiceModel.Http2Protocol
         public void SendSynStream(Http2Stream stream, ProtocolHeaders headers, bool isFin)
         {
             this.SendFrame(this.builder.BuildSynStreamFrame(stream, headers, isFin));
+        }
+
+        public void SendSynReply(Http2Stream stream)
+        {
+            var headers = new ProtocolHeaders();
+
+            headers[ProtocolHeaders.ContentType] = "text/plain";
+            headers[ProtocolHeaders.Status] = "200";
+            headers[ProtocolHeaders.Version] = "spdy/3";
+
+            this.SendFrame(this.builder.BuildSynReplyFrame(stream, headers));
+        }
+
+        public void SendSettings(Http2Stream stream)
+        {
+            this.SendFrame(this.builder.BuildSettingsFrame(stream));
         }
 
         /// <summary>
@@ -465,7 +527,7 @@ namespace System.ServiceModel.Http2Protocol
                     this.OnClose(this, new CloseFrameEventArgs(new CloseFrameExt() { LastGoodSessionId = lastSeenStreamId, StatusCode = (int)reason }));
                 }
 
-                this._socket.Dispose();
+                this.socket.Close();
                 this.serializer.Dispose();
             }
         }
@@ -499,6 +561,10 @@ namespace System.ServiceModel.Http2Protocol
                 if (this.OnStreamError != null)
                 {
                     this.OnStreamError(this, new StreamErrorEventArgs(stream, e));
+                }
+                else if (this.OnError != null)
+                {
+                    this.OnError(this, new ProtocolErrorEventArgs(e)); 
                 }
                 else
                 {
@@ -663,8 +729,7 @@ namespace System.ServiceModel.Http2Protocol
                 {
                     case FrameType.SynStream:
                         //TODO validate syn_stream and send syn_reply or rst
-                        //this.OnSessionFrame(this, new ControlFrameEventArgs(frame));
-                        this.SendRST(frame.StreamId, StatusCode.RefusedStream);
+                        this.OnSessionFrame(this, new ControlFrameEventArgs(frame));
                         break;
                     case FrameType.SynReply:
                         this.OnSessionFrame(this, new ControlFrameEventArgs(frame));

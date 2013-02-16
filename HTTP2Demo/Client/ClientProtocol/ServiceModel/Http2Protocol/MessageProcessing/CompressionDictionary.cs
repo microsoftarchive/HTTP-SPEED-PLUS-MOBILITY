@@ -44,7 +44,7 @@ namespace ClientProtocol.ServiceModel.Http2Protocol.MessageProcessing
 		/// </summary>
 		public static byte[] Dictionary
 		{
-			get { return dictionary; }
+			get { return (byte[])dictionary.Clone(); }
 		}
 
 		private static readonly byte[] dictionary = {

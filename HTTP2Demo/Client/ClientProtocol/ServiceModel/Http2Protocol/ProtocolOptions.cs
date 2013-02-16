@@ -44,6 +44,9 @@ namespace System.ServiceModel.Http2Protocol
 		/// </summary>
 		public ProtocolOptions()
 		{
+            this.UseCompression = true;
+            this.CompressionIsStateful = true;
+            this.IsFlowControl = false;
 		}
 
 		/// <summary>

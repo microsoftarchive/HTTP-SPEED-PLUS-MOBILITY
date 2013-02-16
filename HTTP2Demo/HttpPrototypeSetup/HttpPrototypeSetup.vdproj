@@ -15,14 +15,20 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_1FF819B9182A9C19373CDA7F61492CAF"
-        "OwnerKey" = "8:_2BEEA958DDCF468F9ED0094B5520446C"
+        "MsmKey" = "8:_2BEEA958DDCF468F9ED0094B5520446C"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_2BEEA958DDCF468F9ED0094B5520446C"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_423F238DA6A67577AA88D693E8459361"
+        "OwnerKey" = "8:_D2162FB509FFDFA103A004378E751F26"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_423F238DA6A67577AA88D693E8459361"
+        "OwnerKey" = "8:_2BEEA958DDCF468F9ED0094B5520446C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -39,13 +45,25 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_9BD5721CA28588BBBC10D7EFFFA3C5C6"
-        "OwnerKey" = "8:_1FF819B9182A9C19373CDA7F61492CAF"
+        "MsmKey" = "8:_96DE7BC0AAA0429A8AF1F43A8E476F7C"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_9BD5721CA28588BBBC10D7EFFFA3C5C6"
+        "MsmKey" = "8:_C26EA83234C7DCF770939C813C3FFC02"
+        "OwnerKey" = "8:_D2162FB509FFDFA103A004378E751F26"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C26EA83234C7DCF770939C813C3FFC02"
+        "OwnerKey" = "8:_2BEEA958DDCF468F9ED0094B5520446C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D2162FB509FFDFA103A004378E751F26"
         "OwnerKey" = "8:_2BEEA958DDCF468F9ED0094B5520446C"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -58,13 +76,19 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_1FF819B9182A9C19373CDA7F61492CAF"
+        "OwnerKey" = "8:_D2162FB509FFDFA103A004378E751F26"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_9BD5721CA28588BBBC10D7EFFFA3C5C6"
+        "OwnerKey" = "8:_423F238DA6A67577AA88D693E8459361"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_C26EA83234C7DCF770939C813C3FFC02"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -172,20 +196,20 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_1FF819B9182A9C19373CDA7F61492CAF"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_423F238DA6A67577AA88D693E8459361"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:ClientProtocol, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:zlib.net, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_1FF819B9182A9C19373CDA7F61492CAF"
+                    "_423F238DA6A67577AA88D693E8459361"
                     {
-                    "Name" = "8:ClientProtocol.dll"
+                    "Name" = "8:zlib.net.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:ClientProtocol.dll"
+            "SourcePath" = "8:zlib.net.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_F066ADEAFFAA435C9F5B55FB6263927D"
@@ -243,20 +267,71 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9BD5721CA28588BBBC10D7EFFFA3C5C6"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_96DE7BC0AAA0429A8AF1F43A8E476F7C"
+            {
+            "SourcePath" = "8:..\\ThirdPartyNotices.txt"
+            "TargetName" = "8:ThirdPartyNotices.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_F066ADEAFFAA435C9F5B55FB6263927D"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C26EA83234C7DCF770939C813C3FFC02"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:zlib.net, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Org.Mentalis.Security, Version=1.0.13.718, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_9BD5721CA28588BBBC10D7EFFFA3C5C6"
+                    "_C26EA83234C7DCF770939C813C3FFC02"
                     {
-                    "Name" = "8:zlib.net.dll"
+                    "Name" = "8:Org.Mentalis.Security.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:zlib.net.dll"
+            "SourcePath" = "8:Org.Mentalis.Security.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_F066ADEAFFAA435C9F5B55FB6263927D"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D2162FB509FFDFA103A004378E751F26"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:ClientProtocol, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_D2162FB509FFDFA103A004378E751F26"
+                    {
+                    "Name" = "8:ClientProtocol.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:ClientProtocol.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_F066ADEAFFAA435C9F5B55FB6263927D"
@@ -329,9 +404,9 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:HTTP2 Prototype Client"
+        "ProductName" = "8:HTTP 2.0 Prototype Client"
         "ProductCode" = "8:{34953453-A0CD-4450-8751-EB33319FC106}"
-        "PackageCode" = "8:{E5A1420A-89BE-47D7-9F65-72E892E765C1}"
+        "PackageCode" = "8:{8D0516BA-E932-484A-B547-B57A85ED549F}"
         "UpgradeCode" = "8:{09273EAA-8F51-4D91-8CAA-6C27913C6F36}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -342,7 +417,7 @@
         "Manufacturer" = "8:Microsoft Open Technologies Inc."
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
-        "Title" = "8:HTTP2 Prototype Client"
+        "Title" = "8:HTTP/2.0 Prototype Client"
         "Subject" = "8:"
         "ARPCONTACT" = "8:Microsoft Open Technologies Inc."
         "Keywords" = "8:"
@@ -960,7 +1035,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_2BEEA958DDCF468F9ED0094B5520446C"
             {
-            "SourcePath" = "8:..\\Client\\Client\\Client\\obj\\x86\\Debug\\Client.exe"
+            "SourcePath" = "8:..\\Client\\Client\\Client\\obj\\x86\\Release\\Client.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_F066ADEAFFAA435C9F5B55FB6263927D"

@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="SettinngsFrame.cs" company="Microsoft Open Technologies, Inc.">
+// <copyright file="ProtocolExeption.cs" company="Microsoft Open Technologies, Inc.">
 //
 // The copyright in this software is being made available under the BSD License, included below. 
 // This software may be subject to other third party and contributor rights, including patent rights, 
@@ -31,43 +31,40 @@
 //
 // </copyright>
 //-----------------------------------------------------------------------
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.ServiceModel.Http2Protocol.ProtocolFrames;
-using System.Text;
-
-namespace ClientProtocol.ServiceModel.Http2Protocol.ProtocolFrames
+namespace System.ServiceModel.Http2Protocol
 {
-    public class SettingsFrame : ControlFrame
+    /// <summary>
+    /// Protocol exception.
+    /// </summary>
+    [Serializable]
+    public class ProtocolExeption : Exception
     {
-        #region Constructors
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="SettingsFrame" /> class.
+        /// Initializes a new instance of the <see cref="ProtocolExeption"/> class.
         /// </summary>
-        /// <param name="numberOfEntries">The number of Key/Value entries.</param>
-        public SettingsFrame(Int32 numberOfEntries)
-            :base(null)
+        /// <param name="statusCode">The status code.</param>
+        public ProtocolExeption(StatusCode statusCode)
         {
-            this.NumberOfEntries = numberOfEntries;
-            this.Type = FrameType.Settings;
-            this.SettingsHeaders = new Dictionary<int, int>();
-        }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SettingsFrame" /> class.
-        /// </summary>
-        /// <param name="numberOfEntries">The number of Key/Value entries.</param>
-        /// <param name="KeyValuePairs">The key value pairs.</param>
-        public SettingsFrame(Int32 numberOfEntries, Dictionary<Int32, int> KeyValuePairs)
-            : base(null)
-        {
-            this.NumberOfEntries = numberOfEntries;
-            this.Type = FrameType.Settings;
-            this.SettingsHeaders = KeyValuePairs;
+            StatusCode = statusCode;
         }
 
-        #endregion
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProtocolExeption"/> class.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="statusCode">The status code.</param>
+        public ProtocolExeption(string message, StatusCode statusCode)
+            : base(message)
+        {
+            StatusCode = statusCode;
+        }
+
+        /// <summary>
+        /// Gets or sets the status code.
+        /// </summary>
+        /// <value>
+        /// The status code.
+        /// </value>
+        public StatusCode StatusCode { get; set; }
     }
 }

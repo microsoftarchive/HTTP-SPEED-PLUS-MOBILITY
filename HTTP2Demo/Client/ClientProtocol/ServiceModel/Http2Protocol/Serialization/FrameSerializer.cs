@@ -58,7 +58,7 @@ namespace System.ServiceModel.Http2Protocol
         /// <summary>
         /// Processors list.
         /// </summary>
-        private static List<IMessageProcessor> _processors = new List<IMessageProcessor>();
+        private List<IMessageProcessor> _processors = new List<IMessageProcessor>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FrameSerializer"/> class.
@@ -182,8 +182,6 @@ namespace System.ServiceModel.Http2Protocol
                     byteList.Add(Convert.ToByte(frame.Priority >> 5));
 
                     byteList.Add(Unused);
-                    //byteList.Add(Unused);
-                    //byteList.Add(Unused);
 
                     break;
                 case FrameType.RTS:
@@ -194,35 +192,40 @@ namespace System.ServiceModel.Http2Protocol
                     break;
                 case FrameType.SynReply:
                     byteList.Add(frame.Flags);
-                    byteList.Add(Unused);
-                    byteList.Add(Unused);
-                    byteList.Add(Unused);
                     headersArray = SerializeControlFrameHeaders(frame.Headers);
+
+                    if (headersArray.Length > 0)
+                    {
+                        ProcessorRun(ref headersArray, DirectionProcessType.Outbound, frame.Flags);
+                    }
+
+                    byteList.AddRange(BinaryHelper.Int32ToBytes(headersArray.Length + 4, 3));
+                    byteList.AddRange(BinaryHelper.Int32ToBytes(frame.StreamId));
                     break;
                 case FrameType.GoAway:
                     byteList.Add(frame.Flags);
-                    byteList.AddRange(BinaryHelper.Int32ToBytes(frame.Length));
+                    byteList.AddRange(BinaryHelper.Int32ToBytes(frame.Length,3));
                     byteList.AddRange(BinaryHelper.Int32ToBytes(frame.StreamId));
                     byteList.AddRange(BinaryHelper.Int32ToBytes((int)frame.StatusCode));
                     break;
                 case FrameType.Ping:
                     byteList.Add(frame.Flags);
-                    byteList.AddRange(BinaryHelper.Int32ToBytes(frame.Length));
+                    byteList.AddRange(BinaryHelper.Int32ToBytes(frame.Length,3));
                     byteList.AddRange(BinaryHelper.Int32ToBytes(frame.StreamId));
                     break;
                 case FrameType.WindowUpdate:
                     byteList.Add(frame.Flags);
-                    byteList.AddRange(BinaryHelper.Int32ToBytes(frame.Length));
+                    byteList.AddRange(BinaryHelper.Int32ToBytes(frame.Length,3));
                     byteList.AddRange(BinaryHelper.Int32ToBytes(frame.StreamId));
                     byteList.AddRange(BinaryHelper.Int64ToBytes(((WindowUpdateFrame)frame).DeltaWindowSize));
                     break;
+                case FrameType.Settings:
+                    byteList.Add(frame.Flags);
+                    byteList.AddRange(BinaryHelper.Int32ToBytes(frame.Length,3));
+                    byteList.AddRange(BinaryHelper.Int32ToBytes(frame.NumberOfEntries));
+                    break;
             }
 
-
-            //if (headersArray.Length > 0)
-            //{
-            //    ProcessorRun(ref headersArray, DirectionProcessType.Outbound, frame.Flags);
-            //}
 
             byteList.AddRange(headersArray);
             return byteList.ToArray();
@@ -230,7 +233,7 @@ namespace System.ServiceModel.Http2Protocol
 
         private byte[] SerializeControlFrameHeaders(ProtocolHeaders frameHeaders)
         {
-            var headers = new List<byte>();
+            var headers = new List<byte>(256);
             headers.AddRange(BinaryHelper.Int32ToBytes(frameHeaders.Count));
             foreach (KeyValuePair<string, string> pair in frameHeaders)
             {
@@ -256,7 +259,7 @@ namespace System.ServiceModel.Http2Protocol
         {
             var data = new byte[8 + frame.Length];
             BinaryHelper.Int32ToBytes(frame.StreamId, new ArraySegment<byte>(data, 0, 4));
-            data[4] = frame.Flags;
+            data[4] = Convert.ToByte(frame.Flags | (frame.IsFinal ? 0x01 : 0x00));
             BinaryHelper.Int32ToBytes(frame.Length, new ArraySegment<byte>(data, 5, 3));
             Buffer.BlockCopy(frame.Data, 0, data, 8, frame.Length);
 

@@ -180,7 +180,9 @@ namespace Client
                 case "VERBOSE":
                     return 1;
 
+#if HTTP11
                 case "HTTP11GET":
+#endif
                 case "CONNECT":
                     return 3;
 
@@ -362,9 +364,11 @@ namespace Client
                     CloseSession();
                     break;
 #endif
+#if HTTP11
                 case "HTTP11GET":
                     HttpGetFile(val, false);
                     break;
+#endif
                 case "RUN":
                     RunScriptFile(val);
                     break;
@@ -443,6 +447,10 @@ namespace Client
             }
 
             Uri getUri = new Uri(uri);
+            if (fileName != null)
+            {
+                Uri.TryCreate(getUri, fileName, out getUri);
+            }
 
             int res = 0;
             if (session == null || session.State != ProtocolSessionState.Opened)
@@ -455,7 +463,7 @@ namespace Client
                 }
             }
 
-            DownloadRootFile(fileName ?? getUri.AbsolutePath);
+            DownloadRootFile(getUri.AbsolutePath);
             return res;
         }
 
@@ -581,11 +589,13 @@ namespace Client
                               "                              Ex. HELP GET");
             Console.WriteLine("DIR <host url>                List files on server.");
             Console.WriteLine("GET <resource url>            Download web page and associated resources.\n" +
-                              "                              E.g.: http://http2test.cloudapp.net/index.html");
+                              "                              E.g.: https://httpproto.cloudapp.net:8443/index.html");
             Console.WriteLine("VERBOSE   [1|2|3]             Display verbose output.");
             Console.WriteLine("CAPTURE-STATS [On|Off|Reset]  Start/stop/reset protocol monitoring.");
             Console.WriteLine("DUMP-STATS                    Display statistics captured using CAPTURE-STATS.");
+#if HTTP11
             Console.WriteLine("HTTP11GET <filename>          Download file using HTTP 1.1.");
+#endif
             Console.WriteLine("RUN  <filename>               Run command script");
             Console.WriteLine("EXIT                          Exit application");
             Console.WriteLine();
@@ -604,13 +614,17 @@ namespace Client
                     Console.WriteLine("DIR <host url>  Lists files on server available for download.\n");
                     Console.WriteLine("  This command does not list all the files, only download targets.");
                     Console.WriteLine("  Download targets are either text files, or top level HTML files.");
-                    Console.WriteLine("  When you apply GET ot HTTP11GET to download target, all associated files");
+#if HTTP11
+                    Console.WriteLine("  When you apply GET or HTTP11GET to download target, all associated files");
+#else 
+                    Console.WriteLine("  When you apply GET to download target, all associated files");
+#endif
                     Console.WriteLine("  are also downloaded.");
                     Console.WriteLine("\n");
                     Console.WriteLine("Note: You can still download specific associated file by specifying exact path.");
                     Console.WriteLine("       DIR requests file \"index.html\".");
                     Console.WriteLine("  Examples of DIR:\n");
-                    Console.WriteLine("  GET https://microsoft/");
+                    Console.WriteLine("  DIR https://httpproto.cloudapp.net:8443");
                     Console.WriteLine("\n");
                     break;
 
@@ -622,7 +636,7 @@ namespace Client
                     Console.WriteLine("  Download is done using HTTP2 protocol.");
                     Console.WriteLine("  You can get list of files with command DIR.\n");
                     Console.WriteLine("  Examples of GET:\n");
-                    Console.WriteLine("  GET https://microsoft/default.htm");
+                    Console.WriteLine("  GET https://httpproto.cloudapp.net:8443/test.html");
                     Console.WriteLine("     download web page and all associated resources to local directory .\\microsoft\\");
                     Console.WriteLine("\n");
                     break;
@@ -659,9 +673,9 @@ namespace Client
                     Console.WriteLine("  This command does not have any arguments.");
                     Console.WriteLine("\n");
                     break;
-
+#if HTTP11
                 case "HTTP11GET":
-                    Console.WriteLine("HTTP11GET <latency> <filename>       Download web page using HTTP\n");
+                    Console.WriteLine("HTTP11GET <filename>       Download web page using HTTP\n");
                     Console.WriteLine("  Latency is server latency in ms. Default value is zero.");
                     Console.WriteLine("  This command can take full URL path or relative to web root path.");
                     Console.WriteLine("  If there exists open session, relative path is assumed to refer to");
@@ -672,11 +686,11 @@ namespace Client
                     Console.WriteLine("  Download is done using 6 concurrent threads to simulate IE.");
                     Console.WriteLine("  You can get list of files with command DIR.\n");
                     Console.WriteLine("  Examples of HTTP11GET:\n");
-                    Console.WriteLine("  HTTP11GET http://localhost:8080/microsoft/default_files/style.css");
+                    Console.WriteLine("  HTTP11GET https://httpproto.cloudapp.net:8443/index.html");
                     Console.WriteLine("     download just style.css to local directory .\\microsoft\\default_files\\");
                     Console.WriteLine("\n");
                     break;
-
+#endif
                 case "RUN":
                     Console.WriteLine("RUN  <filename>        Run script file\n");
                     Console.WriteLine("  <filename> should be local file with set of commands to execute.");
@@ -690,8 +704,10 @@ namespace Client
                     Console.WriteLine("VERBOSE 2");
                     Console.WriteLine("# Get file with HTTP2 protocol");
                     Console.WriteLine("GET /files/test.txt");
+#if HTTP11
                     Console.WriteLine("# Get file with HTTP1.1");
                     Console.WriteLine("HTTP11GET /files/test.txt");
+#endif
                     Console.WriteLine("# Display statistics side by side");
                     Console.WriteLine("DUMP-STATS");
                     Console.WriteLine("#---------end------------------");
@@ -999,8 +1015,11 @@ namespace Client
 
                         // If true, then stream will be half closed.
                         Http2Stream stream = session.OpenStream(headers, true);
-                        stream.OnDataReceived += OnDataReceived;
-                        stream.OnRSTReceived += OnRSTReceived;
+                        if (stream != null)
+                        {
+                            stream.OnDataReceived += OnDataReceived;
+                            stream.OnRSTReceived += OnRSTReceived;
+                        }
                         break;
                     case ProtocolSessionState.Closed:
                         Http2Logger.LogError("Session was closed due to error or not opened.");

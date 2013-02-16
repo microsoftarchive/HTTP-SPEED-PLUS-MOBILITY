@@ -153,10 +153,10 @@ namespace System.ServiceModel.Http2Protocol
         /// <param name="reason">The reason.</param>
         public void Close(StatusCode reason)
         {
+            this.State = Http2StreamState.Closed;
+
             this.protocol.OnStreamFrame -= this.OnProtocolData;
             this.protocol.OnStreamError -= this.OnStreamError;
-
-            this.State = Http2StreamState.Closed;
 
             if (reason != StatusCode.Success)
             {
@@ -240,7 +240,7 @@ namespace System.ServiceModel.Http2Protocol
         /// </summary>
         /// <param name="headers">The headers.</param>
         /// <param name="isFin">The Final flag.</param>
-        internal void Open(ProtocolHeaders headers, bool isFin)
+        internal void OpenClient(ProtocolHeaders headers, bool isFin)
         {
             this.Headers.Merge(headers);
             if (isFin)
@@ -249,6 +249,16 @@ namespace System.ServiceModel.Http2Protocol
             }
 
             this.protocol.SendSynStream(this, headers, isFin);
+        }
+
+        internal void OpenServer(ProtocolHeaders headers, bool isFin)
+        {
+            this.Headers.Merge(headers);
+            this.State = Http2StreamState.Opened;
+            //if (isFin)
+            //{
+            //    this.State = Http2StreamState.HalfClosed;
+            //}
         }
 
         /// <summary>

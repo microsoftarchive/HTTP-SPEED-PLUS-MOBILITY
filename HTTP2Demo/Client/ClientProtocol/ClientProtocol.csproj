@@ -12,10 +12,6 @@
     <AssemblyName>ClientProtocol</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SccProjectName>%24/HTTP2/HTTP2Demo/Client/ClientProtocol</SccProjectName>
-    <SccLocalPath>.</SccLocalPath>
-    <SccAuxPath>http://tfs1:8085/tfs/interop%2520team%2520projects</SccAuxPath>
-    <SccProvider>{4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -57,6 +53,7 @@
     <Compile Include="ServiceModel\Http2Protocol\EventArguments\SettingsEventArgs.cs" />
     <Compile Include="ServiceModel\Http2Protocol\EventArguments\WindowUpdateEventArgs.cs" />
     <Compile Include="ServiceModel\Http2Protocol\Exceptions\HandshakeException.cs" />
+    <Compile Include="ServiceModel\Http2Protocol\Exceptions\InterruptedConnectionException.cs" />
     <Compile Include="ServiceModel\Http2Protocol\HandshakeHeadersBlock.cs" />
     <Compile Include="ServiceModel\Http2Protocol\MessageProcessing\ZOutputStreamExt.cs" />
     <Compile Include="ServiceModel\Http2Protocol\ProtocolFrames\GoAwayFrame.cs" />
@@ -91,7 +88,7 @@
     <Compile Include="ServiceModel\Http2Protocol\ProtocolFrames\FrameBuilder.cs" />
     <Compile Include="ServiceModel\Http2Protocol\ProtocolFrames\FrameType.cs" />
     <Compile Include="ServiceModel\Http2Protocol\Http2Protocol.cs" />
-    <Compile Include="ServiceModel\Http2Protocol\Exceptions\ProtocolExeption.cs" />
+    <Compile Include="ServiceModel\Http2Protocol\Exceptions\ProtocolException.cs" />
     <Compile Include="ServiceModel\Http2Protocol\ProtocolSession.cs" />
     <Compile Include="ServiceModel\Http2Protocol\Http2Stream.cs" />
     <Compile Include="ServiceModel\Http2Protocol\ProtocolHeaders.cs" />
@@ -102,15 +99,20 @@
     <Compile Include="ServiceModel\Http2Protocol\ProtocolSessionState.cs" />
     <Compile Include="ServiceModel\Http2Protocol\SecureSocketProxy.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="seclib\Security Library.csproj">
+      <Project>{5BFA5A70-D384-4417-AFCC-5C744485A85F}</Project>
+      <Name>Security Library</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>mkdir "$(SolutionDir)Drop"
-copy /y "$(TargetPath)" "$(SolutionDir)Drop\$(TargetFileName)"
-copy /y "$(ProjectDir)zlib.net.dll" "$(SolutionDir)Drop\zlib.net.dll"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

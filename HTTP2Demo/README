@@ -1,6 +1,6 @@
 Microsoft Open Technologies, Inc.
-12/20/2012
-Rev 1.0
+2/15/2013
+Rev 2.0
 
 HTTP/2.0 Prototype
 Getting Started Guide
@@ -18,9 +18,8 @@ Table of Content:
     6.3) VERBOSE
     6.4) CAPTURE-STATS
     6.5) DUMP-STATS
-    6.6) HTTP11GET
-    6.7) RUN
-    6.8) EXIT
+    6.6) RUN
+    6.7) EXIT
 7) Installing and configuring the server
 8) References
 
@@ -33,7 +32,7 @@ The copyright in this software is being made available under the BSD License, in
 This software may be subject to other third party and contributor rights, including patent rights, 
 and no such rights are granted under this license.
 
-Copyright (c) 2012, Microsoft Open Technologies, Inc. 
+Copyright (c) 2013, Microsoft Open Technologies, Inc. 
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, 
@@ -67,7 +66,7 @@ and configure your own Server if you are so inclined.
  3) Target Audience
 
 The target audience is developers interested in the standardization of HTTP/2.0 who want to evaluate 
-a working implementation of the HTTP/2.0 draft (http://www.ietf.org/id/draft-ietf-httpbis-http2-00.txt) 
+a working implementation of the HTTP/2.0 draft (http://www.ietf.org/id/draft-ietf-httpbis-http2-01.txt) 
 that includes some proposed changes by Microsoft.
 
 
@@ -76,7 +75,9 @@ that includes some proposed changes by Microsoft.
 To build the source code, the following is required:
  - Microsoft Visual Studio 2010
 
-The solution has a dependency on zlib (not included, you can download it from the internet).
+The solution has a dependency on: 
+A) zlib (not included, you can download it from the internet).
+B) the Mentalis library (please download from http://mentalis.org)
 
 You will also need to create your own local certificate as certificate.pfx is missing from the solution.
 
@@ -85,13 +86,15 @@ In order to install and use the HTTP/2.0 Client, the following are required:
  - Windows 7 Client or newer
  - Microsoft .NET Framework 4.0 
 
-In order set up and run your own server, you will need a Linux box to run Apache (we tested on Ubuntu).
+In order set up and run your own server, you will need a Windows Server machine (we tested on 2012, 
+but the code should run fine on earlier versions as well).
  
 
 
  5) Installing the HTTP/2.0 Prototype Client
 
-Download the MSI file from this location: http://html5labs.interoperabilitybridges.com/prototypes/http-20/http-20/download and run it.
+Download the MSI file from this location: http://html5labs.interoperabilitybridges.com/prototypes/alpn/alpn/download 
+and run it.
   
 Follow the prompts and once complete files will be installed to the selected location. By default, 
 it will be the Temp folder of the current user, i.e. something like 
@@ -118,7 +121,6 @@ A shortcut will be added to the desktop.
     VERBOSE   [1|2|3]             Display verbose output.
     CAPTURE-STATS [On|Off|Reset]  Start/stop/reset protocol monitoring.
     DUMP-STATS                    Display statistics captured using CAPTURE-STATS.
-    HTTP11GET <filename>          Download file using HTTP 1.1.
     RUN  <filename>               Run command script
     EXIT                          Exit application
 
@@ -209,49 +211,15 @@ The DUMP-STATS command will display the aggregate information on the files colle
 provided that CAPTURE-STATS was ON.
 
 
-6.6) HTTP11GET
 
-This command operates like GET, except that it does not request an upgrade to HTTP/2.0 to the server.
-The same statistics on bytes exchanged and header information are displayed on the console 
-according to the value of the VERBOSE setting:
-
-
-     HTTP11GET http://http2test.cloudapp.net/microsoft.com/
-     Executing http11get http://http2test.cloudapp.net/microsoft.com/
-     [1:08:19 AM] INFO:HTTP response: 301, length: 484
-     [1:08:19 AM] INFO:
-     --------------------
-     Headers: GET http://http2test.cloudapp.net/microsoft.com/ HTTP/1.1
-     Host: microsoft.com:80
-     Connection: Keep-Alive
-     User-Agent: SMClient
-     Accept: text/plain,application/xml;q=0.9,*/*;q=0.8
-     Length: 160
-     --------------------
-     ...
-
-    ______________________________________
-                     TOTAL
-     Total size of data received(bytes):       23
-     Total size of headers received(bytes):    461
-     Total size received(bytes):               484
-     Total size of headers sent(bytes):        160
-     Total size of data exchanged(bytes):      644
-     Total count of requests sent:             1
-     Total count of responses received:        1
-     Total count of connections opened:        1
-     ______________________________________
-
- 
-
-6.7) RUN
+6.6) RUN
 
 
 This command is provided to execute scripts for perf testing (more about this in upcoming blogs)
 
 
 
-6.8) EXIT
+6.7) EXIT
 
 Issuing EXIT from the command line will close the session and shut down the client
 
@@ -259,20 +227,11 @@ Issuing EXIT from the command line will close the session and shut down the clie
 
 7) Installing and configuring the server
 
-- Download and install the Apache HTTP Server
-  http://httpd.apache.org/docs/2.0/install.html
-
-- Download the source code for the mod_spdy Apache module
-  https://developers.google.com/speed/spdy/mod_spdy/
-
-- Apply the patch downloaded from http://html5labs.com to the module's source code and build
-
-- Install the module according to the instructions at
-  https://developers.google.com/speed/spdy/mod_spdy/install
-
+Just build the server solution and start the executable on the server machine. 
+It may also be installed as a Windows Service so that it will start automatically in case of reboot.
 
 
 8) References
 
 HTTP/2.0 Proposal draft
-http://www.ietf.org/id/draft-ietf-httpbis-http2-00.txt
+http://www.ietf.org/id/draft-ietf-httpbis-http2-01.txt

@@ -357,7 +357,7 @@ namespace Client.Http
                         + "Upgrade: HTTP/2.0\r\n",
                         uri.Host,
                         uri.Port,
-                        uri);
+						uri.AbsolutePath); // match what Chrome has in GET request
 
                     Http2Logger.LogDebug(headers);
                 }
@@ -371,7 +371,7 @@ namespace Client.Http
                         + "Accept: {3},application/xml;q=0.9,*/*;q=0.8\r\n",
                         uri.Host,
                         uri.Port,
-                        uri,
+						uri.AbsolutePath,  // match what Chrome has in GET request
                         ContentTypes.GetTypeFromFileName(uri.ToString()));
                 }
 
@@ -439,7 +439,8 @@ namespace Client.Http
             bool headersTerminatorFound = false;
             while (cur + 4 < content.Length)
 			{
-                if (Encoding.UTF8.GetString(content, ++cur, 4) != "\r\n\r\n")
+				// looking for HTTP header block termination
+				if (Encoding.UTF8.GetString(content, ++cur, 4) == "\r\n\r\n")
                 {
                     headersTerminatorFound = true;
                     break;

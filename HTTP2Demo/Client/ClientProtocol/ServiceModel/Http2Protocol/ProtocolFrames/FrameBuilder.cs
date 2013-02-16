@@ -163,7 +163,10 @@ namespace System.ServiceModel.Http2Protocol.ProtocolFrames
         /// <returns>SYN_REPLY frame.</returns>
         public ControlFrame BuildSynReplyFrame(Http2Stream stream, ProtocolHeaders headers)
         {
-            return BuildControlFrame(FrameType.SynReply, stream, headers);
+            var frame = BuildControlFrame(FrameType.SynReply, stream, headers);
+            frame.StreamId = stream.StreamId;
+            frame.Length = sizeof(Int32) + sizeof(Int32); // sizeof(StreamId) + sizeof(numberOfEntries) 
+            return frame;
         }
 
         /// <summary>
@@ -239,6 +242,17 @@ namespace System.ServiceModel.Http2Protocol.ProtocolFrames
             frame.Length = 8;
             return frame;
         }
+
+        public ControlFrame BuildSettingsFrame(Http2Stream stream)
+        {
+            //TODO Add more logic at building settings frame
+            var frame = BuildControlFrame(FrameType.Settings, stream, null);
+            frame.SettingsHeaders = null;
+            frame.Length = 4;
+            frame.NumberOfEntries = 0;
+            return frame;
+        }
+
         /// <summary>
         /// Builds the control frame.
         /// </summary>
