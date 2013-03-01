@@ -53,7 +53,7 @@ namespace System.ServiceModel.Http2Protocol
         /// <summary>
         /// Protocol version.
         /// </summary>
-        public const int Version = 3;
+        public static short Version = 3;
 
         #region Fields
 
@@ -90,7 +90,7 @@ namespace System.ServiceModel.Http2Protocol
         /// <summary>
         /// Socket.
         /// </summary>
-        private VirtualSocket socket;
+        private SecureSocket socket;
 
         /// <summary>
         /// Receive buffer.
@@ -101,6 +101,8 @@ namespace System.ServiceModel.Http2Protocol
         /// Indicates whenever this instance is working in server mode.
         /// </summary>
         private bool isServer;
+
+        private ManualResetEvent handshakeFinishedEventRaised;
 
         #endregion
 
@@ -131,9 +133,10 @@ namespace System.ServiceModel.Http2Protocol
 
             this.uri = uri;
             this.isServer = false;
+            this.handshakeFinishedEventRaised = new ManualResetEvent(false);
         }
 
-        internal Http2Protocol(VirtualSocket socket, IStreamStore streamsStore, ProtocolOptions options)
+        internal Http2Protocol(SecureSocket socket, IStreamStore streamsStore, ProtocolOptions options)
         {
             this.options = options;
             this.streamsStore = streamsStore;
@@ -142,6 +145,7 @@ namespace System.ServiceModel.Http2Protocol
 
             this.socket = socket;
             this.isServer = true;
+            this.handshakeFinishedEventRaised = new ManualResetEvent(false);
         }
 
         #endregion
@@ -214,6 +218,14 @@ namespace System.ServiceModel.Http2Protocol
 
         #endregion
 
+        #region Event handlers
+        private void HandshakeFinishedHandler(object sender, EventArgs args)
+        {
+            this.handshakeFinishedEventRaised.Set();
+        }
+
+        #endregion
+
         #region Methods
 
         private SecureSocket CreateSocketByUri(Uri uri)
@@ -240,13 +252,39 @@ namespace System.ServiceModel.Http2Protocol
             options.Flags = SecurityFlags.Default;
             options.AllowedAlgorithms = SslAlgorithms.RSA_AES_128_SHA | SslAlgorithms.NULL_COMPRESSION;
 
-            SecureSocket s = new SecureSocket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp, options);
-            
+            var s = new SecureSocket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp, options);
+            s.OnClose += SocketOnClose;
+
             try
             {
+                if (String.Equals(uri.Scheme, "https", StringComparison.OrdinalIgnoreCase))
+                {
+                    s.OnHandshakeFinish += this.HandshakeFinishedHandler;
+                }
+
                 s.Connect(new Net.DnsEndPoint(uri.Host, uri.Port));
+
+                if (String.Equals(uri.Scheme, "https", StringComparison.OrdinalIgnoreCase))
+                {
+
+                    this.handshakeFinishedEventRaised.WaitOne(60000);
+
+                    if (!s.IsNegotiationCompleted)
+                    {
+                        throw new Exception("Handshake failed");
+                    }
+
+                    if (!s.Connected)
+                    {
+                        throw new Exception("Connection was lost!");
+                    }
+
+                    s.OnHandshakeFinish -= this.HandshakeFinishedHandler;
+
+                    this.ApplyProtocolSelectionResults(options.GetSelectedProtocol());
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 s.Close();
                 // Emitting protocol error. It will emit session OnError
@@ -259,14 +297,77 @@ namespace System.ServiceModel.Http2Protocol
             return s;
         }
 
+        internal void ApplyProtocolSelectionResults(string selectedProtocol)
+        {
+            switch (selectedProtocol)
+            {
+                case "spdy/3":
+                    Version = 3;
+                    break;
+                case "spdy/2":
+                    Version = 2;
+                    break;
+                case "http/1.1":
+                    //Handling http11 select
+                    break;
+                default:
+                    this.CloseInternal(StatusCode.UnsupportedVersion, 0, true);
+                    break;
+            }
+        }
+
+        internal void SocketOnClose(object sender, SocketCloseEventArgs e)
+        {
+            //means error on socket. If e.Exception == null means correct socket closing at session end
+            if (e.Exception != null)
+            {
+                if (this.OnError != null)
+                {
+                    OnError(this, new ProtocolErrorEventArgs(e.Exception));
+                }
+
+                if (this.OnClose != null)
+                {
+                    this.OnClose(this, new CloseFrameEventArgs(new CloseFrameExt() { StatusCode = (int)StatusCode.InternalError }));
+                }
+
+                this.handshakeFinishedEventRaised.Set();
+            }
+            else
+            {
+                if (this.OnClose != null)
+                {
+                    this.OnClose(this, new CloseFrameEventArgs(new CloseFrameExt() { StatusCode = (int)StatusCode.Success }));
+                }
+            }
+        }
+
         internal void SendMessage(byte[] message)
         {
-            socket.Send(message);
+            try
+            {
+                socket.Send(message);
+            }
+            catch (Exception ex)
+            {
+                if (OnError != null)
+                    this.OnError(this, new ProtocolErrorEventArgs(ex));
+            }
         }
 
         internal int Receive(byte[] message)
         {
-            return socket.Receive(message);
+            try
+            {
+                return socket.Receive(message);
+            }
+            catch (Exception ex)
+            {
+                if (OnError != null)
+                    this.OnError(this, new ProtocolErrorEventArgs(ex));
+
+                return 0;
+            }
         }
 
         /// <summary>
@@ -392,6 +493,7 @@ namespace System.ServiceModel.Http2Protocol
             Justification = "CloseInternal() calls _socket.Dispose()")]
         public void Dispose()
         {
+            this.handshakeFinishedEventRaised.Dispose();
             this.CloseInternal(StatusCode.Success, 0, false);
         }
 

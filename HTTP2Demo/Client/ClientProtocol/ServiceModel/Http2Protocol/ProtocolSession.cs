@@ -131,7 +131,7 @@ namespace System.ServiceModel.Http2Protocol
         /// <param name="uri">the URI.</param>
         /// <param name="isServer">the Server flag.</param>
         /// <param name="options">Session options.</param>
-        public ProtocolSession(VirtualSocket socket, ProtocolOptions options)
+        public ProtocolSession(SecureSocket socket, ProtocolOptions options)
         {
             this.isFlowControlEnabled = options.IsFlowControl;
             this.streams = new List<Http2Stream>();
@@ -274,10 +274,7 @@ namespace System.ServiceModel.Http2Protocol
         {
             if (this.State == ProtocolSessionState.Created)
             {
-                if (!this.protocol.Connect())
-                {
-                    throw new InterruptedConnectionException("Connection was not established!");
-                }
+				this.protocol.Connect();
             }
             else
             {

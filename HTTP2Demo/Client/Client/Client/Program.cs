@@ -104,6 +104,11 @@ namespace Client
         private static string rootFileName;
 
         /// <summary>
+        /// The current executing command
+        /// </summary>
+        private static string currentExecutingCommand;
+
+        /// <summary>
         /// Timeout flag for stream monitor
         /// </summary>
         private static bool timeoutStreamMonitor = false;
@@ -183,9 +188,10 @@ namespace Client
 #if HTTP11
                 case "HTTP11GET":
 #endif
+#if CONNECT_CMD_IS_ENABLED
                 case "CONNECT":
                     return 3;
-
+#endif
                 default:
                     return -1;
             }
@@ -324,7 +330,9 @@ namespace Client
         {
             Http2Logger.LogConsole("Executing " + cmd + " " + val);
             int res = 0;
-            switch (cmd.ToUpper())
+            currentExecutingCommand = cmd.ToUpper();
+
+            switch (currentExecutingCommand)
             {
                 case "HELP":
                     if (val == string.Empty)
@@ -335,14 +343,13 @@ namespace Client
                     {
                         DisplayDetailedHelp(val);
                     }
-
                     break;
                 case "EXIT":
                     return -1;
                 case "VERBOSE":
                     VerboseMode(val);
                     break;
-#if DEBUG
+#if CONNECT_CMD_IS_ENABLED
                 case "CONNECT":
                     res = OpenSession(val);
                     break;
@@ -589,7 +596,7 @@ namespace Client
                               "                              Ex. HELP GET");
             Console.WriteLine("DIR <host url>                List files on server.");
             Console.WriteLine("GET <resource url>            Download web page and associated resources.\n" +
-                              "                              E.g.: https://httpproto.cloudapp.net:8443/index.html");
+                              "                              E.g.: https://http2alpntest.cloudapp.net/index.html");
             Console.WriteLine("VERBOSE   [1|2|3]             Display verbose output.");
             Console.WriteLine("CAPTURE-STATS [On|Off|Reset]  Start/stop/reset protocol monitoring.");
             Console.WriteLine("DUMP-STATS                    Display statistics captured using CAPTURE-STATS.");
@@ -624,7 +631,7 @@ namespace Client
                     Console.WriteLine("Note: You can still download specific associated file by specifying exact path.");
                     Console.WriteLine("       DIR requests file \"index.html\".");
                     Console.WriteLine("  Examples of DIR:\n");
-                    Console.WriteLine("  DIR https://httpproto.cloudapp.net:8443");
+                    Console.WriteLine("  DIR https://http2alpntest.cloudapp.net");
                     Console.WriteLine("\n");
                     break;
 
@@ -636,7 +643,7 @@ namespace Client
                     Console.WriteLine("  Download is done using HTTP2 protocol.");
                     Console.WriteLine("  You can get list of files with command DIR.\n");
                     Console.WriteLine("  Examples of GET:\n");
-                    Console.WriteLine("  GET https://httpproto.cloudapp.net:8443/test.html");
+                    Console.WriteLine("  GET https://http2alpntest.cloudapp.net/test.html");
                     Console.WriteLine("     download web page and all associated resources to local directory .\\microsoft\\");
                     Console.WriteLine("\n");
                     break;
@@ -890,11 +897,12 @@ namespace Client
             // URI can still be invalid, missing protocol prefix for example
             try
             {
+                session.OnError += OnSessionError;
+
                 session.Open();
 
                 session.OnOpen += OnSessionOpened;
                 session.OnClose += OnSessionClosed;
-                session.OnError += OnSessionError;
                 session.OnStreamOpened += OnStreamOpened;
                 session.OnStreamClosed += OnStreamClosed;
 
@@ -1113,7 +1121,8 @@ namespace Client
 
             Http2Logger.LogConsole("File downloaded: " + file);
 
-            if (e.Stream.Headers[ProtocolHeaders.Path].Trim('/').Equals(DIR_FILE))
+            if (string.Equals(currentExecutingCommand, "DIR", StringComparison.OrdinalIgnoreCase) 
+                && e.Stream.Headers[ProtocolHeaders.Path].Trim('/').Equals(DIR_FILE))
             {
                 string text = e.Data.AsUtf8Text();
                 Console.WriteLine();
